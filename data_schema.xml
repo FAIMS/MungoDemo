@@ -178,7 +178,97 @@
 
 	<ArchaeologicalElement name="Associated Materials">
 		<description>A material associated with a feature cluster</description>
-		
+		<property name="Associated Hearth Material" type="vocab">
+			<lookup>
+				<term>clay</term>
+				<term>carb</term>
+				<term>term</term>
+				<term>other</term>
+				<term>charcoal</term>
+				<term>indet</term>
+			</lookup>
+		</property>
+		<property name="Associated Eggshell" type="vocab">
+			<lookup>
+				<term>emu</term>
+				<term>genyo</term>
+				<term>term</term>
+				<term>other</term>
+				<term>indet</term>
+			</lookup>
+		</property>
+		<property name="Associated Stone Artefacts" type="vocab">
+			<lookup>
+				<term>cs</term>
+				<term>um</term>
+				<term>ground</term>
+			</lookup>
+		</property>
+		<property name="Associated Chipped Stone Artefacts" type="vocab">
+			<lookup>
+				<term>ru</term>
+				<term>co</term>
+				<term>deb</term>
+				<term>hammer</term>
+				<term>indet</term>
+			</lookup>
+		</property>
+		<property name="Associated Retouched Artefacts" type="vocab">
+			<lookup>
+				<term>notch</term>
+				<term>scraper</term>
+				<term>backed</term>
+				<term>unifpt</term>
+				<term>bifac</term>
+				<term>otherru</term>
+			</lookup>
+		</property>
+		<property name="Associated Unmodified Stone" type="vocab">
+			<lookup>
+				<term>nodule</term>
+				<term>slab</term>
+				<term>pebble</term>
+				<term>indet</term>
+			</lookup>
+		</property>
+		<property name="Ground Stone Types Present" type="vocab">
+			<lookup>
+				<term>millstone</term>
+				<term>muller</term>
+				<term>mortar</term>
+				<term>pestle</term>
+				<term>grooved</term>
+				<term>amorph</term>
+				<term>undiag</term>
+			</lookup>
+		</property>
+		<property name="Ground Stone Status" type="vocab">
+			<lookup>
+				<term>whole</term>
+				<term>fragment</term>
+			</lookup>
+		</property>
+		<property name="Raw Material Types Present" type="vocab">
+			<lookup>
+				<term>silcfine</term>
+				<term>silccoarse</term>
+				<term>silcgran</term>
+				<term>qtzite</term>
+				<term>qtz</term>
+				<term>ironst</term>
+				<term>sandst</term>
+				<term>other</term>
+			</lookup>
+		</property>
+		<property name="Associated Other Worked Material" type="vocab">
+			<lookup>
+				<term>bone</term>
+				<term>shell</term>
+				<term>ochre</term>
+				<term>facetochre</term>
+				<term>qtzxtal</term>
+			</lookup>
+		</property>
 	</ArchaeologicalElement>
 
   <ArchaeologicalElement name="Photolog">
