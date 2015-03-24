@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSchema>
+
+	<ArchaeologicalElement name="Old Bone">
+		<description>An old bone cluster</description>
+		<property name="ID Number" type="measure">
+			<description>Description TBD</description>
+		</property>
+		<property name="Grid Square" type="measure">
+			<description>Description TBD</description>
+		</property>
+		<property name="Cluster" type="vocab">
+			<description>Description TBD</description>
+			<lookup>
+				<term>{boneOnly}</term>
+				<term>{boneAndOtherMaterial}</term>
+			</lookup>
+		</property>
+		<property name="Cluster Type" type="vocab">
+			<description>Description TBD</description>
+			<lookup>
+				<term>{insitBO}</term>
+				<term>{surfBO}</term>
+				<term>{insitAndSurf}</term>
+				<term>{inistAndOth}</term>
+				<term>{surfAndOth}</term>
+				<term>{bothAndOth}</term>
+			</lookup>
+		</property>
+		<property name="Insitu Proportion" type="vocab">
+			<description>Description TBD</description>
+			<lookup>
+				<term>most</term>
+				<term>some</term>
+				<term>surface</term>
+				<term>recement</term>
+				<term>ambiguous</term>
+			</lookup>
+		</property>
+		<property name="Body Parts Identifed" type="vocab">
+			<description>Description TBD</description>
+			<lookup>
+				<term>fragsonly</term>
+				<term>{cranAndTooth}</term>
+				<term>{cranNoTooth}</term>
+				<term>limb</term>
+				<term>cranlimb</term>
+				<term>axial</term>
+				<term>axiallimb</term>
+				<term>axialcran</term>
+				<term>allparts</term>
+				<term>otol</term>
+				<term>otolfrag</term>
+				<term>otolcran</term>
+				<term>glith</term>
+				<term>exoskel</term>
+			</lookup>
+		</property>
+		<property name="Taxon Identified" type="vocab">
+			<description>Description TBD</description>
+			<lookup>
+				<term>unident</term>
+				<term>macropod</term>
+				<term>bettong</term>
+				<term>wombat</term>
+				<term>smallmars</term>
+				<term>carnivore</term>
+				<term>emu</term>
+				<term>otherbird</term>
+				<term>reptile</term>
+				<term>fish</term>
+				<term>crustac</term>
+				<term>undiag</term>
+				<term>mega</term>
+			</lookup>
+		</property>
+		<property name="Bone Preservation" type="vocab">
+			<description>Description TBD</description>
+			<lookup>
+				<term>good</term>
+				<term>weathpost</term>
+				<term>weathpre</term>
+				<term>fragged</term>
+				<term>soft</term>
+				<term>stained</term>
+				<term>postsoft</term>
+				<term>poststain</term>
+				<term>prefrag</term>
+				<term>prestain</term>
+				<term>fragstain</term>
+				<term>softstain</term>
+			</lookup>
+		</property>
+		<property name="Deliberate Surface Modification" type="vocab">
+			<description>Description TBD</description>
+			<lookup>
+				<term>none</term>
+				<term>burned</term>
+				<term>toothmarks</term>
+				<term>cutmarks</term>
+				<term>impacted</term>
+				<term>burncut</term>
+				<term>burnimpact</term>
+				<term>indet</term>
+			</lookup>
+		</property>
+		<property name="Topographic Setting" type="vocab">
+			<description>Description TBD</description>
+			<lookup>
+				<term pictureURL="data/pictures/foo.jpg">{less6Degree}</term>
+				<term pictureURL="data/pictures/foo.jpg">{6To12Degree}</term>
+				<term pictureURL="data/pictures/foo.jpg">{greater12Degree}</term>
+				<term pictureURL="data/pictures/foo.jpg">shallrill</term>
+				<term pictureURL="data/pictures/foo.jpg">rillfloor</term>
+				<term pictureURL="data/pictures/foo.jpg">rillwall</term>
+				<term pictureURL="data/pictures/foo.jpg">ridge</term>
+				<term pictureURL="data/pictures/foo.jpg">ridgerill</term>
+				<term pictureURL="data/pictures/foo.jpg">shalgulfl</term>
+				<term pictureURL="data/pictures/foo.jpg">shalgulwal</term>
+				<term pictureURL="data/pictures/foo.jpg">deepgulfl</term>
+				<term pictureURL="data/pictures/foo.jpg">deepgulwal</term>
+				<term pictureURL="data/pictures/foo.jpg">residtop</term>
+				<term pictureURL="data/pictures/foo.jpg">residside</term>
+				<term pictureURL="data/pictures/foo.jpg">chanfloor</term>
+				<term pictureURL="data/pictures/foo.jpg">chanwall</term>
+			</lookup>
+		</property>
+		<property name="Sediment Type" type="vocab">
+			<description>Description TBD</description>
+			<lookup>
+				<term pictureURL="data/pictures/foo.jpg">redsoil</term>
+				<term pictureURL="data/pictures/foo.jpg">brownsoil</term>
+				<term pictureURL="data/pictures/foo.jpg">redsand</term>
+				<term pictureURL="data/pictures/foo.jpg">brownsand</term>
+				<term pictureURL="data/pictures/foo.jpg">whitesand</term>
+				<term pictureURL="data/pictures/foo.jpg">othersand</term>
+				<term pictureURL="data/pictures/foo.jpg">greenclay</term>
+				<term pictureURL="data/pictures/foo.jpg">otherclay</term>
+				<term pictureURL="data/pictures/foo.jpg">sandyclay</term>
+				<term pictureURL="data/pictures/foo.jpg">alternat</term>
+				<term pictureURL="data/pictures/foo.jpg">claylens</term>
+				<term pictureURL="data/pictures/foo.jpg">sandlens</term>
+				<term pictureURL="data/pictures/foo.jpg">cobble</term>
+				<term pictureURL="data/pictures/foo.jpg">gglag</term>
+				<term pictureURL="data/pictures/foo.jpg">carblag</term>
+				<term pictureURL="data/pictures/foo.jpg">ggC</term>
+				<term pictureURL="data/pictures/foo.jpg">Chorizon</term>
+				<term pictureURL="data/pictures/foo.jpg">carbsoft</term>
+				<term pictureURL="data/pictures/foo.jpg">carbpavemt</term>
+				<term pictureURL="data/pictures/foo.jpg">carbrework</term>
+			</lookup>
+		</property>
+		<property name="Vulnerability To Erosion" type="vocab">
+			<description>Description TBD</description>
+			<lookup>
+				<term pictureURL="data/pictures/foo.jpg">low</term>
+				<term pictureURL="data/pictures/foo.jpg">moderate</term>
+				<term pictureURL="data/pictures/foo.jpg">high</term>
+				<term pictureURL="data/pictures/foo.jpg">extreme</term>
+			</lookup>
+		</property>
+		<property name="Palaeotopographic Setting" type="vocab">
+			<description>Description TBD</description>
+			<lookup>
+				<term pictureURL="data/pictures/foo.jpg">foredune</term>
+				<term pictureURL="data/pictures/foo.jpg">backdune</term>
+				<term pictureURL="data/pictures/foo.jpg">beach</term>
+				<term pictureURL="data/pictures/foo.jpg">lakebed</term>
+				<term pictureURL="data/pictures/foo.jpg">crest</term>
+				<term pictureURL="data/pictures/foo.jpg">spit</term>
+				<term pictureURL="data/pictures/foo.jpg">indet</term>
+			</lookup>
+		</property>
+		<property name="Photos" type="file" file="true" thumbnail="true">
+      <description>Description TBD</description>
+    </property>
+  </ArchaeologicalElement>
+
+	<ArchaeologicalElement name="Associated Materials">
+		<description>A material associated with a feature cluster</description>
+		
+	</ArchaeologicalElement>
+
+  <ArchaeologicalElement name="Photolog">
+    <description>A record of images created and stored on another device, eg by a professional site photographer.</description>
+    <property name="Photo ID" isIdentifier= "true" type="freetext">
+      <description>Unique number or code allocated by creator of the image. It could be a filename or a reference number</description>
+    </property>
+    <property name="Photo Timestamp" type="freetext">
+      <description>Time at which the photo was taken</description>
+    </property>
+    <property name="Photo Note" type="freetext">
+      <description>Description TBD</description>
+    </property>
+    <property name="Photos Taken" type="vocab">
+			<description>Description TBD</description>
+			<lookup>
+				<term>general</term>
+				<term>both</term>
+				<term>frame</term>
+				<term>none</term>
+			</lookup>
+		</property>
+  </ArchaeologicalElement>
+
+</dataSchema>

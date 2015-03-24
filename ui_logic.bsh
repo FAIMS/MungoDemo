@@ -1,0 +1,209 @@
+/*** 'Editable' - you can edit the code below based on the needs ***/
+import java.util.concurrent.Callable;
+import android.util.Log;
+
+print("Very first line of logic after the import lines");
+
+User user; // don't touch
+String userid;
+
+makeLocalID(){
+    fetchOne("CREATE TABLE IF NOT EXISTS localSettings (key text primary key, value text);");
+    fetchOne("drop view latestNonDeletedArchEntFormattedIdentifiers;");
+    fetchOne("CREATE VIEW latestNonDeletedArchEntFormattedIdentifiers as " +
+              "select uuid, aenttypeid, aenttypename, group_concat(response, '') as response, null as deleted " +
+              "from ( " +
+                "select uuid, aenttypeid, aenttypename, group_concat(format(formatstring, vocabname, measure, freetext, certainty), appendcharacterstring) as response, null as deleted, aentcountorder " +
+                "from ( " +
+                  "select uuid, aenttypeid, aenttypename, formatstring, vocabname, measure, freetext, certainty, appendcharacterstring, null as deleted, aentcountorder, vocabcountorder, attributeid " +
+                  "from latestNonDeletedArchent " +
+                    "JOIN aenttype using (aenttypeid) " +
+                    "JOIN (select * from idealaent where isIdentifier='true') using (aenttypeid) " +
+                    "join attributekey  using (attributeid) " +
+                    "join latestNonDeletedAentValue using (uuid, attributeid) " +
+                    "left outer join vocabulary using (attributeid, vocabid) " +
+                  "order by uuid, aentcountorder, vocabcountorder " +
+                ") " +
+                "group by uuid, attributeid " +
+                "having response is not null " +
+                "order by uuid, aentcountorder) " +
+              "group by uuid " +
+              "order by uuid;"
+    );
+
+
+}
+makeLocalID();
+
+/*** Uneditable - you can edit the code below with extreme precaution ***/
+/*** USER ***/
+
+loadUsers() {
+    fetchAll("select userid, fname || ' ' || lname from user where userdeleted is null;", new FetchCallback() {
+        onFetch(result) {
+            populateList("user/usertab/users", result);
+        }
+    });
+}
+
+String username = "";
+String device = "";
+
+login() {
+    fetchOne("select userid,fname,lname,email from user where userid='" + getListItemValue() + "';", new FetchCallback() {
+        onFetch(result) {
+            user = new User(result.get(0),result.get(1),result.get(2),result.get(3));
+            setUser(user);
+            username = result.get(1) + " " + result.get(2);
+            showTabGroup("oldBone");
+        }
+    });
+}
+
+loadUsers();
+
+onEvent("user/usertab/users", "click", "login()");
+
+/*** SYNC ***/
+
+startSync() {
+    setSyncEnabled(true);
+    setFileSyncEnabled(true);
+}
+
+stopSync() {
+    setSyncEnabled(false);
+    setFileSyncEnabled(false);
+}
+
+/**************************/
+/** Editable Module Code **/
+/**************************/
+
+/* Populates the path specified vocabulary from the database based on the given attribute name, where type 
+is the type of the vocab to populate (checkbox, dropdown, radio or list). */
+makeVocab(String type, String path, String attrib, List vocabExclusions){
+  fetchAll("select vocabid, vocabname from vocabulary join attributekey using (attributeid) where attributename = '" + attrib + "' order by vocabcountorder;",
+    new FetchCallback() {
+      onFetch(result) {
+        print("makeVocab() result: " + result);
+        if (result!=null && result.size()>0 && vocabExclusions!=null && vocabExclusions.size()>0) {
+          List filteredVocab = new ArrayList();
+          for(item : result) {
+            if (vocabExclusions.contains(item.get(1))) {
+              Log.d("makeVocab()", "removing vocab exclusion: " + item.get(1));
+            } else {
+              filteredVocab.add(item);
+            }
+          }
+          result=filteredVocab;
+        }
+        print("makeVocab() filtered result: " + result);
+        if(type.equals("CheckBoxGroup")) {
+          populateCheckBoxGroup(path, result);
+        } else if(type.equals("DropDown")) {
+          populateDropDown(path, result);
+        } else if(type.equals("RadioGroup")) {
+          populateRadioGroup(path, result);
+        } else if(type.equals("List")) {
+          populateList(path, result);
+        }
+      }
+    });
+}
+
+/** Wrapper for to make a vocab without an exlusion list **/
+makeVocab(String type, String path, String attrib) {
+  makeVocab(type, path, attrib, null);
+}
+
+/** Populates the chackboxes, lists, ... for the Old Bone tabgroup using the vocabularies. **/
+populateOldBoneAttributes() {
+  makeVocab("RadioGroup", "oldBone/basicIdentification/cluster", "Cluster");
+  makeVocab("RadioGroup", "oldBone/basicIdentification/clusterType", "Cluster Type");
+  makeVocab("CheckBoxGroup", "oldBone/insituAndSurfaceBone/bodyPartsIdentified", "Body Parts Identifed");
+  makeVocab("CheckBoxGroup", "oldBone/insituAndSurfaceBone/taxonIdentified", "Taxon Identified");
+  makeVocab("CheckBoxGroup", "oldBone/insituAndSurfaceBone/bonePreservation", "Bone Preservation");
+  makeVocab("CheckBoxGroup", "oldBone/insituAndSurfaceBone/deliberateSurfaceModification", "Deliberate Surface Modification");
+  fetchAll("select vocabid, vocabname, pictureurl from vocabulary left join attributekey using (attributeid) where attributename = 'Topographic Setting';", new FetchCallback() {
+    onFetch(pictures) {
+      populatePictureGallery("oldBone/topAndStratSetting/topographicSetting", pictures);
+    }
+  });
+  fetchAll("select vocabid, vocabname, pictureurl from vocabulary left join attributekey using (attributeid) where attributename = 'Sediment Type';", new FetchCallback() {
+    onFetch(pictures) {
+      populatePictureGallery("oldBone/topAndStratSetting/sedimentType", pictures);
+    }
+  });
+  fetchAll("select vocabid, vocabname, pictureurl from vocabulary left join attributekey using (attributeid) where attributename = 'Vulnerability To Erosion';", new FetchCallback() {
+    onFetch(pictures) {
+      populatePictureGallery("oldBone/topAndStratSetting/vulnerabilityToErosion", pictures);
+    }
+  });
+  fetchAll("select vocabid, vocabname, pictureurl from vocabulary left join attributekey using (attributeid) where attributename = 'Palaeotopographic Setting';", new FetchCallback() {
+    onFetch(pictures) {
+      populatePictureGallery("oldBone/topAndStratSetting/paleotopographicSetting", pictures);
+    }
+  });
+}
+
+/** Displays or hides the associated materials tabgroup depending on what cluster is selected. **/
+toggleAssociatedMaterials() {
+  String boneAndOther = null;
+  fetchOne("select vocabid from vocabulary join attributekey using (attributeid) where attributename = 'Cluster' and vocabname = '{boneOnly}';", new FetchCallback() {
+    onFetch(result) {
+      if (!isNull(result)) {
+        boneOnly = result.get(0);
+        if (boneOnly.equals(getFieldValue("oldBone/basicIdentification/cluster"))) {
+          Log.d("showAssociatedMaterials()", "Hiding associated materials Tab");
+          cancelTab("oldBone/associatedMaterials", false);
+          toggleClusterType(true);        
+        } else {
+          Log.d("showAssociatedMaterials()", "Showing associated materials Tab");
+          showTab("oldBone/associatedMaterials");
+          showTab("oldBone/basicIdentification");
+          toggleClusterType(false);
+        }
+      }
+    }
+  });
+}
+
+/** Hides the irrelevant cluster types depending on the cluster chosen. **/
+toggleClusterType(Boolean boneOnly) {
+  List exclusions = new ArrayList();
+  if (boneOnly) {
+    exclusions.add("{inistAndOth}");
+    exclusions.add("{surfAndOth}");
+    exclusions.add("{bothAndOth}");
+  } else {
+    exclusions.add("{insitBO}");
+    exclusions.add("{surfBO}");
+    exclusions.add("{insitAndSurf}");
+  }
+  makeVocab("RadioGroup", "oldBone/basicIdentification/clusterType", "Cluster Type", exclusions);
+}
+
+onEvent("oldBone/basicIdentification/cluster", "click", "toggleAssociatedMaterials();");
+
+
+
+
+
+
+
+
+
+/** Module Initialisation **/
+init() {
+  populateOldBoneAttributes();
+  // set the cluster field to be 'Bone Only'
+  fetchOne("select vocabid from vocabulary join attributekey using (attributeid) where attributename = 'Cluster' and vocabname = '{boneOnly}';", new FetchCallback() {
+    onFetch(result) {
+      setFieldValue("oldBone/basicIdentification/cluster", result.get(0));
+      toggleAssociatedMaterials();
+    }
+  });
+}
+
+init();

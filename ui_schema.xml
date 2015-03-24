@@ -1,0 +1,225 @@
+<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:jr="http://openrosa.org/javarosa" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <h:head>
+    <h:title>Lake Mungo</h:title>
+    <model>
+      <instance>
+        <faims id="Lake Mungo">
+          <style>
+            <orientation>
+              <orientation/>
+            </orientation>
+            <even>
+              <layout_weight/>
+            </even>
+            <large>
+              <layout_weight/>
+            </large>
+          </style>
+          <user>
+            <usertab>
+              <users/>
+            </usertab>
+          </user>
+          <oldBone>
+            <basicIdentification>
+              <idNumber/>
+              <gridSquare/>
+              <cluster/>
+              <clusterType/>
+            </basicIdentification>
+            <insituAndSurfaceBone>
+              <insituProportionContainer/>
+              <bodyPartsIdentified/>
+              <taxonIdentified/>
+              <bonePreservation/>
+              <deliberateSurfaceModification/>
+            </insituAndSurfaceBone>
+            <associatedMaterials>
+              <associatedInsituMaterial/>
+              <addInsituMaterial/>
+              <associatedInsituList/>
+              <associatedSurfaceMaterial/>
+              <addSurfaceMaterial/>
+              <associatedSurfaceList/>
+            </associatedMaterials>
+            <topAndStratSetting>
+              <topographicSetting/>
+              <sedimentType/>
+              <vulnerabilityToErosion/>
+              <paleotopographicSetting/>
+              <notes/>
+              <photos/>
+              <externalPhotos/>
+            </topAndStratSetting>>
+          </oldBone>
+          <associatedMaterials>
+              <eggshell/>
+              <hearthMaterial/>
+              <stoneArtefact/>
+          </associatedMaterials>
+        </faims>
+      </instance>
+    </model>
+  </h:head>
+  <h:body>
+    <group ref="style">
+      <label/>
+      <group ref="orientation">
+        <label/>
+        <input ref="orientation">
+          <label>horizontal</label>
+        </input>
+      </group>
+      <group ref="even">
+        <label/>
+        <input ref="layout_weight">
+          <label>1</label>
+        </input>
+      </group>
+    </group>
+    <group ref="user">
+      <label>{User_List}</label>
+      <group ref="usertab" faims_scrollable="false">
+        <label>{User_List}</label>
+        <select1 appearance="compact" ref="users" faims_certainty="false" faims_annotation="false">
+          <label>{Users}</label>
+          <item>
+            <label>placeholder</label>
+            <value>placeholder</value>
+          </item>
+        </select1>
+      </group>
+    </group>
+    <group ref="oldBone">
+      <label>{oldBone}</label>
+      <group ref="basicIdentification">
+        <label>{basicIdentification}</label>
+        <input ref="idNumber" faims_certainty="false" faims_annotation="false" faims_read_only="false">
+          <label>{idNumber}</label>
+        </input>
+        <input ref="gridSquare" faims_certainty="false" faims_annotation="false" faims_read_only="false">
+          <label>{gridSquare}</label>
+        </input>
+        <select1 ref="cluster" appearance="full">
+          <label>{cluster}</label>
+          <item>
+            <label>placeholder</label>
+            <value>placeholder</value>
+          </item>
+        </select1>
+        <select1 ref="clusterType" appearance="full">
+          <label>{clusterType}</label>
+          <item>
+            <label>placeholder</label>
+            <value>placeholder</value>
+          </item>
+        </select>
+      </group>
+      <group ref="insituAndSurfaceBone">
+        <label>{insituAndSurfaceBone}</label>
+        <group ref="insituProportionContainer" faims_style="orientation">
+          <label></label>
+        </group>
+        <select ref="bodyPartsIdentified">
+          <label>{bodyPartsIdentified}</label>
+          <item>
+            <label>placeholder</label>
+            <value>placeholder</value>
+          </item>
+        </select>
+        <select ref="taxonIdentified">
+          <label>{taxonIdentified}</label>
+          <item>
+            <label>placeholder</label>
+            <value>placeholder</value>
+          </item>
+        </select>
+        <select ref="bonePreservation">
+          <label>{bonePreservation}</label>
+          <item>
+            <label>placeholder</label>
+            <value>placeholder</value>
+          </item>
+        </select>
+        <select ref="deliberateSurfaceModification">
+          <label>{deliberateSurfaceModification}</label>
+          <item>
+            <label>placeholder</label>
+            <value>placeholder</value>
+          </item>
+        </select>
+      </group>
+      <group ref="associatedMaterials">
+        <label>{associatedMaterials}</label>
+        <select1 ref="associatedInsituMaterial">
+          <label>{associatedInsituMaterial}</label>
+          <item>
+            <label>placeholder</label>
+            <value>placeholder</value>
+          </item>
+        </select1>
+        <trigger ref="addInsituMaterial">
+          <label>{addInsituMaterial}</label>
+        </trigger>
+        <select1 ref="associatedInsituList" appearance="compact">
+          <label>{associatedInsituList}</label>
+          <item>
+            <label>placeholder</label>
+            <value>placeholder</value>
+          </item>
+        </select1>
+        <select1 ref="associatedSurfaceMaterial">
+          <label>{associatedSurfaceMaterial}</label>
+          <item>
+            <label>placeholder</label>
+            <value>placeholder</value>
+          </item>
+        </select1>
+        <trigger ref="addSurfaceMaterial">
+          <label>{addSurfaceMaterial}</label>
+        </trigger>
+        <select1 ref="associatedSurfaceList" appearance="compact">
+          <label>{associatedSurfaceList}</label>
+          <item>
+            <label>placeholder</label>
+            <value>placeholder</value>
+          </item>
+        </select1>
+      </group>
+      <group ref="topAndStratSetting">
+        <label>{topAndStratSetting}</label>
+        <select1 ref="topographicSetting" type="image">
+          <label>{topographicSetting}</label>
+          <item>
+            <label>placeholder</label>
+            <value>placeholder</value>
+          </item>
+        </select1>
+        <select1 ref="sedimentType" type="image">
+          <label>{sedimentType}</label>
+          <item>
+            <label>placeholder</label>
+            <value>placeholder</value>
+          </item>
+        </select1>
+        <select1 ref="vulnerabilityToErosion" type="image">
+          <label>{vulnerabilityToErosion}</label>
+          <item>
+            <label>placeholder</label>
+            <value>placeholder</value>
+          </item>
+        </select1>
+        <select1 ref="paleotopographicSetting" type="image">
+          <label>{paleotopographicSetting}</label>
+          <item>
+            <label>placeholder</label>
+            <value>placeholder</value>
+          </item>
+        </select1>
+        <input ref="notes">
+          <label>{notes}</label>
+        </input>
+      </group>
+    </group>
+  </h:body>
+</h:html>
