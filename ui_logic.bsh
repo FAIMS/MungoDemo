@@ -202,8 +202,9 @@ newAssocMaterial(Boolean insituMaterial) {
   if (selectedAssocMaterial == null) {
     Log.d("newAssocMaterial()", "Error: no material type selected");
   } else {
+    Log.d("newAssocMaterial()", "Selected assoc material: " + selectedAssocMaterial);
     newTabGroup("associatedMaterials");
-    onEvent("associatedMaterials", "show", "swapAssociatedMaterials(selectedAssocMaterial);");
+    onEvent("associatedMaterials", "show", "swapAssociatedMaterials(\""+selectedAssocMaterial+"\");");
   }
 }
 
