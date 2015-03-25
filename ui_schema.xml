@@ -53,10 +53,20 @@
             </topAndStratSetting>>
           </oldBone>
           <associatedMaterials>
-              <eggshell/>
-              <hearthMaterial/>
-              <stoneArtefact/>
-              <otherWorked/>
+              <eggshell>
+                <associatedEggshell/>
+              </eggshell>
+              <hearthMaterial>
+                <associatedHearthMaterial/>
+              </hearthMaterial>
+              <stoneArtefact>
+                <associatedStoneArtefacts/>
+                <stoneDynamicContainer/>
+                <rawMaterialTypesPresent/>
+              </stoneArtefact>
+              <otherWorked>
+                <associatedOtherWorked/>
+              </otherWorked>
           </associatedMaterials>
         </faims>
       </instance>
@@ -114,7 +124,7 @@
             <label>placeholder</label>
             <value>placeholder</value>
           </item>
-        </select>
+        </select1>
       </group>
       <group ref="insituAndSurfaceBone">
         <label>{insituAndSurfaceBone}</label>
@@ -220,6 +230,59 @@
         <input ref="notes">
           <label>{notes}</label>
         </input>
+      </group>
+    </group>
+    <group ref="associatedMaterials">
+      <label>{associatedMaterials}</label>
+      <group ref="eggshell">
+        <label>{eggshell}</label>
+        <select ref="associatedEggshell" type="vocab">
+          <label>{associatedEggshell}</label>
+          <item>
+            <label>placeholder</label>
+            <value>placeholder</value>
+          </item>
+        </select>
+      </group>
+      <group ref="hearthMaterial">
+        <label>{hearthMaterial}</label>
+        <select ref="associatedHearthMaterial" type="vocab">
+          <label>{associatedHearthMaterial}</label>
+          <item>
+            <label>placeholder</label>
+            <value>placeholder</value>
+          </item>
+        </select>
+      </group>
+      <group ref="stoneArtefact">
+        <label>{stoneArtefact}</label>
+        <select ref="associatedStoneArtefacts" type="vocab">
+          <label>{associatedStoneArtefacts}</label>
+          <item>
+            <label>placeholder</label>
+            <value>placeholder</value>
+          </item>
+        </select>
+        <group ref="stoneDynamicContainer" faims_style="orientation">
+          <label/>
+        </group>
+        <select ref="rawMaterialTypesPresent" type="vocab">
+          <label>{rawMaterialTypesPresent}</label>
+          <item>
+            <label>placeholder</label>
+            <value>placeholder</value>
+          </item>
+        </select>
+      </group>
+      <group ref="otherWorked">
+        <label>{otherWorked}</label>
+        <select ref="associatedOtherWorked" type="vocab">
+          <label>{associatedOtherWorked}</label>
+          <item>
+            <label>placeholder</label>
+            <value>placeholder</value>
+          </item>
+        </select>
       </group>
     </group>
   </h:body>

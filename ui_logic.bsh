@@ -187,8 +187,8 @@ toggleClusterType(Boolean boneOnly) {
 
 onEvent("oldBone/basicIdentification/cluster", "click", "toggleAssociatedMaterials();");
 
-onEvent("oldBone/associatedMaterials/addInsituMaterial", "click", "newAssocMaterial();");
-onEvent("oldBone/associatedMaterials/addSurfaceMaterial", "click", "newAssocMaterial();");
+onEvent("oldBone/associatedMaterials/addInsituMaterial", "click", "newAssocMaterial(true);");
+onEvent("oldBone/associatedMaterials/addSurfaceMaterial", "click", "newAssocMaterial(false);");
 
 /* Sets up the UI to allow the selected associated material to be recorded */
 newAssocMaterial(Boolean insituMaterial) {
@@ -202,49 +202,60 @@ newAssocMaterial(Boolean insituMaterial) {
   if (selectedAssocMaterial == null) {
     Log.d("newAssocMaterial()", "Error: no material type selected");
   } else {
-    if (selectedAssocMaterial == "eggshell") {
-      newTabGroup("associatedMaterials");
-      closeTab("hearthMaterial", false);
-      closeTab("stoneArtefact", false);
-      closeTab("otherWorked", false);
-      showTab("eggshell");
-    } else if (selectedAssocMaterial == "hs") {
-      newTabGroup("associatedMaterials");
-      closeTab("eggshell", false);
-      closeTab("stoneArtefact", false);
-      closeTab("otherWorked", false);
-      showTab("hearthMaterial");
-    } else if (selectedAssocMaterial == "artefacts") {
-      newTabGroup("associatedMaterials");
-      closeTab("eggshell", false);
-      closeTab("hearthMaterial", false);
-      closeTab("otherWorked", false);
-      showTab("stoneArtefact");
-    } else if (selectedAssocMaterial == "otherwork") {
-      newTabGroup("associatedMaterials");
-      closeTab("eggshell", false);
-      closeTab("hearthMaterial", false);
-      closeTab("stoneArtefact", false);
-      showTab("otherWorked");
-    }
-
+    newTabGroup("associatedMaterials");
+    onEvent("associatedMaterials", "show", "swapAssociatedMaterials(selectedAssocMaterial);");
   }
+}
+
+/* Hides and displays the tab of the selected associated material. */
+swapAssociatedMaterials(String selectedAssocMaterial) {
+  if (selectedAssocMaterial.equals("eggshell")) {
+    cancelTab("associatedMaterials/hearthMaterial", false);
+    cancelTab("associatedMaterials/stoneArtefact", false);
+    cancelTab("associatedMaterials/otherWorked", false);
+    showTab("associatedMaterials/eggshell");
+  } else if (selectedAssocMaterial.equals("hs")) {
+    cancelTab("associatedMaterials/eggshell", false);
+    cancelTab("associatedMaterials/stoneArtefact", false);
+    cancelTab("associatedMaterials/otherWorked", false);
+    showTab("associatedMaterials/hearthMaterial");
+  } else if (selectedAssocMaterial.equals("artefacts")) {
+    cancelTab("associatedMaterials/eggshell", false);
+    cancelTab("associatedMaterials/hearthMaterial", false);
+    cancelTab("associatedMaterials/otherWorked", false);
+    showTab("associatedMaterials/stoneArtefact");
+  } else if (selectedAssocMaterial.equals("otherwork")) {
+    cancelTab("associatedMaterials/eggshell", false);
+    cancelTab("associatedMaterials/hearthMaterial", false);
+    cancelTab("associatedMaterials/stoneArtefact", false);
+    showTab("associatedMaterials/otherWorked");
+  }
+}
+
+populateAssocMaterialAttributes() {
+  makeVocab("CheckBoxGroup", "associatedMaterials/eggshell/associatedEggshell", "Associated Eggshell");
+  makeVocab("CheckBoxGroup", "associatedMaterials/hearthMaterial/associatedHearthMaterial", "Associated Hearth Material");
+  makeVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/associatedStoneArtefacts", "Associated Stone Artefacts");
+  makeVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/rawMaterialTypesPresent", "Raw Material Types Present");
+  makeVocab("CheckBoxGroup", "associatedMaterials/otherWorked/associatedOtherWorked", "Associated Other Worked Material");
+
 }
 
 
 
 /** Module Initialisation **/
 init() {
+  // old bone init
   populateOldBoneAttributes();
-  // set the cluster field to be 'Bone Only'
   fetchOne("select vocabid from vocabulary join attributekey using (attributeid) where attributename = 'Cluster' and vocabname = '{boneOnly}';", new FetchCallback() {
     onFetch(result) {
-      setFieldValue("oldBone/basicIdentification/cluster", result.get(0));
+      setFieldValue("oldBone/basicIdentification/cluster", result.get(0)); // set the cluster field to be 'Bone Only'
       toggleAssociatedMaterials();
     }
   });
 
-  // populate the associated materials list
+  // assoc materials init
+  populateAssocMaterialAttributes();
   assocMaterials = new ArrayList();
   assocMaterials.add(new NameValuePair("{none}", "none"));
   assocMaterials.add(new NameValuePair("{mussel}", "mussel"));
@@ -254,7 +265,6 @@ init() {
   assocMaterials.add(new NameValuePair("{otherwork}", "otherwork"));
   populateDropDown("oldBone/associatedMaterials/associatedInsituMaterial", assocMaterials);
   populateDropDown("oldBone/associatedMaterials/associatedSurfaceMaterial", assocMaterials);
-
 }
 
 init();
