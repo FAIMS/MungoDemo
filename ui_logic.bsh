@@ -118,7 +118,7 @@ makeVocab(String type, String path, String attrib) {
 /** Editable Module Code **/
 /**************************/
 
-/** Populates the chackboxes, lists, ... for the Old Bone tabgroup using the vocabularies. **/
+/** Populates the checkboxes, lists, ... for the Old Bone tabgroup using the vocabularies. **/
 populateOldBoneAttributes() {
   makeVocab("RadioGroup", "oldBone/basicIdentification/cluster", "Cluster");
   makeVocab("RadioGroup", "oldBone/basicIdentification/clusterType", "Cluster Type");
@@ -233,12 +233,13 @@ swapAssociatedMaterials(String selectedAssocMaterial) {
   }
 }
 
+/** Populates the checkboxes, lists, ... for the Associated Materials tabgroup using the vocabularies. **/
 populateAssocMaterialAttributes() {
-  makeVocab("CheckBoxGroup", "associatedMaterials/eggshell/associatedEggshell", "Associated Eggshell");
-  makeVocab("CheckBoxGroup", "associatedMaterials/hearthMaterial/associatedHearthMaterial", "Associated Hearth Material");
-  makeVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/associatedStoneArtefacts", "Associated Stone Artefacts");
-  makeVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/rawMaterialTypesPresent", "Raw Material Types Present");
-  makeVocab("CheckBoxGroup", "associatedMaterials/otherWorked/associatedOtherWorked", "Associated Other Worked Material");
+  // makeVocab("CheckBoxGroup", "associatedMaterials/eggshell/associatedEggshell", "Associated Eggshell");
+  // makeVocab("CheckBoxGroup", "associatedMaterials/hearthMaterial/associatedHearthMaterial", "Associated Hearth Material");
+  // makeVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/associatedStoneArtefacts", "Associated Stone Artefacts");
+  // makeVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/rawMaterialTypesPresent", "Raw Material Types Present");
+  // makeVocab("CheckBoxGroup", "associatedMaterials/otherWorked/associatedOtherWorked", "Associated Other Worked Material");
 
 }
 
@@ -254,6 +255,7 @@ init() {
       toggleAssociatedMaterials();
     }
   });
+  onEvent("oldBone", "load", "cancelTab(\"oldBone/associatedMaterials\", false);");
 
   // assoc materials init
   populateAssocMaterialAttributes();
