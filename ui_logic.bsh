@@ -76,10 +76,7 @@ stopSync() {
     setFileSyncEnabled(false);
 }
 
-/**************************/
-/** Editable Module Code **/
-/**************************/
-
+/** Vocab Population **/
 /* Populates the path specified vocabulary from the database based on the given attribute name, where type 
 is the type of the vocab to populate (checkbox, dropdown, radio or list). */
 makeVocab(String type, String path, String attrib, List vocabExclusions){
@@ -116,6 +113,10 @@ makeVocab(String type, String path, String attrib, List vocabExclusions){
 makeVocab(String type, String path, String attrib) {
   makeVocab(type, path, attrib, null);
 }
+
+/**************************/
+/** Editable Module Code **/
+/**************************/
 
 /** Populates the chackboxes, lists, ... for the Old Bone tabgroup using the vocabularies. **/
 populateOldBoneAttributes() {
@@ -186,11 +187,49 @@ toggleClusterType(Boolean boneOnly) {
 
 onEvent("oldBone/basicIdentification/cluster", "click", "toggleAssociatedMaterials();");
 
+onEvent("oldBone/associatedMaterials/addInsituMaterial", "click", "newAssocMaterial();");
+onEvent("oldBone/associatedMaterials/addSurfaceMaterial", "click", "newAssocMaterial();");
 
+/* Sets up the UI to allow the selected associated material to be recorded */
+newAssocMaterial(Boolean insituMaterial) {
+  String selectedAssocMaterial = null;
+  if (insituMaterial) {
+    selectedAssocMaterial = getFieldValue("oldBone/associatedMaterials/associatedInsituMaterial");
+  } else {
+    selectedAssocMaterial = getFieldValue("oldBone/associatedMaterials/associatedSurfaceMaterial");
+  }
+  // load the assoc material tabgroup and hide the irrelevant tabs
+  if (selectedAssocMaterial == null) {
+    Log.d("newAssocMaterial()", "Error: no material type selected");
+  } else {
+    if (selectedAssocMaterial == "eggshell") {
+      newTabGroup("associatedMaterials");
+      closeTab("hearthMaterial", false);
+      closeTab("stoneArtefact", false);
+      closeTab("otherWorked", false);
+      showTab("eggshell");
+    } else if (selectedAssocMaterial == "hs") {
+      newTabGroup("associatedMaterials");
+      closeTab("eggshell", false);
+      closeTab("stoneArtefact", false);
+      closeTab("otherWorked", false);
+      showTab("hearthMaterial");
+    } else if (selectedAssocMaterial == "artefacts") {
+      newTabGroup("associatedMaterials");
+      closeTab("eggshell", false);
+      closeTab("hearthMaterial", false);
+      closeTab("otherWorked", false);
+      showTab("stoneArtefact");
+    } else if (selectedAssocMaterial == "otherwork") {
+      newTabGroup("associatedMaterials");
+      closeTab("eggshell", false);
+      closeTab("hearthMaterial", false);
+      closeTab("stoneArtefact", false);
+      showTab("otherWorked");
+    }
 
-
-
-
+  }
+}
 
 
 
@@ -204,6 +243,18 @@ init() {
       toggleAssociatedMaterials();
     }
   });
+
+  // populate the associated materials list
+  assocMaterials = new ArrayList();
+  assocMaterials.add(new NameValuePair("{none}", "none"));
+  assocMaterials.add(new NameValuePair("{mussel}", "mussel"));
+  assocMaterials.add(new NameValuePair("{hs}", "hs"));
+  assocMaterials.add(new NameValuePair("{eggshell}", "eggshell"));
+  assocMaterials.add(new NameValuePair("{artefacts}", "artefacts"));
+  assocMaterials.add(new NameValuePair("{otherwork}", "otherwork"));
+  populateDropDown("oldBone/associatedMaterials/associatedInsituMaterial", assocMaterials);
+  populateDropDown("oldBone/associatedMaterials/associatedSurfaceMaterial", assocMaterials);
+
 }
 
 init();
