@@ -54,18 +54,18 @@
           </oldBone>
           <associatedMaterials>
               <eggshell>
-                <associatedEggshell/>
+               <!--  <associatedEggshell/> -->
               </eggshell>
               <hearthMaterial>
-                <associatedHearthMaterial/>
+                <!-- <associatedHearthMaterial/> -->
               </hearthMaterial>
               <stoneArtefact>
-                <associatedStoneArtefacts/>
+                <!-- <associatedStoneArtefacts/>
                 <stoneDynamicContainer/>
-                <rawMaterialTypesPresent/>
+                <rawMaterialTypesPresent/> -->
               </stoneArtefact>
               <otherWorked>
-                <associatedOtherWorked/>
+                <!-- <associatedOtherWorked/> -->
               </otherWorked>
           </associatedMaterials>
         </faims>
@@ -236,27 +236,27 @@
       <label>{associatedMaterials}</label>
       <group ref="eggshell">
         <label>{eggshell}</label>
-        <select ref="associatedEggshell" type="vocab">
+        <!-- <select ref="associatedEggshell" type="vocab">
           <label>{associatedEggshell}</label>
           <item>
             <label>placeholder</label>
             <value>placeholder</value>
           </item>
-        </select>
+        </select> -->
       </group>
       <group ref="hearthMaterial">
         <label>{hearthMaterial}</label>
-        <select ref="associatedHearthMaterial" type="vocab">
+        <!-- <select ref="associatedHearthMaterial" type="vocab">
           <label>{associatedHearthMaterial}</label>
           <item>
             <label>placeholder</label>
             <value>placeholder</value>
           </item>
-        </select>
+        </select> -->
       </group>
       <group ref="stoneArtefact">
         <label>{stoneArtefact}</label>
-        <select ref="associatedStoneArtefacts" type="vocab">
+        <!-- <select ref="associatedStoneArtefacts" type="vocab">
           <label>{associatedStoneArtefacts}</label>
           <item>
             <label>placeholder</label>
@@ -272,17 +272,17 @@
             <label>placeholder</label>
             <value>placeholder</value>
           </item>
-        </select>
+        </select> -->
       </group>
       <group ref="otherWorked">
         <label>{otherWorked}</label>
-        <select ref="associatedOtherWorked" type="vocab">
+        <!-- <select ref="associatedOtherWorked" type="vocab">
           <label>{associatedOtherWorked}</label>
           <item>
             <label>placeholder</label>
             <value>placeholder</value>
           </item>
-        </select>
+        </select> -->
       </group>
     </group>
   </h:body>

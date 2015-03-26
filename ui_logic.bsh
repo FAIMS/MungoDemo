@@ -114,6 +114,31 @@ makeVocab(String type, String path, String attrib) {
   makeVocab(type, path, attrib, null);
 }
 
+/** Makes a dynamic vocab and populates it using a data_schema vocab. **/
+makeDynamicVocab(String type, String path, String attrib, String label) {
+  viewDef = createViewDef();
+  if (type.equals("CheckBoxGroup")) {
+    viewDef.createCheckboxGroup();
+  } else {
+    return;
+  }
+  
+  if (!isNull(label)) {
+    viewDef.setLabel(label);
+  }
+
+  fetchAll("select vocabid, vocabname from vocabulary join attributekey using (attributeid) where attributename = '" + attrib + "' order by vocabcountorder;", new FetchCallback() {
+    onFetch(result) {
+      print ("Dynamic Vocab: " + result);
+      for (item : result) {
+        viewDef.addChoice(item.get(1), item.get(0));
+      }
+      createView(path, viewDef);
+    }
+  });
+}
+
+
 /**************************/
 /** Editable Module Code **/
 /**************************/
@@ -204,43 +229,66 @@ newAssocMaterial(Boolean insituMaterial) {
   } else {
     Log.d("newAssocMaterial()", "Selected assoc material: " + selectedAssocMaterial);
     newTabGroup("associatedMaterials");
-    onEvent("associatedMaterials", "show", "swapAssociatedMaterials(\""+selectedAssocMaterial+"\");");
+    // showTab("oldBone/associatedMaterials");
+    // onEvent("associatedMaterials", "show", "swapAssociatedMaterials(\""+selectedAssocMaterial+"\");");
   }
 }
 
 /* Hides and displays the tab of the selected associated material. */
 swapAssociatedMaterials(String selectedAssocMaterial) {
+  showToast("removing all dynamic views for associatedMaterials tabgroup");
+  removeAllViewsAndContainers("associatedMaterials");
   if (selectedAssocMaterial.equals("eggshell")) {
     cancelTab("associatedMaterials/hearthMaterial", false);
     cancelTab("associatedMaterials/stoneArtefact", false);
     cancelTab("associatedMaterials/otherWorked", false);
     showTab("associatedMaterials/eggshell");
+    populateAssocMaterialAttributes("eggshell");
   } else if (selectedAssocMaterial.equals("hs")) {
     cancelTab("associatedMaterials/eggshell", false);
     cancelTab("associatedMaterials/stoneArtefact", false);
     cancelTab("associatedMaterials/otherWorked", false);
     showTab("associatedMaterials/hearthMaterial");
+    populateAssocMaterialAttributes("hs");
   } else if (selectedAssocMaterial.equals("artefacts")) {
     cancelTab("associatedMaterials/eggshell", false);
     cancelTab("associatedMaterials/hearthMaterial", false);
     cancelTab("associatedMaterials/otherWorked", false);
     showTab("associatedMaterials/stoneArtefact");
+    populateAssocMaterialAttributes("artefacts");
   } else if (selectedAssocMaterial.equals("otherwork")) {
     cancelTab("associatedMaterials/eggshell", false);
     cancelTab("associatedMaterials/hearthMaterial", false);
     cancelTab("associatedMaterials/stoneArtefact", false);
     showTab("associatedMaterials/otherWorked");
+    populateAssocMaterialAttributes("otherwork");
   }
 }
 
 /** Populates the checkboxes, lists, ... for the Associated Materials tabgroup using the vocabularies. **/
-populateAssocMaterialAttributes() {
+populateAssocMaterialAttributes(String selectedAssocMaterial) {
   // makeVocab("CheckBoxGroup", "associatedMaterials/eggshell/associatedEggshell", "Associated Eggshell");
   // makeVocab("CheckBoxGroup", "associatedMaterials/hearthMaterial/associatedHearthMaterial", "Associated Hearth Material");
   // makeVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/associatedStoneArtefacts", "Associated Stone Artefacts");
   // makeVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/rawMaterialTypesPresent", "Raw Material Types Present");
   // makeVocab("CheckBoxGroup", "associatedMaterials/otherWorked/associatedOtherWorked", "Associated Other Worked Material");
-
+  executeViewTask(new ViewTask() {
+    doTask() {
+      if (selectedAssocMaterial.equals("eggshell")) {
+        showToast("Populating dynamic eggshell vocab");
+        makeDynamicVocab("CheckBoxGroup", "associatedMaterials/eggshell/associatedEggshell", "Associated Eggshell", "{associatedEggshell}");
+      } else if (selectedAssocMaterial.equals("hs")) {
+        showToast("Populating dynamic hs vocab");
+        makeDynamicVocab("CheckBoxGroup", "associatedMaterials/hearthMaterial/associatedHearthMaterial", "Associated Hearth Material", "{associatedHearthMaterial}");
+      } else if (selectedAssocMaterial.equals("artefacts")) {
+        showToast("Populating dynamic artefacts vocab");
+        makeDynamicVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/associatedStoneArtefacts", "Associated Stone Artefacts", "{associatedStoneArtefacts}");
+      } else if (selectedAssocMaterial.equals("otherwork")) {
+        showToast("Populating dynamic otherwork vocab");
+        makeDynamicVocab("CheckBoxGroup", "associatedMaterials/otherWorked/associatedOtherWorked", "Associated Other Worked Material", "{associatedOtherWorked}");
+      }
+    }
+  });
 }
 
 
@@ -258,7 +306,6 @@ init() {
   onEvent("oldBone", "load", "cancelTab(\"oldBone/associatedMaterials\", false);");
 
   // assoc materials init
-  populateAssocMaterialAttributes();
   assocMaterials = new ArrayList();
   assocMaterials.add(new NameValuePair("{none}", "none"));
   assocMaterials.add(new NameValuePair("{mussel}", "mussel"));
