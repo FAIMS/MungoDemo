@@ -241,28 +241,28 @@ swapAssociatedMaterials(String selectedAssocMaterial) {
   removeAllViewsAndContainers("associatedMaterials");
   if (selectedAssocMaterial.equals("eggshell")) {
     populateAssocMaterialAttributes("eggshell");
-    cancelTab("associatedMaterials/hearthMaterial", false);
-    cancelTab("associatedMaterials/stoneArtefact", false);
-    cancelTab("associatedMaterials/otherWorked", false);
-    showTab("associatedMaterials/eggshell");
+    // cancelTab("associatedMaterials/hearthMaterial", false);
+    // cancelTab("associatedMaterials/stoneArtefact", false);
+    // cancelTab("associatedMaterials/otherWorked", false);
+    // showTab("associatedMaterials/eggshell");
   } else if (selectedAssocMaterial.equals("hs")) {
     populateAssocMaterialAttributes("hs");
-    cancelTab("associatedMaterials/eggshell", false);
-    cancelTab("associatedMaterials/stoneArtefact", false);
-    cancelTab("associatedMaterials/otherWorked", false);
-    showTab("associatedMaterials/hearthMaterial");
+    // cancelTab("associatedMaterials/eggshell", false);
+    // cancelTab("associatedMaterials/stoneArtefact", false);
+    // cancelTab("associatedMaterials/otherWorked", false);
+    // showTab("associatedMaterials/hearthMaterial");
   } else if (selectedAssocMaterial.equals("artefacts")) {
     populateAssocMaterialAttributes("artefacts");
-    cancelTab("associatedMaterials/eggshell", false);
-    cancelTab("associatedMaterials/hearthMaterial", false);
-    cancelTab("associatedMaterials/otherWorked", false);
-    showTab("associatedMaterials/stoneArtefact");
+    // cancelTab("associatedMaterials/eggshell", false);
+    // cancelTab("associatedMaterials/hearthMaterial", false);
+    // cancelTab("associatedMaterials/otherWorked", false);
+    // showTab("associatedMaterials/stoneArtefact");
   } else if (selectedAssocMaterial.equals("otherwork")) {
     populateAssocMaterialAttributes("otherwork");
-    cancelTab("associatedMaterials/eggshell", false);
-    cancelTab("associatedMaterials/hearthMaterial", false);
-    cancelTab("associatedMaterials/stoneArtefact", false);
-    showTab("associatedMaterials/otherWorked");   
+    // cancelTab("associatedMaterials/eggshell", false);
+    // cancelTab("associatedMaterials/hearthMaterial", false);
+    // cancelTab("associatedMaterials/stoneArtefact", false);
+    // showTab("associatedMaterials/otherWorked");   
   }
 }
 
@@ -284,6 +284,8 @@ populateAssocMaterialAttributes(String selectedAssocMaterial) {
       } else if (selectedAssocMaterial.equals("artefacts")) {
         showToast("Populating dynamic artefacts vocab");
         makeDynamicVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/associatedStoneArtefacts", "Associated Stone Artefacts", "{associatedStoneArtefacts}");
+        makeDynamicVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/rawMaterialTypesPresent", "Raw Material Types Present", "{rawMaterialTypesPresent}");
+        onEvent("associatedMaterials/stoneArtefact/associatedStoneArtefacts", "click", "updateDynamicAssociatedStone();");
       } else if (selectedAssocMaterial.equals("otherwork")) {
         showToast("Populating dynamic otherwork vocab");
         makeDynamicVocab("CheckBoxGroup", "associatedMaterials/otherWorked/associatedOtherWorked", "Associated Other Worked Material", "{associatedOtherWorked}");
@@ -292,7 +294,9 @@ populateAssocMaterialAttributes(String selectedAssocMaterial) {
   });
 }
 
-
+updateDynamicAssociatedStone() {
+  showToast("update the dynamic stone views");
+}
 
 /** Module Initialisation **/
 init() {
