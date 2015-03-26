@@ -231,6 +231,7 @@ newAssocMaterial(Boolean insituMaterial) {
     newTabGroup("associatedMaterials");
     // showTab("oldBone/associatedMaterials");
     // onEvent("associatedMaterials", "show", "swapAssociatedMaterials(\""+selectedAssocMaterial+"\");");
+    swapAssociatedMaterials(selectedAssocMaterial);
   }
 }
 
@@ -239,29 +240,29 @@ swapAssociatedMaterials(String selectedAssocMaterial) {
   showToast("removing all dynamic views for associatedMaterials tabgroup");
   removeAllViewsAndContainers("associatedMaterials");
   if (selectedAssocMaterial.equals("eggshell")) {
+    populateAssocMaterialAttributes("eggshell");
     cancelTab("associatedMaterials/hearthMaterial", false);
     cancelTab("associatedMaterials/stoneArtefact", false);
     cancelTab("associatedMaterials/otherWorked", false);
     showTab("associatedMaterials/eggshell");
-    populateAssocMaterialAttributes("eggshell");
   } else if (selectedAssocMaterial.equals("hs")) {
+    populateAssocMaterialAttributes("hs");
     cancelTab("associatedMaterials/eggshell", false);
     cancelTab("associatedMaterials/stoneArtefact", false);
     cancelTab("associatedMaterials/otherWorked", false);
     showTab("associatedMaterials/hearthMaterial");
-    populateAssocMaterialAttributes("hs");
   } else if (selectedAssocMaterial.equals("artefacts")) {
+    populateAssocMaterialAttributes("artefacts");
     cancelTab("associatedMaterials/eggshell", false);
     cancelTab("associatedMaterials/hearthMaterial", false);
     cancelTab("associatedMaterials/otherWorked", false);
     showTab("associatedMaterials/stoneArtefact");
-    populateAssocMaterialAttributes("artefacts");
   } else if (selectedAssocMaterial.equals("otherwork")) {
+    populateAssocMaterialAttributes("otherwork");
     cancelTab("associatedMaterials/eggshell", false);
     cancelTab("associatedMaterials/hearthMaterial", false);
     cancelTab("associatedMaterials/stoneArtefact", false);
-    showTab("associatedMaterials/otherWorked");
-    populateAssocMaterialAttributes("otherwork");
+    showTab("associatedMaterials/otherWorked");   
   }
 }
 
