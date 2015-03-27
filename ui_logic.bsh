@@ -151,6 +151,9 @@ populateOldBoneAttributes() {
   makeVocab("CheckBoxGroup", "oldBone/insituAndSurfaceBone/taxonIdentified", "Taxon Identified");
   makeVocab("CheckBoxGroup", "oldBone/insituAndSurfaceBone/bonePreservation", "Bone Preservation");
   makeVocab("CheckBoxGroup", "oldBone/insituAndSurfaceBone/deliberateSurfaceModification", "Deliberate Surface Modification");
+  makeVocab("CheckBoxGroup", "oldBone/associatedMaterials/associatedInsituMaterial", "Associated in situ material");
+  makeVocab("CheckBoxGroup", "oldBone/associatedMaterials/associatedSurfaceMaterial", "Associated surface material");
+
   fetchAll("select vocabid, vocabname, pictureurl from vocabulary left join attributekey using (attributeid) where attributename = 'Topographic Setting';", new FetchCallback() {
     onFetch(pictures) {
       populatePictureGallery("oldBone/topAndStratSetting/topographicSetting", pictures);
@@ -212,91 +215,124 @@ toggleClusterType(Boolean boneOnly) {
 
 onEvent("oldBone/basicIdentification/cluster", "click", "toggleAssociatedMaterials();");
 
-onEvent("oldBone/associatedMaterials/addInsituMaterial", "click", "newAssocMaterial(true);");
-onEvent("oldBone/associatedMaterials/addSurfaceMaterial", "click", "newAssocMaterial(false);");
+onEvent("oldBone/associatedMaterials/addInsituMaterial", "click", "recordAssocMaterial(true);");
+onEvent("oldBone/associatedMaterials/addSurfaceMaterial", "click", "recordAssocMaterial(false);");
 
-/* Sets up the UI to allow the selected associated material to be recorded */
-newAssocMaterial(Boolean insituMaterial) {
-  String selectedAssocMaterial = null;
+List associatedInsituMaterialVocab = new ArrayList();
+List associatedSurfaceMaterialVocab = new ArrayList();
+
+recordAssocMaterial(Boolean insituMaterial) {
   if (insituMaterial) {
     selectedAssocMaterial = getFieldValue("oldBone/associatedMaterials/associatedInsituMaterial");
   } else {
     selectedAssocMaterial = getFieldValue("oldBone/associatedMaterials/associatedSurfaceMaterial");
   }
-  // load the assoc material tabgroup and hide the irrelevant tabs
-  if (selectedAssocMaterial == null) {
-    Log.d("newAssocMaterial()", "Error: no material type selected");
+  print("Selected Material: " + selectedAssocMaterial);
+  if (selectedAssocMaterial == null || selectedAssocMaterial.isEmpty()) {
+    Log.d("recordAssocMaterial()", "Error: no material type selected");
   } else {
-    Log.d("newAssocMaterial()", "Selected assoc material: " + selectedAssocMaterial);
-    newTabGroup("associatedMaterials");
-    // showTab("oldBone/associatedMaterials");
-    // onEvent("associatedMaterials", "show", "swapAssociatedMaterials(\""+selectedAssocMaterial+"\");");
-    swapAssociatedMaterials(selectedAssocMaterial);
+    // fetch the vocab to determine which assoc materials were selected
+    
+
+    for (item : selectedAssocMaterial) {
+      Log.d("recordAssocMaterial()", "Selected assoc material: " + item);
+    }
+
+
   }
+
+
+
 }
+
+
+
+
+// onEvent("oldBone/associatedMaterials/addInsituMaterial", "click", "newAssocMaterial(true);");
+// onEvent("oldBone/associatedMaterials/addSurfaceMaterial", "click", "newAssocMaterial(false);");
+
+/* Sets up the UI to allow the selected associated material to be recorded */
+// newAssocMaterial(Boolean insituMaterial) {
+//   String selectedAssocMaterial = null;
+//   if (insituMaterial) {
+//     selectedAssocMaterial = getFieldValue("oldBone/associatedMaterials/associatedInsituMaterial");
+//   } else {
+//     selectedAssocMaterial = getFieldValue("oldBone/associatedMaterials/associatedSurfaceMaterial");
+//   }
+//   // load the assoc material tabgroup and hide the irrelevant tabs
+//   if (selectedAssocMaterial == null) {
+//     Log.d("newAssocMaterial()", "Error: no material type selected");
+//   } else {
+//     Log.d("newAssocMaterial()", "Selected assoc material: " + selectedAssocMaterial);
+//     newTabGroup("associatedMaterials");
+//     // showTab("oldBone/associatedMaterials");
+//     // onEvent("associatedMaterials", "show", "swapAssociatedMaterials(\""+selectedAssocMaterial+"\");");
+//     // swapAssociatedMaterials(selectedAssocMaterial);
+//   }
+// }
 
 /* Hides and displays the tab of the selected associated material. */
-swapAssociatedMaterials(String selectedAssocMaterial) {
-  showToast("removing all dynamic views for associatedMaterials tabgroup");
-  removeAllViewsAndContainers("associatedMaterials");
-  if (selectedAssocMaterial.equals("eggshell")) {
-    populateAssocMaterialAttributes("eggshell");
-    // cancelTab("associatedMaterials/hearthMaterial", false);
-    // cancelTab("associatedMaterials/stoneArtefact", false);
-    // cancelTab("associatedMaterials/otherWorked", false);
-    // showTab("associatedMaterials/eggshell");
-  } else if (selectedAssocMaterial.equals("hs")) {
-    populateAssocMaterialAttributes("hs");
-    // cancelTab("associatedMaterials/eggshell", false);
-    // cancelTab("associatedMaterials/stoneArtefact", false);
-    // cancelTab("associatedMaterials/otherWorked", false);
-    // showTab("associatedMaterials/hearthMaterial");
-  } else if (selectedAssocMaterial.equals("artefacts")) {
-    populateAssocMaterialAttributes("artefacts");
-    // cancelTab("associatedMaterials/eggshell", false);
-    // cancelTab("associatedMaterials/hearthMaterial", false);
-    // cancelTab("associatedMaterials/otherWorked", false);
-    // showTab("associatedMaterials/stoneArtefact");
-  } else if (selectedAssocMaterial.equals("otherwork")) {
-    populateAssocMaterialAttributes("otherwork");
-    // cancelTab("associatedMaterials/eggshell", false);
-    // cancelTab("associatedMaterials/hearthMaterial", false);
-    // cancelTab("associatedMaterials/stoneArtefact", false);
-    // showTab("associatedMaterials/otherWorked");   
-  }
-}
+// swapAssociatedMaterials(String selectedAssocMaterial) {
+//   showToast("removing all dynamic views for associatedMaterials tabgroup");
+//   removeAllViewsAndContainers("associatedMaterials");
+//   if (selectedAssocMaterial.equals("eggshell")) {
+//     // populateAssocMaterialAttributes("eggshell");
+//     // cancelTab("associatedMaterials/hearthMaterial", false);
+//     // cancelTab("associatedMaterials/stoneArtefact", false);
+//     // cancelTab("associatedMaterials/otherWorked", false);
+//     // showTab("associatedMaterials/eggshell");
+//   } else if (selectedAssocMaterial.equals("hs")) {
+//     // populateAssocMaterialAttributes("hs");
+//     // cancelTab("associatedMaterials/eggshell", false);
+//     // cancelTab("associatedMaterials/stoneArtefact", false);
+//     // cancelTab("associatedMaterials/otherWorked", false);
+//     // showTab("associatedMaterials/hearthMaterial");
+//   } else if (selectedAssocMaterial.equals("artefacts")) {
+//     // populateAssocMaterialAttributes("artefacts");
+//     // cancelTab("associatedMaterials/eggshell", false);
+//     // cancelTab("associatedMaterials/hearthMaterial", false);
+//     // cancelTab("associatedMaterials/otherWorked", false);
+//     // showTab("associatedMaterials/stoneArtefact");
+//   } else if (selectedAssocMaterial.equals("otherwork")) {
+//     // populateAssocMaterialAttributes("otherwork");
+//     // cancelTab("associatedMaterials/eggshell", false);
+//     // cancelTab("associatedMaterials/hearthMaterial", false);
+//     // cancelTab("associatedMaterials/stoneArtefact", false);
+//     // showTab("associatedMaterials/otherWorked");   
+//   }
+// }
 
 /** Populates the checkboxes, lists, ... for the Associated Materials tabgroup using the vocabularies. **/
-populateAssocMaterialAttributes(String selectedAssocMaterial) {
-  // makeVocab("CheckBoxGroup", "associatedMaterials/eggshell/associatedEggshell", "Associated Eggshell");
-  // makeVocab("CheckBoxGroup", "associatedMaterials/hearthMaterial/associatedHearthMaterial", "Associated Hearth Material");
-  // makeVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/associatedStoneArtefacts", "Associated Stone Artefacts");
-  // makeVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/rawMaterialTypesPresent", "Raw Material Types Present");
-  // makeVocab("CheckBoxGroup", "associatedMaterials/otherWorked/associatedOtherWorked", "Associated Other Worked Material");
-  executeViewTask(new ViewTask() {
-    doTask() {
-      if (selectedAssocMaterial.equals("eggshell")) {
-        showToast("Populating dynamic eggshell vocab");
-        makeDynamicVocab("CheckBoxGroup", "associatedMaterials/eggshell/associatedEggshell", "Associated Eggshell", "{associatedEggshell}");
-      } else if (selectedAssocMaterial.equals("hs")) {
-        showToast("Populating dynamic hs vocab");
-        makeDynamicVocab("CheckBoxGroup", "associatedMaterials/hearthMaterial/associatedHearthMaterial", "Associated Hearth Material", "{associatedHearthMaterial}");
-      } else if (selectedAssocMaterial.equals("artefacts")) {
-        showToast("Populating dynamic artefacts vocab");
-        makeDynamicVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/associatedStoneArtefacts", "Associated Stone Artefacts", "{associatedStoneArtefacts}");
-        makeDynamicVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/rawMaterialTypesPresent", "Raw Material Types Present", "{rawMaterialTypesPresent}");
-        onEvent("associatedMaterials/stoneArtefact/associatedStoneArtefacts", "click", "updateDynamicAssociatedStone();");
-      } else if (selectedAssocMaterial.equals("otherwork")) {
-        showToast("Populating dynamic otherwork vocab");
-        makeDynamicVocab("CheckBoxGroup", "associatedMaterials/otherWorked/associatedOtherWorked", "Associated Other Worked Material", "{associatedOtherWorked}");
-      }
-    }
-  });
-}
+// populateAssocMaterialAttributes(String selectedAssocMaterial) {
+//   // makeVocab("CheckBoxGroup", "associatedMaterials/eggshell/associatedEggshell", "Associated Eggshell");
+//   // makeVocab("CheckBoxGroup", "associatedMaterials/hearthMaterial/associatedHearthMaterial", "Associated Hearth Material");
+//   // makeVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/associatedStoneArtefacts", "Associated Stone Artefacts");
+//   // makeVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/rawMaterialTypesPresent", "Raw Material Types Present");
+//   // makeVocab("CheckBoxGroup", "associatedMaterials/otherWorked/associatedOtherWorked", "Associated Other Worked Material");
+//   executeViewTask(new ViewTask() {
+//     doTask() {
+//       if (selectedAssocMaterial.equals("eggshell")) {
+//         showToast("Populating dynamic eggshell vocab");
+//         makeDynamicVocab("CheckBoxGroup", "associatedMaterials/eggshell/associatedEggshell", "Associated Eggshell", "{associatedEggshell}");
+//       } else if (selectedAssocMaterial.equals("hs")) {
+//         showToast("Populating dynamic hs vocab");
+//         makeDynamicVocab("CheckBoxGroup", "associatedMaterials/hearthMaterial/associatedHearthMaterial", "Associated Hearth Material", "{associatedHearthMaterial}");
+//       } else if (selectedAssocMaterial.equals("artefacts")) {
+//         showToast("Populating dynamic artefacts vocab");
+//         makeDynamicVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/associatedStoneArtefacts", "Associated Stone Artefacts", "{associatedStoneArtefacts}");
+//         makeDynamicVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/rawMaterialTypesPresent", "Raw Material Types Present", "{rawMaterialTypesPresent}");
+//         onEvent("associatedMaterials/stoneArtefact/associatedStoneArtefacts", "click", "updateDynamicAssociatedStone();");
+//       } else if (selectedAssocMaterial.equals("otherwork")) {
+//         showToast("Populating dynamic otherwork vocab");
+//         makeDynamicVocab("CheckBoxGroup", "associatedMaterials/otherWorked/associatedOtherWorked", "Associated Other Worked Material", "{associatedOtherWorked}");
+//       }
+//     }
+//   });
+// }
 
-updateDynamicAssociatedStone() {
-  showToast("update the dynamic stone views");
-}
+// updateDynamicAssociatedStone() {
+//   showToast("update the dynamic stone views");
+// }
 
 /** Module Initialisation **/
 init() {
@@ -310,16 +346,31 @@ init() {
   });
   onEvent("oldBone", "load", "cancelTab(\"oldBone/associatedMaterials\", false);");
 
-  // assoc materials init
-  assocMaterials = new ArrayList();
-  assocMaterials.add(new NameValuePair("{none}", "none"));
-  assocMaterials.add(new NameValuePair("{mussel}", "mussel"));
-  assocMaterials.add(new NameValuePair("{hs}", "hs"));
-  assocMaterials.add(new NameValuePair("{eggshell}", "eggshell"));
-  assocMaterials.add(new NameValuePair("{artefacts}", "artefacts"));
-  assocMaterials.add(new NameValuePair("{otherwork}", "otherwork"));
-  populateDropDown("oldBone/associatedMaterials/associatedInsituMaterial", assocMaterials);
-  populateDropDown("oldBone/associatedMaterials/associatedSurfaceMaterial", assocMaterials);
+  // set the vocab globals
+  fetchAll("select vocabid, vocabname from vocabulary left join attributekey using (attributeid) where attributename = 'Associated in situ material';", new FetchCallback() {
+  onFetch(result) {
+    // print("fetch insitu vocab" + result);
+    for (item : result) {
+      List temp = new ArrayList();
+      temp.add(item.get(0));
+      temp.add(item.get(1));
+      associatedInsituMaterialVocab.add(temp);
+    }
+    // print("associatedInsituMaterialVocab: " + associatedInsituMaterialVocab);
+  }
+}); 
+fetchAll("select vocabid, vocabname from vocabulary left join attributekey using (attributeid) where attributename = 'Associated surface material';", new FetchCallback() {
+  onFetch(result) {
+  // print("fetch surface vocab" + result);
+    for (item : result) {
+      List temp = new ArrayList();
+      temp.add(item.get(0));
+      temp.add(item.get(1));
+      associatedSurfaceMaterialVocab.add(temp);
+    }
+  }
+}); 
+  
 }
 
 init();

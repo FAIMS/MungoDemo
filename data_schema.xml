@@ -52,6 +52,7 @@
 				<term>otol</term>
 				<term>otolfrag</term>
 				<term>otolcran</term>
+				<term>otolaxial</term>
 				<term>glith</term>
 				<term>exoskel</term>
 			</lookup>
@@ -102,6 +103,26 @@
 				<term>burncut</term>
 				<term>burnimpact</term>
 				<term>indet</term>
+			</lookup>
+		</property>
+		<property name="Associated in situ material" type="vocab">
+			<description>Description TBD</description>
+			<lookup>
+				<term>mussel</term>
+				<term>hs</term>
+				<term>eggshell</term>
+				<term>artefacts</term>
+				<term>otherwork</term>
+			</lookup>
+		</property>
+		<property name="Associated surface material" type="vocab">
+			<description>Description TBD</description>
+			<lookup>
+				<term>mussel</term>
+				<term>hs</term>
+				<term>eggshell</term>
+				<term>artefacts</term>
+				<term>otherwork</term>
 			</lookup>
 		</property>
 		<property name="Topographic Setting" type="vocab">
