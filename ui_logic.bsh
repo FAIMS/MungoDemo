@@ -154,6 +154,22 @@ populateOldBoneAttributes() {
   makeVocab("CheckBoxGroup", "oldBone/associatedMaterials/associatedInsituMaterial", "Associated in situ material");
   makeVocab("CheckBoxGroup", "oldBone/associatedMaterials/associatedSurfaceMaterial", "Associated surface material");
 
+  // List insutuAssocMaterials = new ArrayList();
+  // insutuAssocMaterials.add(new NameValuePair("{mussel}", "mussel"));
+  // insutuAssocMaterials.add(new NameValuePair("{hs}", "hs"));
+  // insutuAssocMaterials.add(new NameValuePair("{eggshell}", "eggshell"));
+  // insutuAssocMaterials.add(new NameValuePair("{artefacts}", "artefacts"));
+  // insutuAssocMaterials.add(new NameValuePair("{otherwork}", "otherwork"));
+  // populateCheckBoxGroup("oldBone/associatedMaterials/associatedInsituMaterial", insutuAssocMaterials);
+  // List surfaceAssocMaterials = new ArrayList();
+  // surfaceAssocMaterials.add(new NameValuePair("{mussel}", "mussel"));
+  // surfaceAssocMaterials.add(new NameValuePair("{hs}", "hs"));
+  // surfaceAssocMaterials.add(new NameValuePair("{eggshell}", "eggshell"));
+  // surfaceAssocMaterials.add(new NameValuePair("{artefacts}", "artefacts"));
+  // surfaceAssocMaterials.add(new NameValuePair("{otherwork}", "otherwork"));
+  // populateCheckBoxGroup("oldBone/associatedMaterials/associatedSurfaceMaterial", surfaceAssocMaterials);
+
+
   fetchAll("select vocabid, vocabname, pictureurl from vocabulary left join attributekey using (attributeid) where attributename = 'Topographic Setting';", new FetchCallback() {
     onFetch(pictures) {
       populatePictureGallery("oldBone/topAndStratSetting/topographicSetting", pictures);
@@ -221,29 +237,111 @@ onEvent("oldBone/associatedMaterials/addSurfaceMaterial", "click", "recordAssocM
 List associatedInsituMaterialVocab = new ArrayList();
 List associatedSurfaceMaterialVocab = new ArrayList();
 
+/** Records the selected associated material(s). **/
 recordAssocMaterial(Boolean insituMaterial) {
-  if (insituMaterial) {
-    selectedAssocMaterial = getFieldValue("oldBone/associatedMaterials/associatedInsituMaterial");
-  } else {
+  selectedAssocMaterial = getFieldValue("oldBone/associatedMaterials/associatedInsituMaterial");
+  if (!insituMaterial) {
     selectedAssocMaterial = getFieldValue("oldBone/associatedMaterials/associatedSurfaceMaterial");
   }
   print("Selected Material: " + selectedAssocMaterial);
+  
   if (selectedAssocMaterial == null || selectedAssocMaterial.isEmpty()) {
     Log.d("recordAssocMaterial()", "Error: no material type selected");
-  } else {
-    // fetch the vocab to determine which assoc materials were selected
-    
-
+  } else {    
+    // determine which assoc material was selected
     for (item : selectedAssocMaterial) {
-      Log.d("recordAssocMaterial()", "Selected assoc material: " + item);
+      value = item.getValue();
+      name = item.getName();
+      print("value:" + value);
+      print("name:" + name);
+      
+      if (insituMaterial) {
+        for (type : associatedInsituMaterialVocab) {
+          if (name.equals(type.get(0))) {
+            if (type.get(1).equals("mussel")) {
+              Log.d("recordAssocMaterial()", "insitu mussel selected");
+            } else if(type.get(1).equals("hs")) {
+              Log.d("recordAssocMaterial()", "insitu hs selected");
+            } else if(type.get(1).equals("eggshell")) {
+              Log.d("recordAssocMaterial()", "insitu eggshell selected");
+            } else if(type.get(1).equals("artefacts")) {
+              Log.d("recordAssocMaterial()", "insitu artefacts selected");
+            } else if(type.get(1).equals("otherwork")) {
+              Log.d("recordAssocMaterial()", "insitu otherwork selected");
+            } else {
+              Log.d("recordAssocMaterial()", "Error: no matched insitu selected");
+            }
+          }
+        }
+      } else {
+        for (type : associatedSurfaceMaterialVocab) {
+          if (name.equals(type.get(0))) {
+            if (type.get(1).equals("mussel")) {
+              Log.d("recordAssocMaterial()", "surface mussel selected");
+            } else if(type.get(1).equals("hs")) {
+              Log.d("recordAssocMaterial()", "surface hs selected");
+            } else if(type.get(1).equals("eggshell")) {
+              Log.d("recordAssocMaterial()", "surface eggshell selected");
+            } else if(type.get(1).equals("artefacts")) {
+              Log.d("recordAssocMaterial()", "surface artefacts selected");
+            } else if(type.get(1).equals("otherwork")) {
+              Log.d("recordAssocMaterial()", "surface otherwork selected");
+            } else {
+              Log.d("recordAssocMaterial()", "Error: no matched surface selected");
+            }
+          }
+        }
+      }
+      
     }
-
-
   }
-
-
-
 }
+
+
+
+
+
+
+
+// //       Log.d("recordAssocMaterial()", "Selected assoc material: " + item);
+// //       if (insituMaterial) {
+// //         for (type : associatedInsituMaterialVocab) {
+// //           print(type.get(0) + " " + type.get(1));
+// // // Integer.parseInt(item) == Integer.parseInt(type.get(0))
+// //           if (true) {
+// //             print("=====");   
+// //             print(item);
+// //             print(item.getClass().getName());
+// //             print("equal");
+// //             print(type.get(0));
+// //             print(type.get(0).getClass().getName());
+// //             print(item == type.get(0));
+// //             print("equals " + item.equals(type.get(0)));
+// //             // print("compare " + Integer.compare(item, type.get(0)));
+// //             // print("compareTo " + Integer.compareTo(item, type.get(0)));
+// //             print("=====");            
+// //           }
+
+
+
+
+// //           // print("item: " + item);
+// //           // print("type: " + "[" + type.get(0) + ", " + type.get(1) + "]");
+// //           // if (item == type.get(0)) {
+// //           //   Log.d("recordAssocMaterial()", "Selected in situ vocab type: " + type.get(1));
+// //           // }
+// //         }
+//       }
+      // } else {
+      //   for (type : associatedSurfaceMaterialVocab) {
+      //     if (item.equals(type.get(0))) {
+      //       Log.d("recordAssocMaterial()", "Selected surface vocab type: " + type.get(1));
+      //     }
+      //   }
+      // }
+    // }
+//   }
+// }
 
 
 
@@ -348,29 +446,31 @@ init() {
 
   // set the vocab globals
   fetchAll("select vocabid, vocabname from vocabulary left join attributekey using (attributeid) where attributename = 'Associated in situ material';", new FetchCallback() {
-  onFetch(result) {
-    // print("fetch insitu vocab" + result);
-    for (item : result) {
-      List temp = new ArrayList();
-      temp.add(item.get(0));
-      temp.add(item.get(1));
-      associatedInsituMaterialVocab.add(temp);
+    onFetch(result) {
+      // print("fetch insitu vocab" + result);
+      for (item : result) {
+        List temp = new ArrayList();
+        temp.add(item.get(0));
+        temp.add(item.get(1));
+        associatedInsituMaterialVocab.add(temp);
+      }
+      // print("associatedInsituMaterialVocab: " + associatedInsituMaterialVocab);
     }
-    // print("associatedInsituMaterialVocab: " + associatedInsituMaterialVocab);
-  }
-}); 
-fetchAll("select vocabid, vocabname from vocabulary left join attributekey using (attributeid) where attributename = 'Associated surface material';", new FetchCallback() {
-  onFetch(result) {
-  // print("fetch surface vocab" + result);
-    for (item : result) {
-      List temp = new ArrayList();
-      temp.add(item.get(0));
-      temp.add(item.get(1));
-      associatedSurfaceMaterialVocab.add(temp);
+  }); 
+  fetchAll("select vocabid, vocabname from vocabulary left join attributekey using (attributeid) where attributename = 'Associated surface material';", new FetchCallback() {
+    onFetch(result) {
+    // print("fetch surface vocab" + result);
+      for (item : result) {
+        List temp = new ArrayList();
+        temp.add(item.get(0));
+        temp.add(item.get(1));
+        associatedSurfaceMaterialVocab.add(temp);
+      }
     }
-  }
-}); 
+  }); 
   
+  print("associatedInsituMaterialVocab: " + associatedInsituMaterialVocab);
+  print("associatedSurfaceMaterialVocab: " + associatedSurfaceMaterialVocab);
 }
 
 init();
