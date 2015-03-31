@@ -4,10 +4,10 @@
 	<ArchaeologicalElement name="Old Bone">
 		<description>An old bone cluster</description>
 		<property name="ID Number" type="measure">
-			<description>Description TBD</description>
+			<description>Artefact identification code as marked on tag</description>
 		</property>
 		<property name="Grid Square" type="measure">
-			<description>Description TBD</description>
+			<description>Letter code as marked in south-west corner of square</description>
 		</property>
 		<property name="Cluster" type="vocab">
 			<description>Description TBD</description>
@@ -19,278 +19,288 @@
 		<property name="Cluster Type" type="vocab">
 			<description>Description TBD</description>
 			<lookup>
-				<term>{insitBO}</term>
-				<term>{surfBO}</term>
-				<term>{insitAndSurf}</term>
-				<term>{inistAndOth}</term>
-				<term>{surfAndOth}</term>
-				<term>{bothAndOth}</term>
+				<term>{insitBO}<description>2 or more in situ elements, a set of in situ articulated elements, or an in situ skeleton, not associated with any other in situ or surface material</description></term>
+				<term>{surfBO}<description>Discrete cluster of bones of a similar type (part of same element or same skeleton, or in a similar state of preservation) on the surface, but in a topographic and sedimentary context indicating that they have not been transported</description></term>
+				<term>{insitAndSurf}<description>2 or more in situ elements, a set of in situ articulated elements, or an in situ skeleton, plus a discrete surface cluster of bones of a similar type</description></term>
+				<term>{inistAndOth}<description>In situ bone cluster as defined above, associated with other material, either in situ or on the surface</description></term>
+				<term>{surfAndOth}<description>Surface bone cluster as defined above, associated with other material, either in situ or on the surface</description></term>
+				<term>{bothAndOth}<description>In situ and surface bone cluster as defined above, associated with other material, either in situ or on the surface</description></term>
 			</lookup>
 		</property>
 		<property name="Insitu Proportion" type="vocab">
-			<description>Description TBD</description>
+			<description>Select the proportion of visible bone that remains in situ:</description>
 			<lookup>
-				<term>most</term>
-				<term>some</term>
-				<term>surface</term>
-				<term>recement</term>
-				<term>ambiguous</term>
+				<term>most<description>The majority of the visible bone is in situ</description></term>
+				<term>some<description>At least some of the bone is in situ</description></term>
+				<term>surface<description>No bone is embedded in sediment</description></term>
+				<term>recement<description>The bone appears to be in situ, but there is a high likelihood that it is actually cemented in redeposited sediment</description></term>
+				<term>ambiguous<description>The bone appears to be in situ, but it is impossible to say whether it is actually recemented</description></term>
 			</lookup>
 		</property>
 		<property name="Body Parts Identifed" type="vocab">
-			<description>Description TBD</description>
+			<description>Select those of the following that have been observed, both in situ and on the surface</description>
 			<lookup>
-				<term>fragsonly</term>
-				<term>{cranAndTooth}</term>
-				<term>{cranNoTooth}</term>
-				<term>limb</term>
-				<term>cranlimb</term>
-				<term>axial</term>
-				<term>axiallimb</term>
-				<term>axialcran</term>
-				<term>allparts</term>
-				<term>otol</term>
-				<term>otolfrag</term>
-				<term>otolcran</term>
-				<term>otolaxial</term>
-				<term>glith</term>
-				<term>exoskel</term>
+				<term>fragsonly<description>Only unidentifiable fragments present</description></term>
+				<term>{cranAndTooth}<description>Cranial elements, including jaw, with teeth</description></term>
+				<term>{cranNoTooth}<description>Cranial elements, including jaw, without teeth</description></term>
+				<term>limb<description>Limb bones</description></term>
+				<term>cranlimb<description>Cranial and limb bones</description></term>
+				<term>axial<description>Axial elements</description></term>
+				<term>axiallimb<description>Axial and limb bones</description></term>
+				<term>axialcran<description>Axial and cranial bones</description></term>
+				<term>allparts<description>Some elements of each of cranial, limb and axial bones</description></term>
+				<term>otol<description>Fish otoliths</description></term>
+				<term>otolfrag<description>Fish otolith and other bone fragments</description></term>
+				<term>otolcran<description>Fish otolith and cranial bones</description></term>
+				<term>otolaxial<description>Fish otoliths and axial bones</description></term>
+				<term>glith<description>Gastroliths</description></term>
+				<term>exoskel<description>Exoskeleton</description></term>
 			</lookup>
 		</property>
 		<property name="Taxon Identified" type="vocab">
-			<description>Description TBD</description>
+			<description>Select those of the following that can be identified:</description>
 			<lookup>
-				<term>unident</term>
-				<term>macropod</term>
-				<term>bettong</term>
-				<term>wombat</term>
-				<term>smallmars</term>
-				<term>carnivore</term>
-				<term>emu</term>
-				<term>otherbird</term>
-				<term>reptile</term>
-				<term>fish</term>
-				<term>crustac</term>
-				<term>undiag</term>
-				<term>mega</term>
+				<term>unident<description>The taxon cannot be identified by the recorder</description></term>
+				<term>macropod<description>e.g. Western Grey, Eastern Grey, Red Kangaroo</description></term>
+				<term>bettong<description></description></term>
+				<term>wombat<description></description></term>
+				<term>smallmars<description>Small marsupial</description></term>
+				<term>carnivore<description>e.g. Thylacine, Tasmanian Devil</description></term>
+				<term>emu<description></description></term>
+				<term>otherbird<description>Bird other than emu (swan, duck, etc)</description></term>
+				<term>reptile<description></description></term>
+				<term>fish<description>e.g. Murray Cod, Golden Perch</description></term>
+				<term>crustac<description>Crustacean</description></term>
+				<term>undiag<description>The bone is undiagnostic of taxon</description></term>
+				<term>mega<description>Megafauna</description></term>
 			</lookup>
 		</property>
 		<property name="Bone Preservation" type="vocab">
-			<description>Description TBD</description>
+			<description>Select those types of modification that are common on the Good preservation visible bone:</description>
 			<lookup>
-				<term>good</term>
-				<term>weathpost</term>
-				<term>weathpre</term>
-				<term>fragged</term>
-				<term>soft</term>
-				<term>stained</term>
-				<term>postsoft</term>
-				<term>poststain</term>
-				<term>prefrag</term>
-				<term>prestain</term>
-				<term>fragstain</term>
-				<term>softstain</term>
+				<term>good<description>Good preservation</description></term>
+				<term>weathpost<description>Signs of post-exposure weathering and/or breakage</description></term>
+				<term>weathpre<description>Clear signs of weathering prior to burial</description></term>
+				<term>fragged<description>Highly fragmented</description></term>
+				<term>soft<description>Soft and friable</description></term>
+				<term>stained<description>Mineral staining</description></term>
+				<term>postsoft<description>Post-exposure weathering and/or breakage and soft and friable</description></term>
+				<term>poststain<description>Post-exposure weathering and/or breakage and mineral staining</description></term>
+				<term>prefrag<description>Pre-burial weathering and highly fragmented</description></term>
+				<term>prestain<description>Pre-burial weathering and mineral staining</description></term>
+				<term>fragstain<description>Highly fragmented and mineral staining</description></term>
+				<term>softstain<description>Soft and friable and mineral staining</description></term>
 			</lookup>
 		</property>
 		<property name="Deliberate Surface Modification" type="vocab">
-			<description>Description TBD</description>
+			<description>Select those types of deliberate modification that occur in any proportion on the visible bone:</description>
 			<lookup>
-				<term>none</term>
-				<term>burned</term>
-				<term>toothmarks</term>
-				<term>cutmarks</term>
-				<term>impacted</term>
-				<term>burncut</term>
-				<term>burnimpact</term>
-				<term>indet</term>
+				<term>none<description>No surface modification</description></term>
+				<term>burned<description>Charred or calcined</description></term>
+				<term>toothmarks<description>Toothmarks or gnaw marks</description></term>
+				<term>cutmarks<description>Stone tool-inflicted cut marks</description></term>
+				<term>impacted<description>Percussion fractures</description></term>
+				<term>burncut<description>Charred or calcined and cut</description></term>
+				<term>burnimpact<description>Charred or calcined and percussion fractures</description></term>
+				<term>indet<description>Bone surface poorly preserved or too fragmented or covered with calcium carbonate</description></term>
 			</lookup>
 		</property>
 		<property name="Associated in situ material" type="vocab">
-			<description>Description TBD</description>
+			<description>If material other than old bone is associated, select those of the following that have been observed in situ</description>
 			<lookup>
-				<term>mussel</term>
-				<term>hs</term>
-				<term>eggshell</term>
-				<term>artefacts</term>
-				<term>otherwork</term>
+				<term>mussel<description>Mussel shell or shell fragment</description></term>
+				<term>hs<description>Hearthstones or charcoal</description></term>
+				<term>eggshell<description>Emu, Genyornis or other eggshell</description></term>
+				<term>artefacts<description>Chipped, unmodified or ground stone</description></term>
+				<term>otherwork<description>Other worked or transported material</description></term>
 			</lookup>
 		</property>
 		<property name="Associated surface material" type="vocab">
-			<description>Description TBD</description>
+			<description>If material other than old bone is associated, select those of the following that have been observed on the surface</description>
 			<lookup>
-				<term>mussel</term>
-				<term>hs</term>
-				<term>eggshell</term>
-				<term>artefacts</term>
-				<term>otherwork</term>
+				<term>mussel<description>Mussel shell or shell fragment</description></term>
+				<term>hs<description>Hearthstones or charcoal</description></term>
+				<term>eggshell<description>Emu, Genyornis or other eggshell</description></term>
+				<term>artefacts<description>Chipped, unmodified or ground stone</description></term>
+				<term>otherwork<description>Other worked or transported material</description></term>
 			</lookup>
 		</property>
 		<property name="Topographic Setting" type="vocab">
-			<description>Description TBD</description>
+			<description>Where on the lunette exposure is the old bone located?</description>
 			<lookup>
-				<term pictureURL="data/pictures/foo.jpg">{less6Degree}</term>
-				<term pictureURL="data/pictures/foo.jpg">{6To12Degree}</term>
-				<term pictureURL="data/pictures/foo.jpg">{greater12Degree}</term>
-				<term pictureURL="data/pictures/foo.jpg">shallrill</term>
-				<term pictureURL="data/pictures/foo.jpg">rillfloor</term>
-				<term pictureURL="data/pictures/foo.jpg">rillwall</term>
-				<term pictureURL="data/pictures/foo.jpg">ridge</term>
-				<term pictureURL="data/pictures/foo.jpg">ridgerill</term>
-				<term pictureURL="data/pictures/foo.jpg">shalgulfl</term>
-				<term pictureURL="data/pictures/foo.jpg">shalgulwal</term>
-				<term pictureURL="data/pictures/foo.jpg">deepgulfl</term>
-				<term pictureURL="data/pictures/foo.jpg">deepgulwal</term>
-				<term pictureURL="data/pictures/foo.jpg">residtop</term>
-				<term pictureURL="data/pictures/foo.jpg">residside</term>
-				<term pictureURL="data/pictures/foo.jpg">chanfloor</term>
-				<term pictureURL="data/pictures/foo.jpg">chanwall</term>
+				<term pictureURL="data/pictures/foo.jpg">{platform}<description>Broad, flat platform exposure</description></term>
+				<term pictureURL="data/pictures/foo.jpg">{less6Degree}<description>Slightly sloping surface</description></term>
+				<term pictureURL="data/pictures/foo.jpg">{6To12Degree}<description>Moderately sloping surface</description></term>
+				<term pictureURL="data/pictures/foo.jpg">{greater12Degree}<description>More steeply sloping surface</description></term>
+				<term pictureURL="data/pictures/foo.jpg">shallrill<description>Within a shallow rill</description></term>
+				<term pictureURL="data/pictures/foo.jpg">rillfloor<description>In the floor of a deep rill (strong, vertical rilling in clay-rich sediments)</description></term>
+				<term pictureURL="data/pictures/foo.jpg">rillwall<description>In the wall of a deep rill (strong, vertical rilling in clay-rich sediments)</description></term>
+				<term pictureURL="data/pictures/foo.jpg">ridge<description>On a narrow ridge in heavily eroded area</description></term>
+				<term pictureURL="data/pictures/foo.jpg">ridgerill<description>Feature in a heavily eroded area is cut by deep rills and straddles rill wall and rill flow</description></term>
+				<term pictureURL="data/pictures/foo.jpg">shalgulfl<description>In the floor of a gully less than 1.5m wide or deep</description></term>
+				<term pictureURL="data/pictures/foo.jpg">shalgulwal<description>In the wall of a gully less than 1.5m wide or deep</description></term>
+				<term pictureURL="data/pictures/foo.jpg">deepgulfl<description>In the floor of a gully greater than 1.5m wide and deep</description></term>
+				<term pictureURL="data/pictures/foo.jpg">deepgulwal<description>In the wall of a gully greater than 1.5m wide and deep</description></term>
+				<term pictureURL="data/pictures/foo.jpg">residtop<description>Flat surface on top of a residual</description></term>
+				<term pictureURL="data/pictures/foo.jpg">residside<description>In the side of a residual</description></term>
+				<term pictureURL="data/pictures/foo.jpg">chanfloor<description>In the floor of a modern outwash channel</description></term>
+				<term pictureURL="data/pictures/foo.jpg">chanwall<description>In the wall of a modern outwash channel</description></term>
 			</lookup>
 		</property>
 		<property name="Sediment Type" type="vocab">
-			<description>Description TBD</description>
+			<description>What are the sediments that encase the old bone, or upon which they are immediately lying?</description>
 			<lookup>
-				<term pictureURL="data/pictures/foo.jpg">redsoil</term>
-				<term pictureURL="data/pictures/foo.jpg">brownsoil</term>
-				<term pictureURL="data/pictures/foo.jpg">redsand</term>
-				<term pictureURL="data/pictures/foo.jpg">brownsand</term>
-				<term pictureURL="data/pictures/foo.jpg">whitesand</term>
-				<term pictureURL="data/pictures/foo.jpg">othersand</term>
-				<term pictureURL="data/pictures/foo.jpg">greenclay</term>
-				<term pictureURL="data/pictures/foo.jpg">otherclay</term>
-				<term pictureURL="data/pictures/foo.jpg">sandyclay</term>
-				<term pictureURL="data/pictures/foo.jpg">alternat</term>
-				<term pictureURL="data/pictures/foo.jpg">claylens</term>
-				<term pictureURL="data/pictures/foo.jpg">sandlens</term>
-				<term pictureURL="data/pictures/foo.jpg">cobble</term>
-				<term pictureURL="data/pictures/foo.jpg">gglag</term>
-				<term pictureURL="data/pictures/foo.jpg">carblag</term>
-				<term pictureURL="data/pictures/foo.jpg">ggC</term>
-				<term pictureURL="data/pictures/foo.jpg">Chorizon</term>
-				<term pictureURL="data/pictures/foo.jpg">carbsoft</term>
-				<term pictureURL="data/pictures/foo.jpg">carbpavemt</term>
-				<term pictureURL="data/pictures/foo.jpg">carbrework</term>
+				<term pictureURL="data/pictures/foo.jpg">redsoil<description>Soil of a reddish colour</description></term>
+				<term pictureURL="data/pictures/foo.jpg">brownsoil<description>Soil of a brownish colour</description></term>
+				<term pictureURL="data/pictures/foo.jpg">redsand<description>Sandy sediments of a reddish colour</description></term>
+				<term pictureURL="data/pictures/foo.jpg">brownsand<description>Sandy sediments of a brownish colour</description></term>
+				<term pictureURL="data/pictures/foo.jpg">whitesand<description>Sandy sediments that are clean and whitish</description></term>
+				<term pictureURL="data/pictures/foo.jpg">othersand<description>Sandy sediments of another colour</description></term>
+				<term pictureURL="data/pictures/foo.jpg">greenclay<description>Clay sediments of a greenish colour</description></term>
+				<term pictureURL="data/pictures/foo.jpg">otherclay<description>Clay sediments of another colour (usually brown)</description></term>
+				<term pictureURL="data/pictures/foo.jpg">sandyclay<description>Sandy clay</description></term>
+				<term pictureURL="data/pictures/foo.jpg">alternat<description>Alternating layers of sand and clay</description></term>
+				<term pictureURL="data/pictures/foo.jpg">claylens<description>Distinct clay lens within other sediments</description></term>
+				<term pictureURL="data/pictures/foo.jpg">sandlens<description>Distinct sand lens within other sediments</description></term>
+				<term pictureURL="data/pictures/foo.jpg">cobble<description>A relatively continuous bed of cobbles or coarse gravel</description></term>
+				<term pictureURL="data/pictures/foo.jpg">gglag<description>A surface lag of carbonate derived from Golgol sediments</description></term>
+				<term pictureURL="data/pictures/foo.jpg">carblag<description>Any other surface lag of hard carbonate nodules</description></term>
+				<term pictureURL="data/pictures/foo.jpg">ggC<description>In situ soil carbonate (C-horizon) associated with Golgol sediments</description></term>
+				<term pictureURL="data/pictures/foo.jpg">Chorizon<description>In situ nodular soil carbonate in any other sediment</description></term>
+				<term pictureURL="data/pictures/foo.jpg">carbsoft<description>In situ soil carbonate in a diffuse horizon</description></term>
+				<term pictureURL="data/pictures/foo.jpg">carbpavemt<description>Well developed in situ soil carbonate forming a pavement</description></term>
+				<term pictureURL="data/pictures/foo.jpg">carbrework<description>A carbonate lag that has been reworked and reburied</description></term>
 			</lookup>
 		</property>
 		<property name="Vulnerability To Erosion" type="vocab">
-			<description>Description TBD</description>
+			<description>Based on the cluster type and its topographic setting, how vulnerable is the old bone?</description>
 			<lookup>
-				<term pictureURL="data/pictures/foo.jpg">low</term>
-				<term pictureURL="data/pictures/foo.jpg">moderate</term>
-				<term pictureURL="data/pictures/foo.jpg">high</term>
-				<term pictureURL="data/pictures/foo.jpg">extreme</term>
+				<term pictureURL="data/pictures/foo.jpg">low<description>On a relatively stable, flat surface or gentle slope that is not being eroded by rills, in well cemented (firm) sediment</description></term>
+				<term pictureURL="data/pictures/foo.jpg">moderate<description>Wider area is being eaten away by ongoing erosion, e.g. near edge of platform exposure, gully head, expanding rill system</description></term>
+				<term pictureURL="data/pictures/foo.jpg">high<description>High probability of material being removed by erosion, or of the hearth losing its integrity, e.g. relatively steep slope with incipient rills and/or in loose sandy sediment</description></term>
+				<term pictureURL="data/pictures/foo.jpg">extreme<description>Hearth material is in imminent danger of rapid removal and loss, e.g. edge of eroding residual or deep rill, in gully wall, on a steep slope- washed surface, or in loose sandy sediment</description></term>
 			</lookup>
 		</property>
 		<property name="Palaeotopographic Setting" type="vocab">
-			<description>Description TBD</description>
+			<description>Where is the old bone cluster located in relation to the original dune morphology?</description>
 			<lookup>
-				<term pictureURL="data/pictures/foo.jpg">foredune</term>
-				<term pictureURL="data/pictures/foo.jpg">backdune</term>
-				<term pictureURL="data/pictures/foo.jpg">beach</term>
-				<term pictureURL="data/pictures/foo.jpg">lakebed</term>
-				<term pictureURL="data/pictures/foo.jpg">crest</term>
-				<term pictureURL="data/pictures/foo.jpg">spit</term>
-				<term pictureURL="data/pictures/foo.jpg">indet</term>
+				<term pictureURL="data/pictures/foo.jpg">foredune<description>Stratigraphic layers are sloping towards the lakebed</description></term>
+				<term pictureURL="data/pictures/foo.jpg">backdune<description>Stratigraphic layers are sloping towards the hinterland</description></term>
+				<term pictureURL="data/pictures/foo.jpg">beach<description>An area of rounded cobbles or gravels in distinct horizon</description></term>
+				<term pictureURL="data/pictures/foo.jpg">lakebed<description>Lakebed sediments</description></term>
+				<term pictureURL="data/pictures/foo.jpg">crest<description>Crest of dune, stratigraphic layers slope away, towards both lakebed and hinterland</description></term>
+				<term pictureURL="data/pictures/foo.jpg">spit<description>Projection from dune into lakebed</description></term>
+				<term pictureURL="data/pictures/foo.jpg">indet<description>Indeterminate</description></term>
 			</lookup>
 		</property>
 		<property name="Photos" type="file" file="true" thumbnail="true">
       <description>Description TBD</description>
     </property>
     <property name="Notes" type="measure">
-    	<description>Description TBD</description>
+    	<description>Any additional information worth noting that has not been covered by the recording</description>
     </property>
   </ArchaeologicalElement>
 
 	<ArchaeologicalElement name="Associated Materials">
 		<description>A material associated with a feature cluster</description>
 		<property name="Associated Hearth Material" type="vocab">
+			<description>If hearthstone material is associated, either in situ or on the surface, select those of the following that have been observed:</description>
 			<lookup>
-				<term>clay</term>
-				<term>carb</term>
-				<term>term</term>
-				<term>other</term>
-				<term>charcoal</term>
-				<term>indet</term>
+				<term>clay<description>Baked clay or sandy clay hearthstones</description></term>
+				<term>carb<description>Carbonate hearthstones</description></term>
+				<term>term<description>Termite nest hearthstones (holes and channels visible)</description></term>
+				<term>other<description>Hearthstones of other material, e.g. stone</description></term>
+				<term>charcoal<description>Charcoal</description></term>
+				<term>indet<description>Hearthstones of indeterminate raw material</description></term>
 			</lookup>
 		</property>
 		<property name="Associated Eggshell" type="vocab">
+			<description>If eggshell is associated, either in situ or on the surface, select those of the following that have been observed:</description>
 			<lookup>
-				<term>emu</term>
-				<term>genyo</term>
-				<term>term</term>
-				<term>other</term>
-				<term>indet</term>
+				<term>emu<description>Emu eggshell</description></term>
+				<term>genyo<description>Genyornis eggshell</description></term>
+				<term>other<description>Other eggshell, clearly not emu or Genyornis</description></term>
+				<term>indet<description>Indeterminate eggshell, features unclear due to surface modification</description></term>
 			</lookup>
 		</property>
 		<property name="Associated Stone Artefacts" type="vocab">
+			<description>If stone artefacts are associated, either in situ or on the surface, select those of the following that have been observed</description>
 			<lookup>
-				<term>cs</term>
-				<term>um</term>
-				<term>ground</term>
+				<term>cs<description>Chipped stone</description></term>
+				<term>um<description>Unmodified stone</description></term>
+				<term>ground<description>Ground stone</description></term>
 			</lookup>
 		</property>
 		<property name="Associated Chipped Stone Artefacts" type="vocab">
+			<description>If chipped stone is present, either in situ or on the surface, select those of the following that have been observed:</description>
 			<lookup>
-				<term>ru</term>
-				<term>co</term>
-				<term>deb</term>
-				<term>hammer</term>
-				<term>indet</term>
+				<term>ru<description>Retouched/utilised artefact</description></term>
+				<term>co<description>Core</description></term>
+				<term>deb<description>Flaking debris, including whole flakes, broken flakes and angular fragments</description></term>
+				<term>hammer<description>Hammerstone</description></term>
+				<term>indet<description>Indeterminate</description></term>
 			</lookup>
 		</property>
 		<property name="Associated Retouched Artefacts" type="vocab">
+			<description></description>
 			<lookup>
-				<term>notch</term>
-				<term>scraper</term>
-				<term>backed</term>
-				<term>unifpt</term>
-				<term>bifac</term>
-				<term>otherru</term>
+				<term>notch<description>Notched artefact</description></term>
+				<term>scraper<description>Other type of scraper</description></term>
+				<term>backed<description>Backed artefact</description></term>
+				<term>unifpt<description>Unifacial point</description></term>
+				<term>bifac<description>Bifacially flaked artefact</description></term>
+				<term>otherru<description>Any other type of retouch or use-wear</description></term>
 			</lookup>
 		</property>
 		<property name="Associated Unmodified Stone" type="vocab">
+			<description>If unmodified stone is associated, either in situ or on the surface, select those of the following that have been observed:</description>
 			<lookup>
-				<term>nodule</term>
-				<term>slab</term>
-				<term>pebble</term>
-				<term>indet</term>
+				<term>nodule<description>Nodular or rounded cobble</description></term>
+				<term>slab<description>Angular piece</description></term>
+				<term>pebble<description>Small nodular or rounded piece, unlikely to be useful for artefact manufacture</description></term>
+				<term>indet<description>Indeterminate unmodified stone</description></term>
 			</lookup>
 		</property>
 		<property name="Ground Stone Types Present" type="vocab">
+			<description>If ground stone is associated, either in situ or on the surface, select those of the following that have been observed:</description>
 			<lookup>
-				<term>millstone</term>
-				<term>muller</term>
-				<term>mortar</term>
-				<term>pestle</term>
-				<term>grooved</term>
-				<term>amorph</term>
-				<term>undiag</term>
+				<term>millstone<description>Large, concave to flattish ground surface</description></term>
+				<term>muller<description>Convex surface with facet from back and forth motion</description></term>
+				<term>mortar<description>A circular or oval basin</description></term>
+				<term>pestle<description>A cobble with convex or flattish ground end</description></term>
+				<term>grooved<description>Single or multiple grooves</description></term>
+				<term>amorph<description>Poorly defined, or small, discontinuous ground surface, not matching any of the above</description></term>
+				<term>undiag<description>Fragmentary, not complete enough to distinguish nature of ground surface</description></term>
 			</lookup>
 		</property>
 		<property name="Ground Stone Status" type="vocab">
+			<description>If ground stone is associated, either in situ or on the surface, is the ground material...:</description>
 			<lookup>
-				<term>whole</term>
-				<term>fragment</term>
+				<term>whole<description></description></term>
+				<term>fragment<description></description></term>
 			</lookup>
 		</property>
 		<property name="Raw Material Types Present" type="vocab">
+			<description>If stone artefacts are associated, either in situ or on the surface, select those types of raw material that have been observed:</description>
 			<lookup>
-				<term>silcfine</term>
-				<term>silccoarse</term>
-				<term>silcgran</term>
-				<term>qtzite</term>
-				<term>qtz</term>
-				<term>ironst</term>
-				<term>sandst</term>
-				<term>other</term>
+				<term>silcfine<description>Fine-grained silcrete</description></term>
+				<term>silccoarse<description>Coarse-grained silcrete</description></term>
+				<term>silcgran<description>Granular silcrete</description></term>
+				<term>qtzite<description>Quartzite</description></term>
+				<term>qtz<description>Quartz</description></term>
+				<term>ironst<description>Ironstone</description></term>
+				<term>sandst<description>Sandstone</description></term>
+				<term>other<description>Other material</description></term>
 			</lookup>
 		</property>
 		<property name="Associated Other Worked Material" type="vocab">
+			<description>If other worked or transported material is associated, either in situ or on the surface, select those of the following that have been observed:</description>
 			<lookup>
-				<term>bone</term>
-				<term>shell</term>
-				<term>ochre</term>
-				<term>facetochre</term>
-				<term>qtzxtal</term>
+				<term>bone<description>Worked bone</description></term>
+				<term>shell<description>Worked shell</description></term>
+				<term>ochre<description>Unworked ochre</description></term>
+				<term>facetochre<description>Facetted ochre</description></term>
+				<term>qtzxtal<description>Unworked quartz crystal</description></term>
 			</lookup>
 		</property>
 	</ArchaeologicalElement>
@@ -307,12 +317,12 @@
       <description>Description TBD</description>
     </property>
     <property name="Photos Taken" type="vocab">
-			<description>Description TBD</description>
+			<description>What type of photos have been or will be taken?</description>
 			<lookup>
-				<term>general</term>
-				<term>both</term>
-				<term>frame</term>
-				<term>none</term>
+				<term>general<description>Only general artefact and setting photos taken</description></term>
+				<term>both<description>Both frame and general photos taken</description></term>
+				<term>frame<description>Only frame photos taken</description></term>
+				<term>none<description>No photos</description></term>
 			</lookup>
 		</property>
   </ArchaeologicalElement>
