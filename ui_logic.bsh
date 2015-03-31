@@ -114,12 +114,15 @@ makeVocab(String type, String path, String attrib) {
   makeVocab(type, path, attrib, null);
 }
 
-/** Makes a dynamic vocab and populates it using a data_schema vocab, with a callbackFunction to execute after creating the dynamic view. **/
-makeDynamicVocab(String type, String path, String attrib, String label, String callbackFunction) {
+/** Makes a dynamic vocab nested in the specified and populates it using a data_schema vocab, with a callbackFunction to execute after creating the dynamic view. **/
+makeDynamicVocab(String type, String path, String attrib, String label, String callbackFunction, String container) {
   viewDef = createViewDef();
   if (type.equals("CheckBoxGroup")) {
     viewDef.createCheckboxGroup();
+  } else if (type.equals("PictureGallery")) {
+    viewDef.createPictureGallery();
   } else {
+    Log.d("makeDynamicVocab()", "Error: invalid vocab type provided.");
     return;
   }
   
@@ -133,7 +136,11 @@ makeDynamicVocab(String type, String path, String attrib, String label, String c
       for (item : result) {
         viewDef.addChoice(item.get(1), item.get(0));
       }
-      createView(path, viewDef);
+      if (!isNull(container)) {
+        createView(path, viewDef, container);
+      } else {
+        createView(path, viewDef);
+      }
       if (callbackFunction != null && !isNull(callbackFunction)) {
         execute(callbackFunction);
       }
@@ -143,7 +150,10 @@ makeDynamicVocab(String type, String path, String attrib, String label, String c
 
 /** Makes a dynamic vocab and populates it using a data_schema vocab. **/
 makeDynamicVocab(String type, String path, String attrib, String label) {
-  makeDynamicVocab(type, path, attrib, label, null);
+  makeDynamicVocab(type, path, attrib, label, null, null);
+}
+makeDynamicVocab(String type, String path, String attrib, String label, String callbackFunction) {
+  makeDynamicVocab(type, path, attrib, label, callbackFunction, null);
 }
 
 
@@ -242,6 +252,8 @@ toggleAssociatedMaterials() {
   });
 }
 
+List cluserTypeVocab = new ArrayList();
+
 /** Hides the irrelevant cluster types depending on the cluster chosen. **/
 toggleClusterType(Boolean boneOnly) {
   List exclusions = new ArrayList();
@@ -258,6 +270,38 @@ toggleClusterType(Boolean boneOnly) {
 }
 
 onEvent("oldBone/basicIdentification/cluster", "click", "toggleAssociatedMaterials();");
+
+onEvent("oldBone/basicIdentification/clusterType", "click", "updateInsituProportion()");
+
+/** Displays the in situ proportion view when appropriate. **/
+updateInsituProportion() {
+  // clusterType = getFieldValue("oldBone/basicIdentification/clusterType");
+  selectedItem = getFieldValue("oldBone/basicIdentification/clusterType");
+  Boolean removeInsituProportion = true;
+  // for (selectedItem : clusterType) {
+    for (type : cluserTypeVocab) {
+      // if (selectedItem.getName().equals(type.get(0))) {
+      if (selectedItem.equals(type.get(0))) {
+        executeViewTask(new ViewTask() {
+          doTask() {
+            if (type.get(1).equals("{insitBO}") || type.get(1).equals("{insitAndSurf}") || type.get(1).equals("{inistAndOth}") || type.get(1).equals("{bothAndOth}")) {
+              if (!hasView("oldBone/insituAndSurfaceBone/insituProportion")) {
+                // makeDynamicVocab("CheckBoxGroup", "oldBone/insituAndSurfaceBone/insituProportion", "Cluster Type", "{insituProportion}", null, "oldBone/insituAndSurfaceBone/insituProportionContainer");
+                makeDynamicVocab("PictureGallery", "oldBone/insituAndSurfaceBone/insituProportion", "Cluster Type", "{insituProportion}", null, "oldBone/insituAndSurfaceBone/insituProportionContainer");
+              }
+              removeInsituProportion = false;
+            }
+          }
+        });
+      }
+    // }
+  }
+  if (removeInsituProportion) {
+    if (hasView("oldBone/insituAndSurfaceBone/insituProportion")) {
+      removeView("oldBone/insituAndSurfaceBone/insituProportion");
+    }
+  }
+}
 
 onEvent("oldBone/associatedMaterials/addInsituMaterial", "click", "recordAssocMaterial(true);");
 onEvent("oldBone/associatedMaterials/addSurfaceMaterial", "click", "recordAssocMaterial(false);");
@@ -487,6 +531,7 @@ init() {
   onEvent("oldBone", "load", "cancelTab(\"oldBone/associatedMaterials\", false);");
 
   // set the vocab globals
+  populateGlobalVocab("Cluster Type", cluserTypeVocab);
   populateGlobalVocab("Associated in situ material", associatedInsituMaterialVocab);
   populateGlobalVocab("Associated surface material", associatedSurfaceMaterialVocab); 
   populateGlobalVocab("Associated Stone Artefacts", associatedStoneArtefactsVocab); 

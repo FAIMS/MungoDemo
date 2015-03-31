@@ -30,11 +30,11 @@
 		<property name="Insitu Proportion" type="vocab">
 			<description>Select the proportion of visible bone that remains in situ:</description>
 			<lookup>
-				<term>most<description>The majority of the visible bone is in situ</description></term>
-				<term>some<description>At least some of the bone is in situ</description></term>
-				<term>surface<description>No bone is embedded in sediment</description></term>
-				<term>recement<description>The bone appears to be in situ, but there is a high likelihood that it is actually cemented in redeposited sediment</description></term>
-				<term>ambiguous<description>The bone appears to be in situ, but it is impossible to say whether it is actually recemented</description></term>
+				<term pictureURL="data/pictures/foo.jpg">most<description>The majority of the visible bone is in situ</description></term>
+				<term pictureURL="data/pictures/foo.jpg">some<description>At least some of the bone is in situ</description></term>
+				<term pictureURL="data/pictures/foo.jpg">surface<description>No bone is embedded in sediment</description></term>
+				<term pictureURL="data/pictures/foo.jpg">recement<description>The bone appears to be in situ, but there is a high likelihood that it is actually cemented in redeposited sediment</description></term>
+				<term pictureURL="data/pictures/foo.jpg">ambiguous<description>The bone appears to be in situ, but it is impossible to say whether it is actually recemented</description></term>
 			</lookup>
 		</property>
 		<property name="Body Parts Identifed" type="vocab">
