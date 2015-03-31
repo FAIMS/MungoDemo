@@ -241,14 +241,14 @@ recordAssocMaterial(Boolean insituMaterial) {
     Log.d("recordAssocMaterial()", "Error: no material type selected");
   } else {    
     // determine which assoc material was selected
-    for (item : selectedAssocMaterial) {
-      // value = item.getValue();
-      // name = item.getName();
+    for (selectedItem : selectedAssocMaterial) {
+      // value = selectedItem.getValue();
+      // name = selectedItem.getName();
       removeAllViewsAndContainers("associatedMaterials");
       showTabGroup("associatedMaterials");
       if (insituMaterial) {
         for (type : associatedInsituMaterialVocab) {
-          if (item.getName().equals(type.get(0))) {
+          if (selectedItem.getName().equals(type.get(0))) {
             executeViewTask(new ViewTask() {
               doTask() {
                 if (type.get(1).equals("mussel")) {
@@ -278,7 +278,7 @@ recordAssocMaterial(Boolean insituMaterial) {
         }
       } else {
         for (type : associatedSurfaceMaterialVocab) {
-          if (item.getName().equals(type.get(0))) {
+          if (selectedItem.getName().equals(type.get(0))) {
             if (type.get(1).equals("mussel")) {
               Log.d("recordAssocMaterial()", "surface mussel selected");
               showToast("Feature Unimplemented");
@@ -316,9 +316,9 @@ updateDynamicAssociatedStone() {
   Boolean removeGroundStone = true;
 
   // compare each selected artefact against the stone artefact vocab to determine which one(s) the user selected
-  for (item : assocStones) {
+  for (selectedItem : assocStones) {
     for (type : associatedStoneArtefactsVocab) {
-      if (item.getName().equals(type.get(0))) {
+      if (selectedItem.getName().equals(type.get(0))) {
         executeViewTask(new ViewTask() {
           doTask() {
             if (type.get(1).equals("cs")) {
@@ -375,9 +375,9 @@ updateDynamicAssociatedStone() {
 updateDynamicChippedStone() {
   chippedStone = getFieldValue("associatedMaterials/recordMaterial/chippedStoneArtefacts");
   Boolean removeRetouchedArtefacts = true;
-  for (item : chippedStone) {
+  for (selectedItem : chippedStone) {
     for (type : associatedChippedStoneVocab) {
-      if (item.getName().equals(type.get(0))) {
+      if (selectedItem.getName().equals(type.get(0))) {
         executeViewTask(new ViewTask(){
           doTask() {
             if (type.get(1).equals("ru")) {
