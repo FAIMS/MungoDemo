@@ -162,22 +162,6 @@ populateOldBoneAttributes() {
   makeVocab("CheckBoxGroup", "oldBone/associatedMaterials/associatedInsituMaterial", "Associated in situ material");
   makeVocab("CheckBoxGroup", "oldBone/associatedMaterials/associatedSurfaceMaterial", "Associated surface material");
 
-  // List insutuAssocMaterials = new ArrayList();
-  // insutuAssocMaterials.add(new NameValuePair("{mussel}", "mussel"));
-  // insutuAssocMaterials.add(new NameValuePair("{hs}", "hs"));
-  // insutuAssocMaterials.add(new NameValuePair("{eggshell}", "eggshell"));
-  // insutuAssocMaterials.add(new NameValuePair("{artefacts}", "artefacts"));
-  // insutuAssocMaterials.add(new NameValuePair("{otherwork}", "otherwork"));
-  // populateCheckBoxGroup("oldBone/associatedMaterials/associatedInsituMaterial", insutuAssocMaterials);
-  // List surfaceAssocMaterials = new ArrayList();
-  // surfaceAssocMaterials.add(new NameValuePair("{mussel}", "mussel"));
-  // surfaceAssocMaterials.add(new NameValuePair("{hs}", "hs"));
-  // surfaceAssocMaterials.add(new NameValuePair("{eggshell}", "eggshell"));
-  // surfaceAssocMaterials.add(new NameValuePair("{artefacts}", "artefacts"));
-  // surfaceAssocMaterials.add(new NameValuePair("{otherwork}", "otherwork"));
-  // populateCheckBoxGroup("oldBone/associatedMaterials/associatedSurfaceMaterial", surfaceAssocMaterials);
-
-
   fetchAll("select vocabid, vocabname, pictureurl from vocabulary left join attributekey using (attributeid) where attributename = 'Topographic Setting';", new FetchCallback() {
     onFetch(pictures) {
       populatePictureGallery("oldBone/topAndStratSetting/topographicSetting", pictures);
@@ -263,9 +247,9 @@ recordAssocMaterial(Boolean insituMaterial) {
       print("value:" + value);
       print("name:" + name);
       
+      removeAllViewsAndContainers("associatedMaterials");
+      showTabGroup("associatedMaterials");
       if (insituMaterial) {
-        removeAllViewsAndContainers("associatedMaterials");
-        showTabGroup("associatedMaterials");
         for (type : associatedInsituMaterialVocab) {
           if (name.equals(type.get(0))) {
             executeViewTask(new ViewTask() {
@@ -296,24 +280,23 @@ recordAssocMaterial(Boolean insituMaterial) {
           }
         }
       } else {
-        removeAllViewsAndContainers("associatedMaterials");
         for (type : associatedSurfaceMaterialVocab) {
           if (name.equals(type.get(0))) {
             if (type.get(1).equals("mussel")) {
               Log.d("recordAssocMaterial()", "surface mussel selected");
-
+              showToast("Feature Unimplemented");
             } else if(type.get(1).equals("hs")) {
               Log.d("recordAssocMaterial()", "surface hs selected");
-
+              showToast("Feature Unimplemented");
             } else if(type.get(1).equals("eggshell")) {
               Log.d("recordAssocMaterial()", "surface eggshell selected");
-
+              showToast("Feature Unimplemented");
             } else if(type.get(1).equals("artefacts")) {
               Log.d("recordAssocMaterial()", "surface artefacts selected");
-
+              showToast("Feature Unimplemented");
             } else if(type.get(1).equals("otherwork")) {
               Log.d("recordAssocMaterial()", "surface otherwork selected");
-
+              showToast("Feature Unimplemented");
             } else {
               Log.d("recordAssocMaterial()", "Error: no matched surface selected");
             }
@@ -326,23 +309,28 @@ recordAssocMaterial(Boolean insituMaterial) {
 }
 
 List associatedStoneArtefactsVocab = new ArrayList();
+List associatedChippedStoneVocab = new ArrayList();
 
 /** Detect and display the relevent associated stone artefact views. **/
 updateDynamicAssociatedStone() {
   assocStones = getFieldValue("associatedMaterials/recordMaterial/associatedStoneArtefacts");
   // compare each selected artefact against the stone artefact vocab to determine which one(s) the user selected
   for (item : assocStones) {
-    print("stone item selected: " + item);
     for (type : associatedStoneArtefactsVocab) {
       if (item.getName().equals(type.get(0))) {
         executeViewTask(new ViewTask() {
           doTask() {
             if (type.get(1).equals("cs")) {
               Log.d("updateDynamicAssociatedStone", "cs selected");
+              String callback = "onEvent(\"associatedMaterials/recordMaterial/chippedStoneArtefacts\", \"click\", \"updateDynamicChippedStone();\");";
+              makeDynamicVocab("CheckBoxGroup", "associatedMaterials/recordMaterial/chippedStoneArtefacts", "Associated Chipped Stone Artefacts", "{chippedStoneArtefacts}", callback);
             } else if (type.get(1).equals("um")) {
               Log.d("updateDynamicAssociatedStone", "um selected");
+              makeDynamicVocab("CheckBoxGroup", "associatedMaterials/recordMaterial/unmodifiedStone", "Associated Unmodified Stone", "{unmodifiedStone}");
             } else if (type.get(1).equals("ground")) {
               Log.d("updateDynamicAssociatedStone", "ground selected");
+              makeDynamicVocab("CheckBoxGroup", "associatedMaterials/recordMaterial/groundStoneType", "Ground Stone Types Present", "{groundStoneType}");
+              makeDynamicVocab("CheckBoxGroup", "associatedMaterials/recordMaterial/groundStoneStatus", "Ground Stone Status", "{groundStoneStatus}");
             } else {
               Log.d("updateDynamicAssociatedStone", "Error: no stone artefact selected");
             }
@@ -352,6 +340,33 @@ updateDynamicAssociatedStone() {
     }    
   }
 }
+
+/** Displays the associated retouched artefacts view for associated stone artefacts **/
+updateDynamicChippedStone() {
+  chippedStone = getFieldValue("associatedMaterials/recordMaterial/chippedStoneArtefacts");
+  Boolean removeRetouchedArtefacts = true;
+  for (item : chippedStone) {
+    for (type : associatedChippedStoneVocab) {
+      if (item.getName().equals(type.get(0))) {
+        executeViewTask(new ViewTask(){
+          doTask() {
+            if (type.get(1).equals("ru")) {
+              Log.d("updateDynamicChippedStone", "ru selected");
+              makeDynamicVocab("CheckBoxGroup", "associatedMaterials/recordMaterial/retouchedArtefacts", "Associated Retouched Artefacts", "{retouchedArtefacts}");
+              removeRetouchedArtefacts = false;
+            }
+          }
+        }); 
+      }
+    }
+  }
+  // if (removeRetouchedArtefacts) {
+  //   if (hasView("associatedMaterials/recordMaterial/retouchedArtefacts")) {
+  //     removeView("associatedMaterials/recordMaterial/retouchedArtefacts");
+  //   }
+  // }
+}
+
 /** Displays or hides the associated materials tabgroup depending on what cluster is selected. **/
 toggleAssociatedMaterials() {
   String boneAndOther = null;
@@ -374,6 +389,19 @@ toggleAssociatedMaterials() {
   });
 }
 
+/** Populates a global list variable with the contents of a specified vocabulary. **/
+populateGlobalVocab(String vocabName, List globalList) {
+  fetchAll("select vocabid, vocabname from vocabulary left join attributekey using (attributeid) where attributename = '" + vocabName + "';", new FetchCallback() {
+    onFetch(result) {
+      for (item : result) {
+        List temp = new ArrayList();
+        temp.add(item.get(0));
+        temp.add(item.get(1));
+        globalList.add(temp);
+      }
+    }
+  }); 
+}
 
 /** Module Initialisation **/
 init() {
@@ -388,39 +416,11 @@ init() {
   onEvent("oldBone", "load", "cancelTab(\"oldBone/associatedMaterials\", false);");
 
   // set the vocab globals
-  fetchAll("select vocabid, vocabname from vocabulary left join attributekey using (attributeid) where attributename = 'Associated in situ material';", new FetchCallback() {
-    onFetch(result) {
-      for (item : result) {
-        List temp = new ArrayList();
-        temp.add(item.get(0));
-        temp.add(item.get(1));
-        associatedInsituMaterialVocab.add(temp);
-      }
-    }
-  }); 
-  fetchAll("select vocabid, vocabname from vocabulary left join attributekey using (attributeid) where attributename = 'Associated surface material';", new FetchCallback() {
-    onFetch(result) {
-      for (item : result) {
-        List temp = new ArrayList();
-        temp.add(item.get(0));
-        temp.add(item.get(1));
-        associatedSurfaceMaterialVocab.add(temp);
-      }
-    }
-  }); 
-  fetchAll("select vocabid, vocabname from vocabulary left join attributekey using (attributeid) where attributename = 'Associated Stone Artefacts';", new FetchCallback() {
-    onFetch(result) {
-      for (item : result) {
-        List temp = new ArrayList();
-        temp.add(item.get(0));
-        temp.add(item.get(1));
-        associatedStoneArtefactsVocab.add(temp);
-      }
-    }
-  }); 
-  
-  print("associatedInsituMaterialVocab: " + associatedInsituMaterialVocab);
-  print("associatedSurfaceMaterialVocab: " + associatedSurfaceMaterialVocab);
+  populateGlobalVocab("Associated in situ material", associatedInsituMaterialVocab);
+  populateGlobalVocab("Associated surface material", associatedSurfaceMaterialVocab); 
+  populateGlobalVocab("Associated Stone Artefacts", associatedStoneArtefactsVocab); 
+  populateGlobalVocab("Associated Chipped Stone Artefacts", associatedChippedStoneVocab);
+
 }
 
 init();
