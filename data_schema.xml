@@ -195,6 +195,9 @@
 		<property name="Photos" type="file" file="true" thumbnail="true">
       <description>Description TBD</description>
     </property>
+    <property name="Notes" type="measure">
+    	<description>Description TBD</description>
+    </property>
   </ArchaeologicalElement>
 
 	<ArchaeologicalElement name="Associated Materials">

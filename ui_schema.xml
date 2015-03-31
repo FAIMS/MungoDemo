@@ -20,6 +20,11 @@
               <users/>
             </usertab>
           </user>
+          <control>
+            <control>
+              <newOldBone/>
+            </control>
+          </control>
           <oldBone>
             <basicIdentification>
               <idNumber/>
@@ -103,27 +108,36 @@
         </select1>
       </group>
     </group>
-    <group ref="oldBone">
+    <group ref="control">
+      <label>{control}</label>
+      <group ref="control">
+        <label>{control}</label>
+        <trigger ref="newOldBone">
+          <label>{newOldBone}</label>
+        </trigger>
+      </group>
+    </group>
+    <group ref="oldBone" faims_archent_type="Old Bone">
       <label>{oldBone}</label>
       <group ref="basicIdentification">
         <label>{basicIdentification}</label>
-        <input ref="idNumber" faims_certainty="false" faims_annotation="false" faims_read_only="false">
+        <input ref="idNumber" faims_attribute_name="ID Number" faims_attribute_type="measure" faims_certainty="false" faims_annotation="false" faims_read_only="false">
           <label>{idNumber}</label>
         </input>
-        <input ref="gridSquare" faims_certainty="false" faims_annotation="false" faims_read_only="false">
+        <input ref="gridSquare" faims_attribute_name="Grid Square" faims_attribute_type="measure"  faims_certainty="false" faims_annotation="false" faims_read_only="false">
           <label>{gridSquare}</label>
         </input>
         <trigger ref="calculateGridSquare">
           <label>{calculateGridSquare}</label>
         </trigger>
-        <select1 ref="cluster" appearance="full">
+        <select1 ref="cluster" faims_attribute_name="Cluster" faims_attribute_type="vocab" appearance="full">
           <label>{cluster}</label>
           <item>
             <label>placeholder</label>
             <value>placeholder</value>
           </item>
         </select1>
-        <select1 ref="clusterType" appearance="full">
+        <select1 ref="clusterType" faims_attribute_name="Cluster Type" faims_attribute_type="vocab" appearance="full">
           <label>{clusterType}</label>
           <item>
             <label>placeholder</label>
@@ -136,28 +150,28 @@
         <group ref="insituProportionContainer" faims_style="orientation">
           <label></label>
         </group>
-        <select ref="bodyPartsIdentified">
+        <select ref="bodyPartsIdentified" faims_attribute_name="Body Parts Identifed" faims_attribute_type="vocab">
           <label>{bodyPartsIdentified}</label>
           <item>
             <label>placeholder</label>
             <value>placeholder</value>
           </item>
         </select>
-        <select ref="taxonIdentified">
+        <select ref="taxonIdentified" faims_attribute_name="Taxon Identified" faims_attribute_type="vocab">
           <label>{taxonIdentified}</label>
           <item>
             <label>placeholder</label>
             <value>placeholder</value>
           </item>
         </select>
-        <select ref="bonePreservation">
+        <select ref="bonePreservation" faims_attribute_name="Bone Preservation" faims_attribute_type="vocab">
           <label>{bonePreservation}</label>
           <item>
             <label>placeholder</label>
             <value>placeholder</value>
           </item>
         </select>
-        <select ref="deliberateSurfaceModification">
+        <select ref="deliberateSurfaceModification" faims_attribute_name="Deliberate Surface Modification" faims_attribute_type="vocab">
           <label>{deliberateSurfaceModification}</label>
           <item>
             <label>placeholder</label>
@@ -167,7 +181,7 @@
       </group>
       <group ref="associatedMaterials">
         <label>{associatedMaterials}</label>
-        <select ref="associatedInsituMaterial">
+        <select ref="associatedInsituMaterial" faims_attribute_name="Associated in situ material" faims_attribute_type="vocab">
           <label>{associatedInsituMaterial}</label>
           <item>
             <label>placeholder</label>
@@ -184,7 +198,7 @@
             <value>placeholder</value>
           </item>
         </select1>
-        <select ref="associatedSurfaceMaterial">
+        <select ref="associatedSurfaceMaterial" faims_attribute_name="Associated surface material" faims_attribute_type="vocab">
           <label>{associatedSurfaceMaterial}</label>
           <item>
             <label>placeholder</label>
@@ -204,40 +218,41 @@
       </group>
       <group ref="topAndStratSetting">
         <label>{topAndStratSetting}</label>
-        <select1 ref="topographicSetting" type="image">
+        <select1 ref="topographicSetting" type="image" faims_attribute_name="Topographic Setting" faims_attribute_type="vocab">
           <label>{topographicSetting}</label>
           <item>
             <label>placeholder</label>
             <value>placeholder</value>
           </item>
         </select1>
-        <select1 ref="sedimentType" type="image">
+        <select1 ref="sedimentType" type="image" faims_attribute_name="Sediment Type" faims_attribute_type="vocab">
           <label>{sedimentType}</label>
           <item>
             <label>placeholder</label>
             <value>placeholder</value>
           </item>
         </select1>
-        <select1 ref="vulnerabilityToErosion" type="image">
+        <select1 ref="vulnerabilityToErosion" type="image" faims_attribute_name="Vulnerability To Erosion" faims_attribute_type="vocab">
           <label>{vulnerabilityToErosion}</label>
           <item>
             <label>placeholder</label>
             <value>placeholder</value>
           </item>
         </select1>
-        <select1 ref="paleotopographicSetting" type="image">
+        <select1 ref="paleotopographicSetting" type="image" faims_attribute_name="Palaeotopographic Setting" faims_attribute_type="vocab">
           <label>{paleotopographicSetting}</label>
           <item>
             <label>placeholder</label>
             <value>placeholder</value>
           </item>
         </select1>
-        <input ref="notes">
+        <input ref="notes" faims_attribute_name="Notes" faims_attribute_type="measure">
           <label>{notes}</label>
         </input>
       </group>
     </group>
-    <group ref="associatedMaterials">
+
+    <group ref="associatedMaterials" faims_archent_type="Associated Materials">
       <label>{associatedMaterials}</label>
       <group ref="recordMaterial">
         <label>{recordMaterial}</label>

@@ -55,7 +55,7 @@ login() {
             user = new User(result.get(0),result.get(1),result.get(2),result.get(3));
             setUser(user);
             username = result.get(1) + " " + result.get(2);
-            showTabGroup("oldBone");
+            showTabGroup("control");
         }
     });
 }
@@ -150,6 +150,42 @@ makeDynamicVocab(String type, String path, String attrib, String label) {
 /**************************/
 /** Editable Module Code **/
 /**************************/
+
+String entity_id = null;
+
+/** Saves the old bone entity. **/
+saveOldBone() {
+  enable_autosave = true;
+  saveTabGroup("oldBone", entity_id, null, null, new SaveCallback() {
+    onSave(uuid, newRecord) {
+      entity_id = uuid;
+      Log.d("saveOldBone()", "Old Bone record saved with id: " + entity_id);
+      if (newRecord) {
+        Log.d("saveOldBone", "New record created");
+      }
+    }
+    onError(message) {
+        showToast(message);
+    }  
+  }, enable_autosave);
+}
+
+onEvent("control/control/newOldBone", "delayclick", "newOldBone();");
+onEvent("oldBone", "show", "saveOldBone();");
+
+/** Creates a new old bone record. **/
+newOldBone() {
+  newTabGroup("oldBone");
+  fetchOne("select vocabid from vocabulary join attributekey using (attributeid) where attributename = 'Cluster' and vocabname = '{boneOnly}';", new FetchCallback() {
+    onFetch(result) {
+      setFieldValue("oldBone/basicIdentification/cluster", result.get(0)); // set the cluster field to be 'Bone Only'
+      toggleAssociatedMaterials();
+      entity_id = null;
+      keepTabGroupChanges("oldBone");
+      saveOldBone();
+    }
+  });
+}
 
 /** Populates the checkboxes, lists, ... for the Old Bone tabgroup using the vocabularies. **/
 populateOldBoneAttributes() {
@@ -354,6 +390,9 @@ updateDynamicAssociatedStone() {
   if (removeChippedStone) {
     if (hasView("associatedMaterials/recordMaterial/chippedStoneArtefacts")) {
       removeView("associatedMaterials/recordMaterial/chippedStoneArtefacts");
+      if (hasView("associatedMaterials/recordMaterial/retouchedArtefacts")) {
+        removeView("associatedMaterials/recordMaterial/retouchedArtefacts");
+      }
     }
   }
   if (removeUnmodifiedStone) {
