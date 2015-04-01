@@ -73,20 +73,27 @@
               </stoneContainer>
               <unworkedContainer/>
             </recordMaterial>
-              <!-- <eggshell> -->
-               <!--  <associatedEggshell/> -->
-              <!-- </eggshell> -->
-              <!-- <hearthMaterial> -->
-                <!-- <associatedHearthMaterial/> -->
-              <!-- </hearthMaterial> -->
-              <!-- <stoneArtefact> -->
-                <!-- <associatedStoneArtefacts/>
-                <stoneDynamicContainer/>
-                <rawMaterialTypesPresent/> -->
-              <!-- </stoneArtefact> -->
-              <!-- <otherWorked> -->
-                <!-- <associatedOtherWorked/> -->
-              <!-- </otherWorked> -->
+            <eggshell>
+              <!-- <associatedEggshell/> -->
+            </eggshell>
+            <hearthMaterial>
+              <!-- <associatedHearthMaterial/> -->
+            </hearthMaterial>
+            <stoneArtefact>
+              <stoneArtefactsContainer/>
+              <chippedStoneContainer/>
+              <retouchedStoneContainer/>
+              <unmodifiedStoneContainer/>
+              <groundStoneTypeContainer/>
+              <groundStoneStatusContainer/>
+              <rawStoneContainer/>
+              <!-- <associatedStoneArtefacts/>
+              <stoneDynamicContainer/>
+              <rawMaterialTypesPresent/> -->
+            </stoneArtefact>
+            <otherWorked>
+              <!-- <associatedOtherWorked/> -->
+            </otherWorked>
           </associatedMaterials>
         </faims>
       </instance>
@@ -303,8 +310,8 @@
           <label></label>
         </group>
       </group>
-      <!-- <group ref="eggshell">
-        <label>{eggshell}</label> -->
+      <group ref="eggshell">
+        <label>{eggshell}</label>
         <!-- <select ref="associatedEggshell" type="vocab">
           <label>{associatedEggshell}</label>
           <item>
@@ -312,9 +319,9 @@
             <value>placeholder</value>
           </item>
         </select> -->
-      <!-- </group>
+      </group>
       <group ref="hearthMaterial">
-        <label>{hearthMaterial}</label> -->
+        <label>{hearthMaterial}</label>
         <!-- <select ref="associatedHearthMaterial" type="vocab">
           <label>{associatedHearthMaterial}</label>
           <item>
@@ -322,9 +329,31 @@
             <value>placeholder</value>
           </item>
         </select> -->
-   <!--    </group>
+      </group>
       <group ref="stoneArtefact">
-        <label>{stoneArtefact}</label> -->
+        <label>{stoneArtefact}</label>
+          <group ref="stoneArtefactsContainer" faims_style="orientation">
+            <label></label>
+          </group>
+          <group ref="chippedStoneContainer" faims_style="orientation">
+            <label></label>
+          </group>
+          <group ref="retouchedStoneContainer" faims_style="orientation">
+            <label></label>
+          </group>
+          <group ref="unmodifiedStoneContainer" faims_style="orientation">
+            <label></label>
+          </group>
+          <group ref="groundStoneTypeContainer" faims_style="orientation">
+            <label></label>
+          </group>
+          <group ref="groundStoneStatusContainer" faims_style="orientation">
+            <label></label>
+          </group>
+          <group ref="rawStoneContainer" faims_style="orientation">
+            <label></label>
+          </group>
+        
         <!-- <select ref="associatedStoneArtefacts" type="vocab">
           <label>{associatedStoneArtefacts}</label>
           <item>
@@ -342,9 +371,9 @@
             <value>placeholder</value>
           </item>
         </select> -->
-      <!-- </group>
+      </group>
       <group ref="otherWorked">
-        <label>{otherWorked}</label> -->
+        <label>{otherWorked}</label>
         <!-- <select ref="associatedOtherWorked" type="vocab">
           <label>{associatedOtherWorked}</label>
           <item>
@@ -352,7 +381,7 @@
             <value>placeholder</value>
           </item>
         </select> -->
-      <!-- </group> -->
+      </group>
     </group>
   </h:body>
 </h:html>
