@@ -307,19 +307,20 @@ updateInsituProportion() {
   }
 }
 
-onEvent("oldBone/associatedMaterials/addInsituMaterial", "click", "recordAssocMaterial(true);");
-onEvent("oldBone/associatedMaterials/addSurfaceMaterial", "click", "recordAssocMaterial(false);");
+onEvent("oldBone/associatedMaterials/addInsituMaterial", "delayclick", "recordAssocMaterial(true);");
+onEvent("oldBone/associatedMaterials/addSurfaceMaterial", "delayclick", "recordAssocMaterial(false);");
 
 List associatedInsituMaterialVocab = new ArrayList();
 List associatedSurfaceMaterialVocab = new ArrayList();
 
+// globals required for use tab showing and cancelling in onShow function for associated materials.
+Boolean removeAssocHearth = true;
+Boolean removeAssocEggshell = true;
+Boolean removeAssocStone = true;
+Boolean removeAssocOther = true;
+
 /** Records the selected associated material(s). **/
 recordAssocMaterial(Boolean insituMaterial) {
-  Boolean removeAssocHearth = true;
-  Boolean removeAssocEggshell = true;
-  Boolean removeAssocStone = true;
-  Boolean removeAssocOther = true;
-
   selectedAssocMaterial = getFieldValue("oldBone/associatedMaterials/associatedInsituMaterial");
   if (!insituMaterial) {
     selectedAssocMaterial = getFieldValue("oldBone/associatedMaterials/associatedSurfaceMaterial");
@@ -328,14 +329,15 @@ recordAssocMaterial(Boolean insituMaterial) {
   
   if (selectedAssocMaterial == null || selectedAssocMaterial.isEmpty()) {
     Log.d("recordAssocMaterial()", "Error: no material type selected");
-  } else {    
+  } else {
+    removeAllViewsAndContainers("associatedMaterials");
+    // showTabGroup("associatedMaterials");
+     newTabGroup("associatedMaterials");    
+    
     // determine which assoc material was selected
     for (selectedItem : selectedAssocMaterial) {
       // value = selectedItem.getValue();
       // name = selectedItem.getName();
-      removeAllViewsAndContainers("associatedMaterials");
-      // showTabGroup("associatedMaterials");
-      newTabGroup("associatedMaterials");
       if (insituMaterial) {
         for (type : associatedInsituMaterialVocab) {
           if (selectedItem.getName().equals(type.get(0))) {
@@ -394,39 +396,50 @@ recordAssocMaterial(Boolean insituMaterial) {
           }
         }
       }
-      onEvent("associatedMaterials", "show", "onShowAssociatedMaterials("+removeAssocHearth+", "+removeAssocEggshell+", "+removeAssocStone+", "+removeAssocOther+");");
     }
   }
 }
+onEvent("associatedMaterials", "show", "onShowAssociatedMaterials();");
 
 /** Handles tab showing and closing for the associated materials tabgroup. **/
-onShowAssociatedMaterials(Boolean removeAssocHearth, Boolean removeAssocEggshell, Boolean removeAssocStone, Boolean removeAssocOther) {
+onShowAssociatedMaterials() {
   // remove unselected tabs
-  cancelTab("associatedMaterials/recordMaterial", false);
   if (removeAssocHearth) {
     cancelTab("associatedMaterials/hearthMaterial", false);
+    Log.d("onShowAssociatedMaterials()", "Cancelled associated hearth tab");
   } 
   if (removeAssocEggshell) {
     cancelTab("associatedMaterials/eggshell", false);
+    Log.d("onShowAssociatedMaterials()", "Cancelled associated eggshell tab");
   }
   if (removeAssocStone) {
     cancelTab("associatedMaterials/stoneArtefact", false);
+    Log.d("onShowAssociatedMaterials()", "Cancelled associated stone tab");
   }
   if (removeAssocOther) {
     cancelTab("associatedMaterials/otherWorked", false);
+    Log.d("onShowAssociatedMaterials()", "Cancelled associated other tab");
   } 
   // show the selected tabs  
   if (!removeAssocHearth) {
     showTab("associatedMaterials/hearthMaterial");
+    Log.d("onShowAssociatedMaterials()", "Showing associated hearth tab");
+    removeAssocHearth = true;
   }
   if (!removeAssocEggshell) {
     showTab("associatedMaterials/eggshell");
+    Log.d("onShowAssociatedMaterials()", "Showing associated eggshell tab");
+    removeAssocEggshell = true;
   } 
   if (!removeAssocStone) {
     showTab("associatedMaterials/stoneArtefact");
+    Log.d("onShowAssociatedMaterials()", "Showing associated stone tab");
+    removeAssocStone = true;
   } 
   if (!removeAssocOther) {
     showTab("associatedMaterials/otherWorked");
+    Log.d("onShowAssociatedMaterials()", "Showing associated other tab");
+    removeAssocOther = true;
   }
   
 }
