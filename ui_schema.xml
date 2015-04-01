@@ -59,7 +59,20 @@
             </topAndStratSetting>>
           </oldBone>
           <associatedMaterials>
-            <recordMaterial/>
+            <recordMaterial>
+              <hearthContainer/>
+              <eggshellContainer/>
+              <stoneContainer>
+                <stoneArtefactsContainer/>
+                <chippedStoneContainer/>
+                <retouchedStoneContainer/>
+                <unmodifiedStoneContainer/>
+                <groundStoneTypeContainer/>
+                <groundStoneStatusContainer/>
+                <rawStoneContainer/>
+              </stoneContainer>
+              <unworkedContainer/>
+            </recordMaterial>
               <!-- <eggshell> -->
                <!--  <associatedEggshell/> -->
               <!-- </eggshell> -->
@@ -256,6 +269,39 @@
       <label>{associatedMaterials}</label>
       <group ref="recordMaterial">
         <label>{recordMaterial}</label>
+        <group ref="hearthContainer" faims_style="orientation">
+          <label></label>
+        </group>
+        <group ref="eggshellContainer" faims_style="orientation">
+          <label></label>
+        </group>
+        <group ref="stoneContainer" faims_style="orientation">
+          <label></label>
+          <group ref="stoneArtefactsContainer" faims_style="orientation">
+            <label></label>
+          </group>
+          <group ref="chippedStoneContainer" faims_style="orientation">
+            <label></label>
+          </group>
+          <group ref="retouchedStoneContainer" faims_style="orientation">
+            <label></label>
+          </group>
+          <group ref="unmodifiedStoneContainer" faims_style="orientation">
+            <label></label>
+          </group>
+          <group ref="groundStoneTypeContainer" faims_style="orientation">
+            <label></label>
+          </group>
+          <group ref="groundStoneStatusContainer" faims_style="orientation">
+            <label></label>
+          </group>
+          <group ref="rawStoneContainer" faims_style="orientation">
+            <label></label>
+          </group>
+        </group>
+        <group ref="unworkedContainer" faims_style="orientation">
+          <label></label>
+        </group>
       </group>
       <!-- <group ref="eggshell">
         <label>{eggshell}</label> -->
