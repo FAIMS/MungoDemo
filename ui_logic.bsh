@@ -127,7 +127,9 @@ makeDynamicVocab(String type, String path, String attrib, String label, String c
   if (!isNull(label)) {
     viewDef.setLabel(label);
   }
-
+  String tabgroup = path.split("/")[0];
+  String tab = path.split("/")[1];
+  String view = path.split("/")[2];
   fetchAll("select vocabid, vocabname from vocabulary join attributekey using (attributeid) where attributename = '" + attrib + "' order by vocabcountorder;", new FetchCallback() {
     onFetch(result) {
       print ("Dynamic Vocab: " + result);
@@ -135,8 +137,10 @@ makeDynamicVocab(String type, String path, String attrib, String label, String c
         viewDef.addChoice(item.get(1), item.get(0));
       }
       if (!isNull(container)) {
+        Log.d("makeDynamicVocab()", "Creating dynamic view '" + view + "' in container '" + container + "'");
         createView(path, viewDef, container);
       } else {
+        Log.d("makeDynamicVocab()", "Creating dynamic view '" + view + "' in tab '" + tabgroup + "/" + tab + "'");
         createView(path, viewDef);
       }
       if (callbackFunction != null && !isNull(callbackFunction)) {
@@ -144,7 +148,6 @@ makeDynamicVocab(String type, String path, String attrib, String label, String c
       }
     }
   });
-  String tabgroup = path.split("/")[0];
   Log.d("makeDynamicVocab()", "Refreshing CSS for tabgroup: " + tabgroup);
   refreshTabgroupCSS(tabgroup);
 }

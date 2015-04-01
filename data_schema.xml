@@ -3,10 +3,10 @@
 
 	<ArchaeologicalElement name="Old Bone">
 		<description>An old bone cluster</description>
-		<property name="ID Number" type="measure">
+		<property name="ID Number" isIdentifier= "true" type="measure">
 			<description>Artefact identification code as marked on tag</description>
 		</property>
-		<property name="Grid Square" type="measure">
+		<property name="Grid Square" isIdentifier= "true" type="measure">
 			<description>Letter code as marked in south-west corner of square</description>
 		</property>
 		<property name="Cluster" type="vocab">
