@@ -169,7 +169,7 @@ String entity_id = null;
 
 /** Saves the old bone entity. **/
 saveOldBone() {
-  enable_autosave = false;
+  enable_autosave = true;
   saveTabGroup("oldBone", entity_id, null, null, new SaveCallback() {
     onSave(uuid, newRecord) {
       entity_id = uuid;
@@ -184,8 +184,24 @@ saveOldBone() {
   }, enable_autosave);
 }
 
-onEvent("control/control/newOldBone", "delayclick", "newOldBone();");
 onEvent("oldBone", "show", "saveOldBone();");
+onEvent("control/control/newEntity", "delayclick", "newFeature();");
+
+/* Loads a list view of existing entities. */
+loadSearch() {
+  String type = getFieldValue("control/search/entityTypes");
+  populateCursorList("control/search/entityList", "select uuid, response from latestNonDeletedArchEntFormattedIdentifiers where aenttypename like '%" + type + "%' limit ? offset ?;", 25);
+}
+onEvent("control/search/entityTypes", "click", "loadSearch();");
+onEvent("control/search", "show", "loadSearch();");
+
+/** Creates a record for the selected feature type. **/
+newFeature() {
+  String type = getFieldValue("control/control/entityTypes");
+  if (type.equals("oldBone")) {
+    newOldBone();
+  }
+}
 
 /** Creates a new old bone record. **/
 newOldBone() {
@@ -314,9 +330,11 @@ List associatedInsituMaterialVocab = new ArrayList();
 List associatedSurfaceMaterialVocab = new ArrayList();
 
 // globals required for use tab showing and cancelling in onShow function for associated materials.
+Boolean removeMussel = true;
 Boolean removeAssocHearth = true;
 Boolean removeAssocEggshell = true;
 Boolean removeAssocStone = true;
+Boolean removeOchre = true;
 Boolean removeAssocOther = true;
 
 /** Records the selected associated material(s). **/
@@ -345,8 +363,6 @@ recordAssocMaterial(Boolean insituMaterial) {
               doTask() {
                 if (type.get(1).equals("mussel")) {
                   Log.d("recordAssocMaterial()", "insitu mussel selected");
-                  cancelTabGroup("associatedMaterials", false);
-                  showTab("oldBone/associatedMaterials");
                 } else if(type.get(1).equals("hs")) {
                   Log.d("recordAssocMaterial()", "insitu hs selected");
                   makeDynamicVocab("CheckBoxGroup", "associatedMaterials/hearthMaterial/associatedHearthMaterial", "Associated Hearth Material", "{associatedHearthMaterial}", null, null);
@@ -361,6 +377,8 @@ recordAssocMaterial(Boolean insituMaterial) {
                   makeDynamicVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/associatedStoneArtefacts", "Associated Stone Artefacts", "{associatedStoneArtefacts}", callback, "associatedMaterials/stoneArtefact/stoneArtefactsContainer");
                   makeDynamicVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/rawMaterialTypesPresent", "Raw Material Types Present", "{rawMaterialTypesPresent}", null, "associatedMaterials/stoneArtefact/rawStoneContainer");
                   removeAssocStone = false;
+                } else if (type.get(1).equals("ochre")) {
+                  Log.d("recordAssocMaterial()", "insitu ochre selected");
                 } else if(type.get(1).equals("otherwork")) {
                   Log.d("recordAssocMaterial()", "insitu otherwork selected");
                   makeDynamicVocab("CheckBoxGroup", "associatedMaterials/otherWorked/associatedOtherWorked", "Associated Other Worked Material", "{associatedOtherWorked}", null, null);
@@ -387,6 +405,9 @@ recordAssocMaterial(Boolean insituMaterial) {
             } else if(type.get(1).equals("artefacts")) {
               Log.d("recordAssocMaterial()", "surface artefacts selected");
               showToast("Feature Unimplemented");
+            } else if (type.get(1).equals("ochre")) {
+              Log.d("recordAssocMaterial()", "surface ochre selected");
+              showToast("Feature Unimplemented");
             } else if(type.get(1).equals("otherwork")) {
               Log.d("recordAssocMaterial()", "surface otherwork selected");
               showToast("Feature Unimplemented");
@@ -403,45 +424,66 @@ onEvent("associatedMaterials", "show", "onShowAssociatedMaterials();");
 
 /** Handles tab showing and closing for the associated materials tabgroup. **/
 onShowAssociatedMaterials() {
-  // remove unselected tabs
-  if (removeAssocHearth) {
-    cancelTab("associatedMaterials/hearthMaterial", false);
-    Log.d("onShowAssociatedMaterials()", "Cancelled associated hearth tab");
-  } 
-  if (removeAssocEggshell) {
-    cancelTab("associatedMaterials/eggshell", false);
-    Log.d("onShowAssociatedMaterials()", "Cancelled associated eggshell tab");
+  /* if the mussel or ochre assoc material is selected (but no other material is also selected) then transition back to the oldBone/assocMaterial tab 
+    since there is no data to record for associated mussels and associated ochres. */
+  if ((removeMussel || removeOchre) && !(!removeAssocHearth || !removeAssocEggshell || !removeAssocStone || !removeAssocOther)) {
+    Log.d("onShowAssociatedMaterials()", "Cancelling the associated materials tabgroup");
+    cancelTabGroup("associatedMaterials", false);
+    showTab("oldBone/associatedMaterials");
+  } else {
+    // remove unselected tabs
+    if (removeAssocHearth) {
+      Log.d("onShowAssociatedMaterials()", "Cancelling associated hearth tab");
+      cancelTab("associatedMaterials/hearthMaterial", false);
+    } 
+    if (removeAssocEggshell) {
+      Log.d("onShowAssociatedMaterials()", "Cancelling associated eggshell tab");
+      cancelTab("associatedMaterials/eggshell", false);
+    }
+    if (removeAssocStone) {
+      Log.d("onShowAssociatedMaterials()", "Cancelling associated stone tab");
+      cancelTab("associatedMaterials/stoneArtefact", false);
+    }
+    if (removeAssocOther) {
+      Log.d("onShowAssociatedMaterials()", "Cancelling associated other tab");
+      cancelTab("associatedMaterials/otherWorked", false);
+    }
   }
-  if (removeAssocStone) {
-    cancelTab("associatedMaterials/stoneArtefact", false);
-    Log.d("onShowAssociatedMaterials()", "Cancelled associated stone tab");
-  }
-  if (removeAssocOther) {
-    cancelTab("associatedMaterials/otherWorked", false);
-    Log.d("onShowAssociatedMaterials()", "Cancelled associated other tab");
-  } 
+
   // show the selected tabs  
   if (!removeAssocHearth) {
-    showTab("associatedMaterials/hearthMaterial");
     Log.d("onShowAssociatedMaterials()", "Showing associated hearth tab");
+    showTab("associatedMaterials/hearthMaterial");
     removeAssocHearth = true;
   }
   if (!removeAssocEggshell) {
-    showTab("associatedMaterials/eggshell");
     Log.d("onShowAssociatedMaterials()", "Showing associated eggshell tab");
+    showTab("associatedMaterials/eggshell");
     removeAssocEggshell = true;
   } 
   if (!removeAssocStone) {
-    showTab("associatedMaterials/stoneArtefact");
     Log.d("onShowAssociatedMaterials()", "Showing associated stone tab");
+    showTab("associatedMaterials/stoneArtefact");
     removeAssocStone = true;
   } 
   if (!removeAssocOther) {
-    showTab("associatedMaterials/otherWorked");
     Log.d("onShowAssociatedMaterials()", "Showing associated other tab");
+    showTab("associatedMaterials/otherWorked");
     removeAssocOther = true;
   }
   
+}
+
+/** Return to the oldBone/AssociateMaterials tab when the user came back to the oldBone tabgroup from the associateMaterials tabgroup. **/
+Boolean fromAssocTabgroup = false;
+onEvent("associatedMaterials", "show", "fromAssocTabgroup=true;");
+onEvent("oldBone", "show", "goToAssocTab();");
+goToAssocTab() {
+  if (fromAssocTabgroup) {
+    Log.d("goToAssocTab()", "Returning to the associated materials tab");
+    showTab("oldBone/associatedMaterials");
+    fromAssocTabgroup = false;
+  }
 }
 
 List associatedStoneArtefactsVocab = new ArrayList();
@@ -579,6 +621,13 @@ populateGlobalVocab(String vocabName, List globalList) {
 
 /** Module Initialisation **/
 init() {
+  // List of feature entities for recording.
+  entityTypes = new ArrayList();
+  entityTypes.add(new NameValuePair("{oldBone}", "oldBone"));
+  populateDropDown("control/control/entityTypes", entityTypes);
+  entityTypes.add(0, new NameValuePair("{all}", "Sample"));
+  populateDropDown("control/search/entityTypes", entityTypes);
+
   // old bone init
   populateOldBoneAttributes();
   fetchOne("select vocabid from vocabulary join attributekey using (attributeid) where attributename = 'Cluster' and vocabname = '{boneOnly}';", new FetchCallback() {

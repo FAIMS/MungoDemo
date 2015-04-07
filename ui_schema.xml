@@ -22,8 +22,13 @@
           </user>
           <control>
             <control>
-              <newOldBone/>
+              <entityTypes/>
+              <newEntity/>
             </control>
+            <search>
+              <entityTypes/>
+              <entityList/>
+            </search>
           </control>
           <oldBone>
             <basicIdentification>
@@ -111,9 +116,33 @@
       <label>{control}</label>
       <group ref="control">
         <label>{control}</label>
-        <trigger ref="newOldBone">
-          <label>{newOldBone}</label>
+        <select1 ref="entityTypes" faims_certainty="false" faims_annotation="false">
+          <label>{entityTypes}</label>
+          <item>
+            <label>placeholder</label>
+            <value>placeholder</value>
+          </item>
+        </select1>
+        <trigger ref="newEntity">
+          <label>{newEntity}</label>
         </trigger>
+      </group>
+      <group ref="search" faims_scrollable="false">
+        <label>{search}</label>
+        <select1 ref="entityTypes" faims_certainty="false" faims_annotation="false">
+          <label>{entityTypes}</label>
+          <item>
+            <label>placeholder</label>
+            <value>placeholder</value>
+          </item>
+        </select1>
+        <select1 appearance="compact" ref="entityList" faims_certainty="false" faims_annotation="false">
+          <label>{entityList}</label>
+          <item>
+            <label>placeholder</label>
+            <value>placeholder</value>
+          </item>
+        </select1>
       </group>
     </group>
     <group ref="oldBone" faims_archent_type="Old Bone">
