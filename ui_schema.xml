@@ -145,7 +145,7 @@
         </select1>
       </group>
     </group>
-    <group ref="oldBone" faims_archent_type="Old Bone">
+    <group ref="oldBone" faims_archent_type="Old Bone Feature">
       <label>{oldBone}</label>
       <group ref="basicIdentification">
         <label>{basicIdentification}</label>

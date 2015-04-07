@@ -160,6 +160,39 @@ makeDynamicVocab(String type, String path, String attrib, String label, String c
   makeDynamicVocab(type, path, attrib, label, callbackFunction, null);
 }
 
+/** Saves two entity id's as a relation. **/
+saveEntitiesToRel(String type, String entity1, String entity2) {
+    if (isNull(entity1) || isNull(entity2)) return;
+    saveRel(null, type, null, null, new SaveCallback() {
+        onSave(rel_id, newRecord) {
+            addReln(entity1, rel_id, null);
+            addReln(entity2, rel_id, null);
+        }
+    });
+}
+
+/** Saves two entity id's as a relation. **/
+saveEntitiesToRel(String type, String entity1, String entity2, Callable callback) {
+    if (isNull(entity1) || isNull(entity2)) return;
+    saveRel(null, type, null, null, new SaveCallback() {
+        onSave(rel_id, newRecord) {
+            addReln(entity1, rel_id, null);
+            addReln(entity2, rel_id, null);
+            if(callback != null) callback.call();
+        }
+    });
+}
+
+/** Saves two entity id's as a relation. **/
+saveEntitiesToHierRel(String type, String entity1, String entity2, String e1verb, String e2verb) {
+    if (isNull(entity1) || isNull(entity2)) return;
+    saveRel(null, type, null, null, new SaveCallback() {
+        onSave(rel_id, newRecord) {
+            addReln(entity1, rel_id, e1verb);
+            addReln(entity2, rel_id, e2verb);
+        }
+    });
+}
 
 /**************************/
 /** Editable Module Code **/
@@ -194,12 +227,30 @@ loadSearch() {
 }
 onEvent("control/search/entityTypes", "click", "loadSearch();");
 onEvent("control/search", "show", "loadSearch();");
+onEvent("control/search/entityList", "click", "loadFeature();");
 
 /** Creates a record for the selected feature type. **/
 newFeature() {
   String type = getFieldValue("control/control/entityTypes");
-  if (type.equals("oldBone")) {
+  if (type.equals("Old Bone Feature")) {
     newOldBone();
+  }
+}
+
+loadFeature() {
+  String entityID = getListItemValue();
+  if (!isNull(entityID)) {
+    fetchAll("select aenttypename from latestnondeletedarchent join aenttype using (aenttypeid) where uuid = '" + entityID + "';", new FetchCallback() {
+      onFetch(result) {
+        entity_id = entityID;
+        Log.d("loadFeature()", "Loading entity id: " + entityID);
+        if (result.get(0).get(0).equals("Old Bone Feature")) {
+          loadOldBone();
+        }
+      }
+    });
+  } else {
+    Log.d("loadFeature()", "Error: cannot load an entity with a null ID.");
   }
 }
 
@@ -211,8 +262,24 @@ newOldBone() {
       setFieldValue("oldBone/basicIdentification/cluster", result.get(0)); // set the cluster field to be 'Bone Only'
       toggleAssociatedMaterials();
       entity_id = null;
+      setFieldValue("oldBone/basicIdentification/idNumber", "0");
+      setFieldValue("oldBone/basicIdentification/gridSquare", "0");
       keepTabGroupChanges("oldBone");
       saveOldBone();
+    }
+  });
+}
+
+loadOldBone() {
+  if (isNull(entity_id)) {
+    showToast("No entity selected");
+      return;
+  }
+  showTabGroup("oldBone", entity_id, new FetchCallback() {
+    onFetch(result) {
+      Log.d("loadOldBone()", "Loaded an Old Bone Feature, ID: " + entity_id);
+      showToast("Loaded an Old Bone record");
+      keepTabGroupChanges("oldBone");
     }
   });
 }
@@ -350,7 +417,7 @@ recordAssocMaterial(Boolean insituMaterial) {
   } else {
     removeAllViewsAndContainers("associatedMaterials");
     // showTabGroup("associatedMaterials");
-     newTabGroup("associatedMaterials");    
+    newTabGroup("associatedMaterials");    
     
     // determine which assoc material was selected
     for (selectedItem : selectedAssocMaterial) {
@@ -418,6 +485,13 @@ recordAssocMaterial(Boolean insituMaterial) {
         }
       }
     }
+    // save the associated materials.
+    saveArchEnt(null, "associatedMaterials", null, null, new SaveCallback() {
+      onSave(uuid, newRecord) {
+        // entity_id is the old bone id and uuid is the assoc materials id.
+        saveEntitiesToRel("Old Bone Feature Associated Materials", entity_id, uuid);
+      }
+    });
   }
 }
 onEvent("associatedMaterials", "show", "onShowAssociatedMaterials();");
@@ -473,6 +547,40 @@ onShowAssociatedMaterials() {
   }
   
 }
+
+// listAssociatedMaterials() {
+//   if(!isNull(entity_id)) {
+//     fetchAll("select uuid, response " +
+//       "from latestNonDeletedArchEntFormattedIdentifiers " +
+//       "where aenttypename = 'Associated Materials' " +
+//       "and uuid in  (select uuid " +
+//       "FROM latestNonDeletedAentReln " +
+//       "where relationshipid in (select relationshipid " +
+//       "FROM latestNonDeletedAentReln " +
+//       "JOIN relationship using (relationshipid) " +
+//       "JOIN relntype using (relntypeid) " +
+//       "where uuid = "+entity_id + " " +
+//       "and relntypeName = 'Old Bone Feature Associated Materials') " +
+//       "and uuid != "+entity_id+");",  new FetchCallback() {
+//       onFetch(result) {
+//         if(isNull(result)) {
+//           result = new ArrayList();
+//           result.add(new NameValuePair("{No_records_found}", ""));
+//         }
+//         populateList("oldBone/associatedMaterials/associatedInsituList", result);
+//         populateList("oldBone/associatedMaterials/associatedSurfaceList", result);
+//       }
+//       onError(message) {
+//         showToast(message);
+//       }
+//     });     
+//   } else {
+//     result = new ArrayList();
+//     result.add(new NameValuePair("{No_records_found}", ""));
+//     populateList("oldBone/associatedMaterials/associatedInsituList", result);
+//     populateList("oldBone/associatedMaterials/associatedSurfaceList", result);
+//   }    
+// }
 
 /** Return to the oldBone/AssociateMaterials tab when the user came back to the oldBone tabgroup from the associateMaterials tabgroup. **/
 Boolean fromAssocTabgroup = false;
@@ -623,9 +731,9 @@ populateGlobalVocab(String vocabName, List globalList) {
 init() {
   // List of feature entities for recording.
   entityTypes = new ArrayList();
-  entityTypes.add(new NameValuePair("{oldBone}", "oldBone"));
+  entityTypes.add(new NameValuePair("{oldBone}", "Old Bone Feature"));
   populateDropDown("control/control/entityTypes", entityTypes);
-  entityTypes.add(0, new NameValuePair("{all}", "Sample"));
+  entityTypes.add(0, new NameValuePair("{all}", "Feature"));
   populateDropDown("control/search/entityTypes", entityTypes);
 
   // old bone init
