@@ -717,7 +717,7 @@ loadAssociatedMaterial() {
         removeAssocOther = false;
         
         // cancel the irrelevant associated material tabs and views
-
+        
       }
     });
   }
