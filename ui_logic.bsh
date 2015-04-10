@@ -524,7 +524,7 @@ onShowAssociatedMaterials() {
   // if the tab show is triggered after loading, don't execute the rest of this function.
   if (loadingAssocMaterial) {
     loadingAssocMaterial = false;
-    onShowLoadAssociatedMaterials();
+    // onShowLoadAssociatedMaterials();
     return;
   }
 
@@ -580,12 +580,6 @@ onShowAssociatedMaterials() {
   autosaveAssociatedMaterials();
 }
 
-/** Renders the dynamic views for the loaded associated material. **/
-onShowLoadAssociatedMaterials() {
-
-}
-
-
 onEvent("oldBone/associatedMaterials", "show", "listAssociatedMaterials();");
 
 /** Populates the in-situ and surface associated materials list. **/
@@ -629,31 +623,106 @@ onEvent("oldBone/associatedMaterials/associatedSurfaceList", "click", "loadAssoc
 
 Boolean loadingAssocMaterial = false;
 
+// /** Renders the dynamic views for the loaded associated material. **/
+// onShowLoadAssociatedMaterials() {
+//   // render the default views for each tab
+//   makeDynamicVocab("CheckBoxGroup", "associatedMaterials/hearthMaterial/associatedHearthMaterial", "Associated Hearth Material", "{associatedHearthMaterial}", null, null, "Associated Hearth Material", "vocab");
+//   makeDynamicVocab("CheckBoxGroup", "associatedMaterials/eggshell/associatedEggshell", "Associated Eggshell", "{associatedEggshell}", null, null, "Associated Eggshell", "vocab");
+//   String callback = "onEvent(\"associatedMaterials/stoneArtefact/associatedStoneArtefacts\", \"click\", \"updateDynamicAssociatedStone();\");";
+//   makeDynamicVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/associatedStoneArtefacts", "Associated Stone Artefacts", "{associatedStoneArtefacts}", callback, "associatedMaterials/stoneArtefact/stoneArtefactsContainer", "Associated Stone Artefacts", "vocab");
+//   makeDynamicVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/rawMaterialTypesPresent", "Raw Material Types Present", "{rawMaterialTypesPresent}", null, "associatedMaterials/stoneArtefact/rawStoneContainer", "Raw Material Types Present", "vocab");
+//   makeDynamicVocab("CheckBoxGroup", "associatedMaterials/otherWorked/associatedOtherWorked", "Associated Other Worked Material", "{associatedOtherWorked}", null, null, "Associated Other Worked Material", "vocab");
+
+//   // render the 'selection-dependent' views for the stone tab
+//   String callback = "onEvent(\"associatedMaterials/stoneArtefact/chippedStoneArtefacts\", \"click\", \"updateDynamicChippedStone();\");";
+//   makeDynamicVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/chippedStoneArtefacts", "Associated Chipped Stone Artefacts", "{chippedStoneArtefacts}", callback, "associatedMaterials/stoneArtefact/chippedStoneContainer", "Associated Chipped Stone Artefacts", "vocab");
+//   makeDynamicVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/unmodifiedStone", "Associated Unmodified Stone", "{unmodifiedStone}", null, "associatedMaterials/stoneArtefact/unmodifiedStoneContainer", "Associated Unmodified Stone", "vocab");
+//   makeDynamicVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/groundStoneType", "Ground Stone Types Present", "{groundStoneType}", null, "associatedMaterials/stoneArtefact/groundStoneTypeContainer", "Ground Stone Types Present", "vocab");
+//   makeDynamicVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/groundStoneStatus", "Ground Stone Status", "{groundStoneStatus}", null, "associatedMaterials/stoneArtefact/groundStoneStatusContainer", "Ground Stone Status", "vocab");
+//   makeDynamicVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/retouchedArtefacts", "Associated Retouched Artefacts", "{retouchedArtefacts}", null, "associatedMaterials/stoneArtefact/retouchedStoneContainer", "Associated Retouched Artefacts", "vocab");
+// }
+
+// /** Loads an associated material. **/
+// loadAssociatedMaterial() {
+//   String entityID = getListItemValue();
+//   if (!isNull(entityID)) {
+//     fetchAll("select aenttypename from latestnondeletedarchent join aenttype using (aenttypeid) where uuid = '" + entityID + "';", new FetchCallback() {
+//       onFetch(result) {
+//         Log.d("loadFeature()", "Loading assocMaterial id: " + entityID);
+//         if (result.get(0).get(0).equals("Associated Materials")) {
+//           loadingAssocMaterial = true;
+//           showTabGroup("associatedMaterials", entityID, new FetchCallback() {
+//             onFetch(result) {
+//               Log.d("loadAssociatedMaterial()", "Loaded an associated material, ID: " + entityID);
+//               showToast("Loaded an associated material");
+//               // updateDynamicAssociatedStone();
+//               // updateDynamicChippedStone();
+//               keepTabGroupChanges("associatedMaterials");
+//             }
+//           });
+//         }
+//       }
+//     });
+//   } else {
+//     Log.d("loadFeature()", "Error: cannot load an entity with a null ID.");
+//   }
+// }
+
 /** Loads an associated material. **/
 loadAssociatedMaterial() {
-  String entityID = getListItemValue();
-  if (!isNull(entityID)) {
-    fetchAll("select aenttypename from latestnondeletedarchent join aenttype using (aenttypeid) where uuid = '" + entityID + "';", new FetchCallback() {
-      onFetch(result) {
-        Log.d("loadFeature()", "Loading assocMaterial id: " + entityID);
-        if (result.get(0).get(0).equals("Associated Materials")) {
-          loadingAssocMaterial = true;
-          showTabGroup("associatedMaterials", entityID, new FetchCallback() {
-            onFetch(result) {
-              Log.d("loadAssociatedMaterial()", "Loaded an associated material, ID: " + entityID);
-              showToast("Loaded an associated material");
-              // updateDynamicAssociatedStone();
-              // updateDynamicChippedStone();
-              keepTabGroupChanges("associatedMaterials");
-            }
-          });
-        }
+  String assocID = getListItemValue();
+  if (!isNull(assocID)) {
+    loadingAssocMaterial = true;
+    removeAllViewsAndContainers("associatedMaterials");
+    executeViewTask(new ViewTask() {
+      doTask() {
+        // render the default views for each associated material tab
+        makeDynamicVocab("CheckBoxGroup", "associatedMaterials/hearthMaterial/associatedHearthMaterial", "Associated Hearth Material", "{associatedHearthMaterial}", null, null, "Associated Hearth Material", "vocab");
+        removeAssocHearth = false;
+        makeDynamicVocab("CheckBoxGroup", "associatedMaterials/eggshell/associatedEggshell", "Associated Eggshell", "{associatedEggshell}", null, null, "Associated Eggshell", "vocab");
+        removeAssocEggshell = false;
+        String callback = "onEvent(\"associatedMaterials/stoneArtefact/associatedStoneArtefacts\", \"click\", \"updateDynamicAssociatedStone();\");";
+        makeDynamicVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/associatedStoneArtefacts", "Associated Stone Artefacts", "{associatedStoneArtefacts}", callback, "associatedMaterials/stoneArtefact/stoneArtefactsContainer", "Associated Stone Artefacts", "vocab");
+        makeDynamicVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/rawMaterialTypesPresent", "Raw Material Types Present", "{rawMaterialTypesPresent}", null, "associatedMaterials/stoneArtefact/rawStoneContainer", "Raw Material Types Present", "vocab");
+        removeAssocStone = false;
+        makeDynamicVocab("CheckBoxGroup", "associatedMaterials/otherWorked/associatedOtherWorked", "Associated Other Worked Material", "{associatedOtherWorked}", null, null, "Associated Other Worked Material", "vocab");
+        removeAssocOther = false;
+
+        // render the 'selection-dependent' views for the stone tab
+        String callback = "onEvent(\"associatedMaterials/stoneArtefact/chippedStoneArtefacts\", \"click\", \"updateDynamicChippedStone();\");";
+        makeDynamicVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/chippedStoneArtefacts", "Associated Chipped Stone Artefacts", "{chippedStoneArtefacts}", callback, "associatedMaterials/stoneArtefact/chippedStoneContainer", "Associated Chipped Stone Artefacts", "vocab");
+        removeChippedStone = false;
+        makeDynamicVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/unmodifiedStone", "Associated Unmodified Stone", "{unmodifiedStone}", null, "associatedMaterials/stoneArtefact/unmodifiedStoneContainer", "Associated Unmodified Stone", "vocab");
+        removeUnmodifiedStone = false;
+        makeDynamicVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/groundStoneType", "Ground Stone Types Present", "{groundStoneType}", null, "associatedMaterials/stoneArtefact/groundStoneTypeContainer", "Ground Stone Types Present", "vocab");
+        makeDynamicVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/groundStoneStatus", "Ground Stone Status", "{groundStoneStatus}", null, "associatedMaterials/stoneArtefact/groundStoneStatusContainer", "Ground Stone Status", "vocab");
+        removeGroundStone = false;
+        makeDynamicVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/retouchedArtefacts", "Associated Retouched Artefacts", "{retouchedArtefacts}", null, "associatedMaterials/stoneArtefact/retouchedStoneContainer", "Associated Retouched Artefacts", "vocab");
+        removeRetouchedArtefacts = false;
       }
     });
-  } else {
-    Log.d("loadFeature()", "Error: cannot load an entity with a null ID.");
+    
+    // load the saved values for each view
+    showTabGroup("associatedMaterials", assocID, new FetchCallback() {
+      onFetch(result) {
+        print("loaded assoc: " + result + "\nwith attributes: " + result.getAttributes());
+        // show every possible associated material tab
+        showTab("associatedMaterials/hearthMaterial");
+        removeAssocHearth = false;
+        showTab("associatedMaterials/eggshell");
+        removeAssocEggshell = false;
+        showTab("associatedMaterials/stoneArtefact");
+        removeAssocStone = false;
+        showTab("associatedMaterials/otherWorked");
+        removeAssocOther = false;
+        
+        // cancel the irrelevant associated material tabs and views
+
+      }
+    });
   }
 }
+
 
 /** Return to the oldBone/AssociateMaterials tab when the user came back to the oldBone tabgroup from the associateMaterials tabgroup. **/
 Boolean fromAssocTabgroup = false;
