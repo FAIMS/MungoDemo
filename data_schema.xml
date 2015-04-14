@@ -110,28 +110,6 @@
 				<term>indet<description>Bone surface poorly preserved or too fragmented or covered with calcium carbonate</description></term>
 			</lookup>
 		</property>
-		<property name="Associated in situ material" type="vocab">
-			<description>If material other than old bone is associated, select those of the following that have been observed in situ</description>
-			<lookup>
-				<term>mussel<description>Mussel shell or shell fragment</description></term>
-				<term>hs<description>Hearthstones or charcoal</description></term>
-				<term>eggshell<description>Emu, Genyornis or other eggshell</description></term>
-				<term>artefacts<description>Chipped, unmodified or ground stone</description></term>
-				<term>ochre<description></description></term>
-				<term>otherwork<description>Other worked or transported material</description></term>
-			</lookup>
-		</property>
-		<property name="Associated surface material" type="vocab">
-			<description>If material other than old bone is associated, select those of the following that have been observed on the surface</description>
-			<lookup>
-				<term>mussel<description>Mussel shell or shell fragment</description></term>
-				<term>hs<description>Hearthstones or charcoal</description></term>
-				<term>eggshell<description>Emu, Genyornis or other eggshell</description></term>
-				<term>artefacts<description>Chipped, unmodified or ground stone</description></term>
-				<term>ochre<description></description></term>
-				<term>otherwork<description>Other worked or transported material</description></term>
-			</lookup>
-		</property>
 		<property name="Topographic Setting" type="vocab">
 			<description>Where on the lunette exposure is the old bone located?</description>
 			<lookup>
@@ -211,6 +189,28 @@
 
 	<ArchaeologicalElement name="Associated Materials">
 		<description>A material associated with a feature cluster</description>
+		<property name="Associated in situ material" type="vocab">
+			<description>If material other than old bone is associated, select those of the following that have been observed in situ</description>
+			<lookup>
+				<term>mussel<description>Mussel shell or shell fragment</description></term>
+				<term>hs<description>Hearthstones or charcoal</description></term>
+				<term>eggshell<description>Emu, Genyornis or other eggshell</description></term>
+				<term>artefacts<description>Chipped, unmodified or ground stone</description></term>
+				<term>ochre<description></description></term>
+				<term>otherwork<description>Other worked or transported material</description></term>
+			</lookup>
+		</property>
+		<property name="Associated surface material" type="vocab">
+			<description>If material other than old bone is associated, select those of the following that have been observed on the surface</description>
+			<lookup>
+				<term>mussel<description>Mussel shell or shell fragment</description></term>
+				<term>hs<description>Hearthstones or charcoal</description></term>
+				<term>eggshell<description>Emu, Genyornis or other eggshell</description></term>
+				<term>artefacts<description>Chipped, unmodified or ground stone</description></term>
+				<term>ochre<description></description></term>
+				<term>otherwork<description>Other worked or transported material</description></term>
+			</lookup>
+		</property>		
 		<property name="Associated Hearth Material" isIdentifier= "true" type="vocab">
 			<description>If hearthstone material is associated, either in situ or on the surface, select those of the following that have been observed:</description>
 			<formatString><![CDATA[$1]]></formatString>

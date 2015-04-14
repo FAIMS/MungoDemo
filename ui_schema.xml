@@ -46,10 +46,8 @@
               <deliberateSurfaceModification/>
             </insituAndSurfaceBone>
             <associatedMaterials>
-              <associatedInsituMaterial/>
               <addInsituMaterial/>
               <associatedInsituList/>
-              <associatedSurfaceMaterial/>
               <addSurfaceMaterial/>
               <associatedSurfaceList/>
             </associatedMaterials>
@@ -63,6 +61,10 @@
             </topAndStratSetting>>
           </oldBone>
           <associatedMaterials>
+            <control>
+            <!--   <associatedInsituMaterial/>
+              <associatedSurfaceMaterial/> -->
+            </control>
             <eggshell>
             </eggshell>
             <hearthMaterial>
@@ -209,13 +211,7 @@
       </group>
       <group ref="associatedMaterials">
         <label>{associatedMaterials}</label>
-        <select ref="associatedInsituMaterial" faims_attribute_name="Associated in situ material" faims_attribute_type="vocab">
-          <label>{associatedInsituMaterial}</label>
-          <item>
-            <label>placeholder</label>
-            <value>placeholder</value>
-          </item>
-        </select>
+        
         <trigger ref="addInsituMaterial">
           <label>{addInsituMaterial}</label>
         </trigger>
@@ -226,13 +222,7 @@
             <value>placeholder</value>
           </item>
         </select1>
-        <select ref="associatedSurfaceMaterial" faims_attribute_name="Associated surface material" faims_attribute_type="vocab">
-          <label>{associatedSurfaceMaterial}</label>
-          <item>
-            <label>placeholder</label>
-            <value>placeholder</value>
-          </item>
-        </select>
+        
         <trigger ref="addSurfaceMaterial">
           <label>{addSurfaceMaterial}</label>
         </trigger>
@@ -282,6 +272,24 @@
 
     <group ref="associatedMaterials" faims_archent_type="Associated Materials">
       <label>{associatedMaterials}</label>
+      <group ref="control">
+        <label>{control}</label>
+<!--         <select ref="associatedInsituMaterial" faims_attribute_name="Associated in situ material" faims_attribute_type="vocab">
+          <label>{associatedInsituMaterial}</label>
+          <item>
+            <label>placeholder</label>
+            <value>placeholder</value>
+          </item>
+        </select>
+        <select ref="associatedSurfaceMaterial" faims_attribute_name="Associated surface material" faims_attribute_type="vocab">
+          <label>{associatedSurfaceMaterial}</label>
+          <item>
+            <label>placeholder</label>
+            <value>placeholder</value>
+          </item>
+        </select> -->
+      </group>
+
       <group ref="eggshell">
         <label>{eggshell}</label>
 
