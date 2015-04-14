@@ -215,7 +215,7 @@
         <trigger ref="addInsituMaterial">
           <label>{addInsituMaterial}</label>
         </trigger>
-        <select1 ref="associatedInsituList" appearance="compact">
+        <select1 ref="associatedInsituList" appearance="compact" faims_style_class="saved-material-list">
           <label>{associatedInsituList}</label>
           <item>
             <label>placeholder</label>
@@ -226,7 +226,7 @@
         <trigger ref="addSurfaceMaterial">
           <label>{addSurfaceMaterial}</label>
         </trigger>
-        <select1 ref="associatedSurfaceList" appearance="compact">
+        <select1 ref="associatedSurfaceList" appearance="compact" faims_style_class="saved-material-list">
           <label>{associatedSurfaceList}</label>
           <item>
             <label>placeholder</label>
@@ -273,7 +273,7 @@
     <group ref="associatedMaterials" faims_archent_type="Associated Materials">
       <label>{associatedMaterials}</label>
       <group ref="control">
-        <label>{control}</label>
+        <label>{material}</label>
 <!--         <select ref="associatedInsituMaterial" faims_attribute_name="Associated in situ material" faims_attribute_type="vocab">
           <label>{associatedInsituMaterial}</label>
           <item>

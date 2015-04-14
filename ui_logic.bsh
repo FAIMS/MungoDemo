@@ -443,24 +443,48 @@ newRecordAssocMaterial(Boolean insituMaterial) {
   renderAssocMaterialControl();
 }
 
-/* Dynamically render the appropriate tabs and items for the associated materials tabgroup based on the selected fields. */
-// onEvent("associatedMaterials/control/associatedInsituMaterial", "click", "renderAssocMaterial();");
-// onEvent("associatedMaterials/control/associatedSurfaceMaterial", "click", "renderAssocMaterial();");
-
 /** Renders the dynamic fields in the associatedMaterials/control tab, which other dynamic rendering for the tabgroup is dependant upon. **/
 renderAssocMaterialControl() {
-  // render the material list if not already done so
-  if (isInsituMaterial) {
+  renderAssocMaterialControl(null, null);
+}
+
+/** Renders the dynamic fields in the associatedMaterials/control tab, which other dynamic rendering for the tabgroup is dependant upon. 
+    Executes the callback once the associated Insitu or Surface material list is rendered. **/
+renderAssocMaterialControl(String listCallback) {
+  renderAssocMaterialControl(listCallback, listCallback);
+}
+
+/** Renders the dynamic fields in the associatedMaterials/control tab, which other dynamic rendering for the tabgroup is dependant upon. 
+    Executes the appropriate callback once the associated Insitu or Surface material list is rendered. **/
+renderAssocMaterialControl(String insituListCallback, String surfaceListCallback) {
+  if (isInsituMaterial) {  
+    // render the material list if not already done so
     if (!hasView("associatedMaterials/control/associatedInsituMaterial")) {
-      String callback = "onEvent(\"associatedMaterials/control/associatedInsituMaterial\", \"click\", \"renderAssocMaterial();\"); renderAssocMaterial();";
-      makeDynamicVocab("CheckBoxGroup", "associatedMaterials/control/associatedInsituMaterial", "Associated in situ material", "{associatedInsituMaterial}", callback, null, "Associated in situ material", "vocab");
-      Log.d("renderAssocMaterialControl()", "Added Insitu material list");
+      executeViewTask(new ViewTask() {
+        doTask() {
+          String callback = "onEvent(\"associatedMaterials/control/associatedInsituMaterial\", \"click\", \"renderAssocMaterial();\"); renderAssocMaterial();";
+          makeDynamicVocab("CheckBoxGroup", "associatedMaterials/control/associatedInsituMaterial", "Associated in situ material", "{associatedInsituMaterial}", callback, null, "Associated in situ material", "vocab");
+          Log.d("renderAssocMaterialControl()", "Added Insitu material list");
+          if (!isNull(insituListCallback)) {
+            Log.d("renderAssocMaterialControl()", "Executing insituListCallback");
+            execute(insituListCallback);
+          }
+        }
+      });
     }
   } else {
     if (!hasView("associatedMaterials/control/associatedSurfaceMaterial")) {
-      String callback = "onEvent(\"associatedMaterials/control/associatedSurfaceMaterial\", \"click\", \"renderAssocMaterial();\"); renderAssocMaterial();";
-      makeDynamicVocab("CheckBoxGroup", "associatedMaterials/control/associatedSurfaceMaterial", "Associated surface material", "{associatedSurfaceMaterial}", callback, null, "Associated surface material", "vocab");
-      Log.d("renderAssocMaterialControl()", "Added Surface material list");
+      executeViewTask(new ViewTask() {
+        doTask() {
+          String callback = "onEvent(\"associatedMaterials/control/associatedSurfaceMaterial\", \"click\", \"renderAssocMaterial();\"); renderAssocMaterial();";
+          makeDynamicVocab("CheckBoxGroup", "associatedMaterials/control/associatedSurfaceMaterial", "Associated surface material", "{associatedSurfaceMaterial}", callback, null, "Associated surface material", "vocab");
+          Log.d("renderAssocMaterialControl()", "Added Surface material list");
+          if (!isNull(surfaceListCallback)) {
+            Log.d("renderAssocMaterialControl()", "Executing surfaceListCallback");
+            execute(surfaceListCallback);
+          }
+        }
+      });
     }
   }
 }
@@ -577,31 +601,22 @@ onShowAssociatedMaterials() {
     return;
   }
 
-  /* if the mussel or ochre assoc material is selected (but no other material is also selected) then transition back to the oldBone/assocMaterial tab 
-    since there is no data to record for associated mussels and associated ochres. */
-  // if ((removeMussel || removeOchre) && !(!removeAssocHearth || !removeAssocEggshell || !removeAssocStone || !removeAssocOther)) {
-  //   Log.d("onShowAssociatedMaterials()", "Cancelling the associated materials tabgroup");
-  //   cancelTabGroup("associatedMaterials", false);
-  //   showTab("oldBone/associatedMaterials");
-  // } else {
-  if (true) {  
-    // remove unselected tabs
-    if (removeAssocHearth) {
-      Log.d("onShowAssociatedMaterials()", "Cancelling associated hearth tab");
-      cancelTab("associatedMaterials/hearthMaterial", false);
-    } 
-    if (removeAssocEggshell) {
-      Log.d("onShowAssociatedMaterials()", "Cancelling associated eggshell tab");
-      cancelTab("associatedMaterials/eggshell", false);
-    }
-    if (removeAssocStone) {
-      Log.d("onShowAssociatedMaterials()", "Cancelling associated stone tab");
-      cancelTab("associatedMaterials/stoneArtefact", false);
-    }
-    if (removeAssocOther) {
-      Log.d("onShowAssociatedMaterials()", "Cancelling associated other tab");
-      cancelTab("associatedMaterials/otherWorked", false);
-    }
+  // remove unselected tabs
+  if (removeAssocHearth) {
+    Log.d("onShowAssociatedMaterials()", "Cancelling associated hearth tab");
+    cancelTab("associatedMaterials/hearthMaterial", false);
+  } 
+  if (removeAssocEggshell) {
+    Log.d("onShowAssociatedMaterials()", "Cancelling associated eggshell tab");
+    cancelTab("associatedMaterials/eggshell", false);
+  }
+  if (removeAssocStone) {
+    Log.d("onShowAssociatedMaterials()", "Cancelling associated stone tab");
+    cancelTab("associatedMaterials/stoneArtefact", false);
+  }
+  if (removeAssocOther) {
+    Log.d("onShowAssociatedMaterials()", "Cancelling associated other tab");
+    cancelTab("associatedMaterials/otherWorked", false);
   }
 
   // show the selected tabs  
@@ -629,90 +644,6 @@ onShowAssociatedMaterials() {
   // save the tabgroup
   autosaveAssociatedMaterials();
 }
-
-// /** Records the selected associated material(s). **/
-// recordAssocMaterial(Boolean insituMaterial) {
-//   selectedAssocMaterial = getFieldValue("oldBone/associatedMaterials/associatedInsituMaterial");
-//   if (!insituMaterial) {
-//     selectedAssocMaterial = getFieldValue("oldBone/associatedMaterials/associatedSurfaceMaterial");
-//   }
-//   print("Selected Material: " + selectedAssocMaterial);
-  
-//   if (selectedAssocMaterial == null || selectedAssocMaterial.isEmpty()) {
-//     Log.d("recordAssocMaterial()", "Error: no material type selected");
-//   } else {
-//     removeAllViewsAndContainers("associatedMaterials");
-//     // showTabGroup("associatedMaterials");
-//     newTabGroup("associatedMaterials");    
-    
-//     // determine which assoc material was selected
-//     for (selectedItem : selectedAssocMaterial) {
-//       // value = selectedItem.getValue();
-//       // name = selectedItem.getName();
-//       if (insituMaterial) {
-//         for (type : associatedInsituMaterialVocab) {
-//           if (selectedItem.getName().equals(type.get(0))) {
-//             executeViewTask(new ViewTask() {
-//               doTask() {
-//                 if (type.get(1).equals("mussel")) {
-//                   Log.d("recordAssocMaterial()", "insitu mussel selected");
-//                 } else if(type.get(1).equals("hs")) {
-//                   Log.d("recordAssocMaterial()", "insitu hs selected");
-//                   makeDynamicVocab("CheckBoxGroup", "associatedMaterials/hearthMaterial/associatedHearthMaterial", "Associated Hearth Material", "{associatedHearthMaterial}", null, null, "Associated Hearth Material", "vocab");
-//                   removeAssocHearth = false;
-//                 } else if(type.get(1).equals("eggshell")) {
-//                   Log.d("recordAssocMaterial()", "insitu eggshell selected");
-//                   makeDynamicVocab("CheckBoxGroup", "associatedMaterials/eggshell/associatedEggshell", "Associated Eggshell", "{associatedEggshell}", null, null, "Associated Eggshell", "vocab");
-//                   removeAssocEggshell = false;
-//                 } else if(type.get(1).equals("artefacts")) {
-//                   Log.d("recordAssocMaterial()", "insitu artefacts selected");
-//                   String callback = "onEvent(\"associatedMaterials/stoneArtefact/associatedStoneArtefacts\", \"click\", \"updateDynamicAssociatedStone();\");";
-//                   makeDynamicVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/associatedStoneArtefacts", "Associated Stone Artefacts", "{associatedStoneArtefacts}", callback, "associatedMaterials/stoneArtefact/stoneArtefactsContainer", "Associated Stone Artefacts", "vocab");
-//                   makeDynamicVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/rawMaterialTypesPresent", "Raw Material Types Present", "{rawMaterialTypesPresent}", null, "associatedMaterials/stoneArtefact/rawStoneContainer", "Raw Material Types Present", "vocab");
-//                   removeAssocStone = false;
-//                 } else if (type.get(1).equals("ochre")) {
-//                   Log.d("recordAssocMaterial()", "insitu ochre selected");
-//                 } else if(type.get(1).equals("otherwork")) {
-//                   Log.d("recordAssocMaterial()", "insitu otherwork selected");
-//                   makeDynamicVocab("CheckBoxGroup", "associatedMaterials/otherWorked/associatedOtherWorked", "Associated Other Worked Material", "{associatedOtherWorked}", null, null, "Associated Other Worked Material", "vocab");
-//                   removeAssocOther = false;
-//                 } else {
-//                   Log.d("recordAssocMaterial()", "Error: no matched insitu selected");
-//                 }
-//               }
-//             });
-//           }
-//         }
-//       } else {
-//         for (type : associatedSurfaceMaterialVocab) {
-//           if (selectedItem.getName().equals(type.get(0))) {
-//             if (type.get(1).equals("mussel")) {
-//               Log.d("recordAssocMaterial()", "surface mussel selected");
-//               showToast("Feature Unimplemented");
-//             } else if(type.get(1).equals("hs")) {
-//               Log.d("recordAssocMaterial()", "surface hs selected");
-//               showToast("Feature Unimplemented");
-//             } else if(type.get(1).equals("eggshell")) {
-//               Log.d("recordAssocMaterial()", "surface eggshell selected");
-//               showToast("Feature Unimplemented");
-//             } else if(type.get(1).equals("artefacts")) {
-//               Log.d("recordAssocMaterial()", "surface artefacts selected");
-//               showToast("Feature Unimplemented");
-//             } else if (type.get(1).equals("ochre")) {
-//               Log.d("recordAssocMaterial()", "surface ochre selected");
-//               showToast("Feature Unimplemented");
-//             } else if(type.get(1).equals("otherwork")) {
-//               Log.d("recordAssocMaterial()", "surface otherwork selected");
-//               showToast("Feature Unimplemented");
-//             } else {
-//               Log.d("recordAssocMaterial()", "Error: no matched surface selected");
-//             }
-//           }
-//         }
-//       }
-//     }    
-//   }
-// }
 
 onEvent("oldBone/associatedMaterials", "show", "listAssociatedMaterials();");
 
@@ -802,58 +733,54 @@ Boolean loadingAssocMaterial = false;
 //   }
 // }
 
+callbackFunction(assocID) {
+  // render the default views for each associated material tab
+  makeDynamicVocab("CheckBoxGroup", "associatedMaterials/hearthMaterial/associatedHearthMaterial", "Associated Hearth Material", "{associatedHearthMaterial}", null, null, "Associated Hearth Material", "vocab");
+  removeAssocHearth = false;
+  makeDynamicVocab("CheckBoxGroup", "associatedMaterials/eggshell/associatedEggshell", "Associated Eggshell", "{associatedEggshell}", null, null, "Associated Eggshell", "vocab");
+  removeAssocEggshell = false;
+  String callback = "onEvent(\"associatedMaterials/stoneArtefact/associatedStoneArtefacts\", \"click\", \"updateDynamicAssociatedStone();\");";
+  makeDynamicVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/associatedStoneArtefacts", "Associated Stone Artefacts", "{associatedStoneArtefacts}", callback, "associatedMaterials/stoneArtefact/stoneArtefactsContainer", "Associated Stone Artefacts", "vocab");
+  makeDynamicVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/rawMaterialTypesPresent", "Raw Material Types Present", "{rawMaterialTypesPresent}", null, "associatedMaterials/stoneArtefact/rawStoneContainer", "Raw Material Types Present", "vocab");
+  removeAssocStone = false;
+  makeDynamicVocab("CheckBoxGroup", "associatedMaterials/otherWorked/associatedOtherWorked", "Associated Other Worked Material", "{associatedOtherWorked}", null, null, "Associated Other Worked Material", "vocab");
+  removeAssocOther = false;
+
+  // render the 'selection-dependent' views for the stone tab
+  String callback = "onEvent(\"associatedMaterials/stoneArtefact/chippedStoneArtefacts\", \"click\", \"updateDynamicChippedStone();\");";
+  makeDynamicVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/chippedStoneArtefacts", "Associated Chipped Stone Artefacts", "{chippedStoneArtefacts}", callback, "associatedMaterials/stoneArtefact/chippedStoneContainer", "Associated Chipped Stone Artefacts", "vocab");
+  removeChippedStone = false;
+  makeDynamicVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/unmodifiedStone", "Associated Unmodified Stone", "{unmodifiedStone}", null, "associatedMaterials/stoneArtefact/unmodifiedStoneContainer", "Associated Unmodified Stone", "vocab");
+  removeUnmodifiedStone = false;
+  makeDynamicVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/groundStoneType", "Ground Stone Types Present", "{groundStoneType}", null, "associatedMaterials/stoneArtefact/groundStoneTypeContainer", "Ground Stone Types Present", "vocab");
+  makeDynamicVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/groundStoneStatus", "Ground Stone Status", "{groundStoneStatus}", null, "associatedMaterials/stoneArtefact/groundStoneStatusContainer", "Ground Stone Status", "vocab");
+  removeGroundStone = false;
+  makeDynamicVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/retouchedArtefacts", "Associated Retouched Artefacts", "{retouchedArtefacts}", null, "associatedMaterials/stoneArtefact/retouchedStoneContainer", "Associated Retouched Artefacts", "vocab");
+  removeRetouchedArtefacts = false;
+
+  // load the saved values into the rendered views
+  showTabGroup("associatedMaterials", assocID, new FetchCallback() {
+    onFetch(result) {
+      print("loaded assoc: " + result + " with attributes: " + result.getAttributes());
+
+      showToast("Loading is currently under implementation.");
+
+    }
+  });
+}
+
 /** Loads an associated material. **/
 loadAssociatedMaterial() {
   String assocID = getListItemValue();
+  Log.d("loadAssociatedMaterial()", "Preparing to load associated material with ID: " + assocID);
   if (!isNull(assocID)) {
     loadingAssocMaterial = true;
     removeAllViewsAndContainers("associatedMaterials");
-    executeViewTask(new ViewTask() {
-      doTask() {
-        // render the default views for each associated material tab
-        makeDynamicVocab("CheckBoxGroup", "associatedMaterials/hearthMaterial/associatedHearthMaterial", "Associated Hearth Material", "{associatedHearthMaterial}", null, null, "Associated Hearth Material", "vocab");
-        removeAssocHearth = false;
-        makeDynamicVocab("CheckBoxGroup", "associatedMaterials/eggshell/associatedEggshell", "Associated Eggshell", "{associatedEggshell}", null, null, "Associated Eggshell", "vocab");
-        removeAssocEggshell = false;
-        String callback = "onEvent(\"associatedMaterials/stoneArtefact/associatedStoneArtefacts\", \"click\", \"updateDynamicAssociatedStone();\");";
-        makeDynamicVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/associatedStoneArtefacts", "Associated Stone Artefacts", "{associatedStoneArtefacts}", callback, "associatedMaterials/stoneArtefact/stoneArtefactsContainer", "Associated Stone Artefacts", "vocab");
-        makeDynamicVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/rawMaterialTypesPresent", "Raw Material Types Present", "{rawMaterialTypesPresent}", null, "associatedMaterials/stoneArtefact/rawStoneContainer", "Raw Material Types Present", "vocab");
-        removeAssocStone = false;
-        makeDynamicVocab("CheckBoxGroup", "associatedMaterials/otherWorked/associatedOtherWorked", "Associated Other Worked Material", "{associatedOtherWorked}", null, null, "Associated Other Worked Material", "vocab");
-        removeAssocOther = false;
-
-        // render the 'selection-dependent' views for the stone tab
-        String callback = "onEvent(\"associatedMaterials/stoneArtefact/chippedStoneArtefacts\", \"click\", \"updateDynamicChippedStone();\");";
-        makeDynamicVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/chippedStoneArtefacts", "Associated Chipped Stone Artefacts", "{chippedStoneArtefacts}", callback, "associatedMaterials/stoneArtefact/chippedStoneContainer", "Associated Chipped Stone Artefacts", "vocab");
-        removeChippedStone = false;
-        makeDynamicVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/unmodifiedStone", "Associated Unmodified Stone", "{unmodifiedStone}", null, "associatedMaterials/stoneArtefact/unmodifiedStoneContainer", "Associated Unmodified Stone", "vocab");
-        removeUnmodifiedStone = false;
-        makeDynamicVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/groundStoneType", "Ground Stone Types Present", "{groundStoneType}", null, "associatedMaterials/stoneArtefact/groundStoneTypeContainer", "Ground Stone Types Present", "vocab");
-        makeDynamicVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/groundStoneStatus", "Ground Stone Status", "{groundStoneStatus}", null, "associatedMaterials/stoneArtefact/groundStoneStatusContainer", "Ground Stone Status", "vocab");
-        removeGroundStone = false;
-        makeDynamicVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/retouchedArtefacts", "Associated Retouched Artefacts", "{retouchedArtefacts}", null, "associatedMaterials/stoneArtefact/retouchedStoneContainer", "Associated Retouched Artefacts", "vocab");
-        removeRetouchedArtefacts = false;
-      }
-    });
-    
     // load the saved values for each view
-    showTabGroup("associatedMaterials", assocID, new FetchCallback() {
-      onFetch(result) {
-        print("loaded assoc: " + result + "\nwith attributes: " + result.getAttributes());
-        // show every possible associated material tab
-        showTab("associatedMaterials/hearthMaterial");
-        removeAssocHearth = false;
-        showTab("associatedMaterials/eggshell");
-        removeAssocEggshell = false;
-        showTab("associatedMaterials/stoneArtefact");
-        removeAssocStone = false;
-        showTab("associatedMaterials/otherWorked");
-        removeAssocOther = false;
-        
-        // cancel the irrelevant associated material tabs and views
-        
-      }
-    });
+    renderAssocMaterialControl("callbackFunction(\""+assocID+"\");");
+
+
+          // if (selectedItem.getName().equals(type.get(0)) || result.contains(type.get(0))) {
   }
 }
 

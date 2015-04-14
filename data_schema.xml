@@ -189,8 +189,9 @@
 
 	<ArchaeologicalElement name="Associated Materials">
 		<description>A material associated with a feature cluster</description>
-		<property name="Associated in situ material" type="vocab">
+		<property name="Associated in situ material" isIdentifier= "true" type="vocab">
 			<description>If material other than old bone is associated, select those of the following that have been observed in situ</description>
+			<formatString><![CDATA[$1]]></formatString>
 			<lookup>
 				<term>mussel<description>Mussel shell or shell fragment</description></term>
 				<term>hs<description>Hearthstones or charcoal</description></term>
@@ -200,8 +201,9 @@
 				<term>otherwork<description>Other worked or transported material</description></term>
 			</lookup>
 		</property>
-		<property name="Associated surface material" type="vocab">
+		<property name="Associated surface material" isIdentifier= "true" type="vocab">
 			<description>If material other than old bone is associated, select those of the following that have been observed on the surface</description>
+			<formatString><![CDATA[$1]]></formatString>
 			<lookup>
 				<term>mussel<description>Mussel shell or shell fragment</description></term>
 				<term>hs<description>Hearthstones or charcoal</description></term>
