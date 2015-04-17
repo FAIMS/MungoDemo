@@ -271,6 +271,7 @@ loadFeature() {
 
 /** Creates a new old bone record. **/
 newOldBone() {
+  dialog = showBusy("creating a new record", "please wait");
   newTabGroup("oldBone");
   fetchOne("select vocabid from vocabulary join attributekey using (attributeid) where attributename = 'Cluster' and vocabname = '{boneOnly}';", new FetchCallback() {
     onFetch(result) {
@@ -281,6 +282,7 @@ newOldBone() {
       setFieldValue("oldBone/basicIdentification/gridSquare", "0");
       keepTabGroupChanges("oldBone");
       saveOldBone();
+      dialog.dismiss();
     }
   });
 }
@@ -290,11 +292,13 @@ loadOldBone() {
     showToast("No entity selected");
       return;
   }
+  dialog = showBusy("loading record", "please wait");
   showTabGroup("oldBone", entity_id, new FetchCallback() {
     onFetch(result) {
       Log.d("loadOldBone()", "Loaded an Old Bone Feature, ID: " + entity_id);
       showToast("Loaded an Old Bone record");
       keepTabGroupChanges("oldBone");
+      dialog.dismiss();
     }
   });
 }
@@ -716,14 +720,14 @@ loadAssocCallback(assocID) {
   removeGroundStone = false;
   makeDynamicVocab("CheckBoxGroup", "associatedMaterials/stoneArtefact/retouchedArtefacts", "Associated Retouched Artefacts", "{retouchedArtefacts}", null, "associatedMaterials/stoneArtefact/retouchedStoneContainer", "Associated Retouched Artefacts", "vocab");
   removeRetouchedArtefacts = false;
-
+  
   // load the saved values into the rendered views
+  dialog = showBusy("loading record", "please wait");
   showTabGroup("associatedMaterials", assocID, new FetchCallback() {
     onFetch(result) {
       print("loaded assoc: " + result + " with attributes: " + result.getAttributes());
-      showToast("Loading is currently under implementation.");
       removeUnselectedMaterials();
-
+      dialog.dismiss();
     }
   });
 }
