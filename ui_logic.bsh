@@ -423,16 +423,19 @@ updateInsituProportion() {
   }
 }
 
+String assocMaterialId = null;
+
 /** Saves the associated materials tabgroup **/
 autosaveAssociatedMaterials() {
   // save the associated materials.
   Boolean enable_autosave = true;
   // keepTabGroupChanges("associatedMaterials");
-  saveTabGroup("associatedMaterials", null, null, null, new SaveCallback() {
+  saveTabGroup("associatedMaterials", assocMaterialId, null, null, new SaveCallback() {
     onSave(uuid, newRecord) {
       // entity_id is the old bone id and uuid is the assoc materials id.
-      Log.d("autosaveAssociatedMaterials()", "Saving the  relation between oldBone " + entity_id + " and associatedMaterials " + uuid);
-      saveEntitiesToRel("Old Bone Feature Associated Materials", entity_id, uuid);
+      assocMaterialId = uuid;
+      Log.d("autosaveAssociatedMaterials()", "Saving the  relation between oldBone " + entity_id + " and associatedMaterials " + assocMaterialId);
+      saveEntitiesToRel("Old Bone Feature Associated Materials", entity_id, assocMaterialId);
     }
   }, enable_autosave);
 }
@@ -458,6 +461,7 @@ Boolean isInsituMaterial = true;
 /** Creates a new associated materials record for recording. **/
 newRecordAssocMaterial(Boolean insituMaterial) {
   isInsituMaterial = insituMaterial;
+  assocMaterialId = null;
   newTabGroup("associatedMaterials");
   removeAllViewsAndContainers("associatedMaterials");
   // renderAssocMaterial();
@@ -841,10 +845,11 @@ loadAssociatedMaterial() {
   String assocID = getListItemValue();
   Log.d("loadAssociatedMaterial()", "Preparing to load associated material with ID: " + assocID);
   if (!isNull(assocID)) {
+    assocMaterialId = assocID;
     loadingAssocMaterial = true;
     removeAllViewsAndContainers("associatedMaterials");
     // load the saved values for each view
-    renderAssocMaterialControl("loadAssocCallback(\""+assocID+"\");");
+    renderAssocMaterialControl("loadAssocCallback(\""+assocMaterialId+"\");");
   }
 }
 
