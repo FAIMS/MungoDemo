@@ -35,11 +35,11 @@
 		<property name="Insitu Proportion" type="vocab">
 			<description>Select the proportion of visible bone that remains in situ:</description>
 			<lookup>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">most<description>The majority of the visible bone is in situ</description></term>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">some<description>At least some of the bone is in situ</description></term>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">surface<description>No bone is embedded in sediment</description></term>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">recement<description>The bone appears to be in situ, but there is a high likelihood that it is actually cemented in redeposited sediment</description></term>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">ambiguous<description>The bone appears to be in situ, but it is impossible to say whether it is actually recemented</description></term>
+				<term pictureURL="files/data/OldBone/InSitu_Mostly.png">most<description>The majority of the visible bone is in situ</description></term>
+				<term pictureURL="files/data/missing.png">some<description>At least some of the bone is in situ</description></term>
+				<term pictureURL="files/data/OldBone/InSitu_Surface.png">surface<description>No bone is embedded in sediment</description></term>
+				<term pictureURL="files/data/OldBone/InSitu_Recemented.png">recement<description>The bone appears to be in situ, but there is a high likelihood that it is actually cemented in redeposited sediment</description></term>
+				<term pictureURL="files/data/OldBone/InSitu_Ambiguous.png">ambiguous<description>The bone appears to be in situ, but it is impossible to say whether it is actually recemented</description></term>
 			</lookup>
 		</property>
 		<property name="Body Parts Identifed" type="vocab">
@@ -113,70 +113,70 @@
 		<property name="Topographic Setting" type="vocab">
 			<description>Where on the lunette exposure is the old bone located?</description>
 			<lookup>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">{platform}<description>Broad, flat platform exposure</description></term>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">{less6Degree}<description>Slightly sloping surface</description></term>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">{6To12Degree}<description>Moderately sloping surface</description></term>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">{greater12Degree}<description>More steeply sloping surface</description></term>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">shallrill<description>Within a shallow rill</description></term>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">rillfloor<description>In the floor of a deep rill (strong, vertical rilling in clay-rich sediments)</description></term>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">rillwall<description>In the wall of a deep rill (strong, vertical rilling in clay-rich sediments)</description></term>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">ridge<description>On a narrow ridge in heavily eroded area</description></term>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">ridgerill<description>Feature in a heavily eroded area is cut by deep rills and straddles rill wall and rill flow</description></term>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">shalgulfl<description>In the floor of a gully less than 1.5m wide or deep</description></term>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">shalgulwal<description>In the wall of a gully less than 1.5m wide or deep</description></term>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">deepgulfl<description>In the floor of a gully greater than 1.5m wide and deep</description></term>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">deepgulwal<description>In the wall of a gully greater than 1.5m wide and deep</description></term>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">residtop<description>Flat surface on top of a residual</description></term>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">residside<description>In the side of a residual</description></term>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">chanfloor<description>In the floor of a modern outwash channel</description></term>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">chanwall<description>In the wall of a modern outwash channel</description></term>
+				<term pictureURL="files/data/OldBone/TopographicSetting_Platform1.png">{platform}<description>Broad, flat platform exposure</description></term>
+				<term pictureURL="files/data/OldBone/TopographicSetting__6degree_(SlightSlope).png">{less6Degree}<description>Slightly sloping surface</description></term>
+				<term pictureURL="files/data/OldBone/TopographicSetting_6-12degree_(ModerateSlope).png">{6To12Degree}<description>Moderately sloping surface</description></term>
+				<term pictureURL="files/data/missing.png">{greater12Degree}<description>More steeply sloping surface</description></term>
+				<term pictureURL="files/data/OldBone/TopographicSetting_ShallowRills.png">shallrill<description>Within a shallow rill</description></term>
+				<term pictureURL="files/data/OldBone/TopographicSetting_DeepGully+GullyWall+GullyFloor.png">rillfloor<description>In the floor of a deep rill (strong, vertical rilling in clay-rich sediments)</description></term>
+				<term pictureURL="files/data/OldBone/TopographicSetting_DeepRills.png">rillwall<description>In the wall of a deep rill (strong, vertical rilling in clay-rich sediments)</description></term>
+				<term pictureURL="files/data/OldBone/TopographicSetting_Ridge.png">ridge<description>On a narrow ridge in heavily eroded area</description></term>
+				<term pictureURL="files/data/OldBone/TopographicSetting_RidgeRills.png">ridgerill<description>Feature in a heavily eroded area is cut by deep rills and straddles rill wall and rill flow</description></term>
+				<term pictureURL="files/data/OldBone/TopographicSetting_ShallowGully+Floor+Ridge.png">shalgulfl<description>In the floor of a gully less than 1.5m wide or deep</description></term>
+				<term pictureURL="files/data/OldBone/TopographicSetting_ResidualTop+ResidualSide+ShallowGully+Ridge.png">shalgulwal<description>In the wall of a gully less than 1.5m wide or deep</description></term>
+				<term pictureURL="files/data/OldBone/TopographicSetting_DeepGully+GullyWall+GullyFloor.png">deepgulfl<description>In the floor of a gully greater than 1.5m wide and deep</description></term>
+				<term pictureURL="files/data/OldBone/TopographicSetting_DeepGully+GullyWall+GullyFloor.png">deepgulwal<description>In the wall of a gully greater than 1.5m wide and deep</description></term>
+				<term pictureURL="files/data/OldBone/TopographicSetting_ResidualTop+ResidualSide+ShallowGully+Ridge.png">residtop<description>Flat surface on top of a residual</description></term>
+				<term pictureURL="files/data/OldBone/TopographicSetting_ResidualTop+ResidualSide+Slope.png">residside<description>In the side of a residual</description></term>
+				<term pictureURL="files/data/OldBone/TopographicSetting_ModernOutwashChannel.png">chanfloor<description>In the floor of a modern outwash channel</description></term>
+				<term pictureURL="files/data/OldBone/TopographicSetting_ModernOutwashChannel+Floor+Wall.png">chanwall<description>In the wall of a modern outwash channel</description></term>
 			</lookup>
 		</property>
 		<property name="Sediment Type" type="vocab">
 			<description>What are the sediments that encase the old bone, or upon which they are immediately lying?</description>
 			<lookup>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">redsoil<description>Soil of a reddish colour</description></term>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">brownsoil<description>Soil of a brownish colour</description></term>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">redsand<description>Sandy sediments of a reddish colour</description></term>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">brownsand<description>Sandy sediments of a brownish colour</description></term>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">whitesand<description>Sandy sediments that are clean and whitish</description></term>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">othersand<description>Sandy sediments of another colour</description></term>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">greenclay<description>Clay sediments of a greenish colour</description></term>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">otherclay<description>Clay sediments of another colour (usually brown)</description></term>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">sandyclay<description>Sandy clay</description></term>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">alternat<description>Alternating layers of sand and clay</description></term>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">claylens<description>Distinct clay lens within other sediments</description></term>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">sandlens<description>Distinct sand lens within other sediments</description></term>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">cobble<description>A relatively continuous bed of cobbles or coarse gravel</description></term>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">gglag<description>A surface lag of carbonate derived from Golgol sediments</description></term>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">carblag<description>Any other surface lag of hard carbonate nodules</description></term>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">ggC<description>In situ soil carbonate (C-horizon) associated with Golgol sediments</description></term>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">Chorizon<description>In situ nodular soil carbonate in any other sediment</description></term>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">carbsoft<description>In situ soil carbonate in a diffuse horizon</description></term>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">carbpavemt<description>Well developed in situ soil carbonate forming a pavement</description></term>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">carbrework<description>A carbonate lag that has been reworked and reburied</description></term>
+				<term pictureURL="files/data/OldBone/SedimentType_RedSoil1.png">redsoil<description>Soil of a reddish colour</description></term>
+				<term pictureURL="files/data/OldBone/SedimentType_BrownSoil1.png">brownsoil<description>Soil of a brownish colour</description></term>
+				<term pictureURL="files/data/OldBone/SedimentType_RedSand1.png">redsand<description>Sandy sediments of a reddish colour</description></term>
+				<term pictureURL="files/data/OldBone/SedimentType_BrownSand1.png">brownsand<description>Sandy sediments of a brownish colour</description></term>
+				<term pictureURL="files/data/OldBone/SedimentType_WhiteSand+GreenSoil+OtherSoil.png">whitesand<description>Sandy sediments that are clean and whitish</description></term>
+				<term pictureURL="files/data/OldBone/SedimentType_SandyClay+OtherSand.png">othersand<description>Sandy sediments of another colour</description></term>
+				<term pictureURL="files/data/OldBone/SedimentType_GreenClay.png">greenclay<description>Clay sediments of a greenish colour</description></term>
+				<term pictureURL="files/data/missing.png">otherclay<description>Clay sediments of another colour (usually brown)</description></term>
+				<term pictureURL="files/data/OldBone/SedimentType_BrownSand+SandyClay.png">sandyclay<description>Sandy clay</description></term>
+				<term pictureURL="files/data/OldBone/SedimentType_AlternatingSandsAndClay1.png">alternat<description>Alternating layers of sand and clay</description></term>
+				<term pictureURL="files/data/OldBone/SedimentType_ClayLens.png">claylens<description>Distinct clay lens within other sediments</description></term>
+				<term pictureURL="files/data/OldBone/SedimentType_AlternatingSandsAndClay2.png">sandlens<description>Distinct sand lens within other sediments</description></term>
+				<term pictureURL="files/data/OldBone/SedimentType_CobbleBed.png">cobble<description>A relatively continuous bed of cobbles or coarse gravel</description></term>
+				<term pictureURL="files/data/OldBone/SedimentType_GolgolLag.png">gglag<description>A surface lag of carbonate derived from Golgol sediments</description></term>
+				<term pictureURL="files/data/OldBone/SedimentType_OtherCarbonateLag.png">carblag<description>Any other surface lag of hard carbonate nodules</description></term>
+				<term pictureURL="files/data/OldBone/SedimentType_GolgolC-Horizon1.png">ggC<description>In situ soil carbonate (C-horizon) associated with Golgol sediments</description></term>
+				<term pictureURL="files/data/OldBone/SedimentType_GolgolC-Horizon2.png">Chorizon<description>In situ nodular soil carbonate in any other sediment</description></term>
+				<term pictureURL="files/data/OldBone/SedimentType_DiffuseSoilCarbonate.png">carbsoft<description>In situ soil carbonate in a diffuse horizon</description></term>
+				<term pictureURL="files/data/OldBone/SedimentType_CarbonatePavement.png">carbpavemt<description>Well developed in situ soil carbonate forming a pavement</description></term>
+				<term pictureURL="files/data/OldBone/SedimentType_ReburiedReworkedCarbonate.png">carbrework<description>A carbonate lag that has been reworked and reburied</description></term>
 			</lookup>
 		</property>
 		<property name="Vulnerability To Erosion" type="vocab">
 			<description>Based on the cluster type and its topographic setting, how vulnerable is the old bone?</description>
 			<lookup>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">low<description>On a relatively stable, flat surface or gentle slope that is not being eroded by rills, in well cemented (firm) sediment</description></term>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">moderate<description>Wider area is being eaten away by ongoing erosion, e.g. near edge of platform exposure, gully head, expanding rill system</description></term>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">high<description>High probability of material being removed by erosion, or of the hearth losing its integrity, e.g. relatively steep slope with incipient rills and/or in loose sandy sediment</description></term>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">extreme<description>Hearth material is in imminent danger of rapid removal and loss, e.g. edge of eroding residual or deep rill, in gully wall, on a steep slope- washed surface, or in loose sandy sediment</description></term>
+				<term pictureURL="files/data/OldBone/VulnerabilitytoErosion_Low.png">low<description>On a relatively stable, flat surface or gentle slope that is not being eroded by rills, in well cemented (firm) sediment</description></term>
+				<term pictureURL="files/data/OldBone/VulnerabilitytoErosion_Moderate.png">moderate<description>Wider area is being eaten away by ongoing erosion, e.g. near edge of platform exposure, gully head, expanding rill system</description></term>
+				<term pictureURL="files/data/OldBone/VulnerabilitytoErosion_High.png">high<description>High probability of material being removed by erosion, or of the hearth losing its integrity, e.g. relatively steep slope with incipient rills and/or in loose sandy sediment</description></term>
+				<term pictureURL="files/data/OldBone/VulnerabilitytoErosion_Extreme.png">extreme<description>Hearth material is in imminent danger of rapid removal and loss, e.g. edge of eroding residual or deep rill, in gully wall, on a steep slope- washed surface, or in loose sandy sediment</description></term>
 			</lookup>
 		</property>
 		<property name="Palaeotopographic Setting" type="vocab">
 			<description>Where is the old bone cluster located in relation to the original dune morphology?</description>
 			<lookup>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">foredune<description>Stratigraphic layers are sloping towards the lakebed</description></term>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">backdune<description>Stratigraphic layers are sloping towards the hinterland</description></term>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">crest<description>Crest of dune, stratigraphic layers slope away, towards both lakebed and hinterland</description></term>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">beach<description>An area of rounded cobbles or gravels in distinct horizon</description></term>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">allfan<description></description></term>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">lakebed<description>Lakebed sediments</description></term>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">spit<description>Projection from dune into lakebed</description></term>
-				<term pictureURL="files/data/images/ModernBone/TopographicSetting_LakeFloor_Blowout_Ridge.png">indet<description>Indeterminate</description></term>
+				<term pictureURL="files/data/OldBone/PalaeotopographicSetting_ForeduneLayers.png">foredune<description>Stratigraphic layers are sloping towards the lakebed</description></term>
+				<term pictureURL="files/data/OldBone/PalaeotopographicSetting_BackduneLayers.png">backdune<description>Stratigraphic layers are sloping towards the hinterland</description></term>
+				<term pictureURL="files/data/OldBone/PalaeotopographicSetting_Crest.png">crest<description>Crest of dune, stratigraphic layers slope away, towards both lakebed and hinterland</description></term>
+				<term pictureURL="files/data/OldBone/PalaeotopographicSetting_Beach.png">beach<description>An area of rounded cobbles or gravels in distinct horizon</description></term>
+				<term pictureURL="files/data/missing.png">allfan<description></description></term>
+				<term pictureURL="files/data/missing.png">lakebed<description>Lakebed sediments</description></term>
+				<term pictureURL="files/data/missing.png">spit<description>Projection from dune into lakebed</description></term>
+				<term pictureURL="files/data/OldBone/PalaeotopographicSetting_Indeterminate.png">indet<description>Indeterminate</description></term>
 			</lookup>
 		</property>
 		<property name="Photos" type="file" file="true" thumbnail="true">

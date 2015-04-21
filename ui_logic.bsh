@@ -77,7 +77,13 @@ stopSync() {
 /** Vocab Population **/
 /* Populates the path specified vocabulary from the database based on the given attribute name, where type 
 is the type of the vocab to populate (checkbox, dropdown, radio or list). */
-makeVocab(String type, String path, String attrib, List vocabExclusions){
+makeVocab(String type, String path, String attrib, List vocabExclusions) {
+    makeVocab(type, path, attrib, vocabExclusions, null);
+}
+
+/* Populates the path specified vocabulary from the database based on the given attribute name, where type 
+is the type of the vocab to populate (checkbox, dropdown, radio or list). */
+makeVocab(String type, String path, String attrib, List vocabExclusions, String callbackFunction){
   fetchAll("select vocabid, vocabname from vocabulary join attributekey using (attributeid) where attributename = '" + attrib + "' order by vocabcountorder;",
     new FetchCallback() {
       onFetch(result) {
@@ -102,6 +108,10 @@ makeVocab(String type, String path, String attrib, List vocabExclusions){
           populateRadioGroup(path, result);
         } else if(type.equals("List")) {
           populateList(path, result);
+        }
+
+        if (callbackFunction != null && !isNull(callbackFunction)) {
+          execute(callbackFunction);
         }
       }
     });
@@ -133,6 +143,9 @@ makeDynamicVocab(String type, String path, String attrib, String label, String c
   if (!isNull(attributeName) && !isNull(attributeType)) {
     viewDef.setAttributeName(attributeName).setAttributeType(attributeType);
   }
+
+  // Add the certainty, annotation and description
+  viewDef.setAnnotationEnabled(true).setCertaintyEnabled(true).setInfoEnabled(true);
 
   // populate the dynamic view choices with the contents of some vocabulary
   String tabgroup = path.split("/")[0];
@@ -172,7 +185,6 @@ makeDynamicVocab(String type, String path, String attrib, String label, String c
 makeDynamicVocab(String type, String path, String attrib, String label) {
   makeDynamicVocab(type, path, attrib, label, null, null);
 }
-
 
 
 /** Saves two entity id's as a relation. **/
@@ -287,6 +299,7 @@ newOldBone() {
   });
 }
 
+/** Loads an old bone record. **/
 loadOldBone() {
   if (isNull(entity_id)) {
     showToast("No entity selected");
@@ -295,6 +308,7 @@ loadOldBone() {
   dialog = showBusy("loading record", "please wait");
   showTabGroup("oldBone", entity_id, new FetchCallback() {
     onFetch(result) {
+      // toggleAssociatedMaterials();
       Log.d("loadOldBone()", "Loaded an Old Bone Feature, ID: " + entity_id);
       showToast("Loaded an Old Bone record");
       keepTabGroupChanges("oldBone");
@@ -342,15 +356,17 @@ toggleAssociatedMaterials() {
       if (!isNull(result)) {
         boneOnly = result.get(0);
         if (boneOnly.equals(getFieldValue("oldBone/basicIdentification/cluster"))) {
-          Log.d("showAssociatedMaterials()", "Hiding associated materials Tab");
+          Log.d("toggleAssociatedMaterials()", "Hiding associated materials Tab");
           cancelTab("oldBone/associatedMaterials", false);
           toggleClusterType(true);        
         } else {
-          Log.d("showAssociatedMaterials()", "Showing associated materials Tab");
+          Log.d("toggleAssociatedMaterials()", "Showing associated materials Tab");
           showTab("oldBone/associatedMaterials");
           showTab("oldBone/basicIdentification");
           toggleClusterType(false);
         }
+      } else {
+        Log.e("toggleAssociatedMaterials()", "No vocab found for cluster with choice bone only.");
       }
     }
   });
@@ -390,8 +406,8 @@ updateInsituProportion() {
           doTask() {
             if (type.get(1).equals("{insitBO}") || type.get(1).equals("{insitAndSurf}") || type.get(1).equals("{inistAndOth}") || type.get(1).equals("{bothAndOth}")) {
               if (!hasView("oldBone/insituAndSurfaceBone/insituProportion")) {
-                // makeDynamicVocab("CheckBoxGroup", "oldBone/insituAndSurfaceBone/insituProportion", "Cluster Type", "{insituProportion}", null, "oldBone/insituAndSurfaceBone/insituProportionContainer");
-                makeDynamicVocab("PictureGallery", "oldBone/insituAndSurfaceBone/insituProportion", "Cluster Type", "{insituProportion}", null, "oldBone/insituAndSurfaceBone/insituProportionContainer");
+                // makeDynamicVocab("CheckBoxGroup", "oldBone/insituAndSurfaceBone/insituProportion", "Insitu Proportion", "{insituProportion}", null, "oldBone/insituAndSurfaceBone/insituProportionContainer");
+                makeDynamicVocab("PictureGallery", "oldBone/insituAndSurfaceBone/insituProportion", "Insitu Proportion", "{insituProportion}", null, "oldBone/insituAndSurfaceBone/insituProportionContainer", "Insitu Proportion", "vocab"); 
               }
               removeInsituProportion = false;
             }
@@ -422,7 +438,8 @@ autosaveAssociatedMaterials() {
 }
 
 onEvent("oldBone/associatedMaterials/addInsituMaterial", "delayclick", "newRecordAssocMaterial(true);");
-onEvent("oldBone/associatedMaterials/addSurfaceMaterial", "delayclick", "newRecordAssocMaterial(false);");
+// onEvent("oldBone/associatedMaterials/addSurfaceMaterial", "delayclick", "newRecordAssocMaterial(false);");
+onEvent("oldBone/associatedMaterials/addSurfaceMaterial", "delayclick", "showToast(\"This is a placeholder\")");
 
 
 List associatedInsituMaterialVocab = new ArrayList();
@@ -677,7 +694,7 @@ listAssociatedMaterials() {
         }
         Log.d("listAssociatedMaterials()", "Listing the materials associate with the Old Bone " + entity_id);
         populateList("oldBone/associatedMaterials/associatedInsituList", result);
-        populateList("oldBone/associatedMaterials/associatedSurfaceList", result);
+        // populateList("oldBone/associatedMaterials/associatedSurfaceList", result);
       }
       onError(message) {
         showToast(message);
@@ -692,7 +709,8 @@ listAssociatedMaterials() {
 }
 
 onEvent("oldBone/associatedMaterials/associatedInsituList", "click", "loadAssociatedMaterial();");
-onEvent("oldBone/associatedMaterials/associatedSurfaceList", "click", "loadAssociatedMaterial();");
+// onEvent("oldBone/associatedMaterials/associatedSurfaceList", "click", "loadAssociatedMaterial();");
+onEvent("oldBone/associatedMaterials/associatedSurfaceList", "click", "showToast(\"This is a placeholder\");");
 
 Boolean loadingAssocMaterial = false;
 
@@ -956,28 +974,6 @@ removeRetouchedArtefacts() {
   }
 }
 
-/** Displays or hides the associated materials tabgroup depending on what cluster is selected. **/
-toggleAssociatedMaterials() {
-  String boneAndOther = null;
-  fetchOne("select vocabid from vocabulary join attributekey using (attributeid) where attributename = 'Cluster' and vocabname = '{boneOnly}';", new FetchCallback() {
-    onFetch(result) {
-      if (!isNull(result)) {
-        boneOnly = result.get(0);
-        if (boneOnly.equals(getFieldValue("oldBone/basicIdentification/cluster"))) {
-          Log.d("showAssociatedMaterials()", "Hiding associated materials Tab");
-          cancelTab("oldBone/associatedMaterials", false);
-          toggleClusterType(true);        
-        } else {
-          Log.d("showAssociatedMaterials()", "Showing associated materials Tab");
-          showTab("oldBone/associatedMaterials");
-          showTab("oldBone/basicIdentification");
-          toggleClusterType(false);
-        }
-      }
-    }
-  });
-}
-
 /** Populates a global list variable with the contents of a specified vocabulary. **/
 populateGlobalVocab(String vocabName, List globalList) {
   fetchAll("select vocabid, vocabname from vocabulary left join attributekey using (attributeid) where attributename = '" + vocabName + "';", new FetchCallback() {
@@ -1020,4 +1016,7 @@ init() {
 
 }
 
+onEvent("oldBone/topAndStratSetting/takePhoto", "click", "attachPictureTo(\"oldBone/topAndStratSetting/photos\");");
+
 init();
+

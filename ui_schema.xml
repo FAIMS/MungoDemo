@@ -56,8 +56,9 @@
               <sedimentType/>
               <vulnerabilityToErosion/>
               <paleotopographicSetting/>
-              <notes/>
               <photos/>
+              <takePhoto/>
+              <notes/>
             </topAndStratSetting>>
           </oldBone>
           <associatedMaterials>
@@ -264,6 +265,16 @@
             <value>placeholder</value>
           </item>
         </select1>
+        <select type="camera" ref="photos" faims_sync="true" faims_attribute_name="Photos" faims_attribute_type="measure" faims_certainty="true" faims_annotation="true" faims_read_only="false">
+          <label>{photos}</label>
+          <item>
+            <label>placeholder</label>
+            <value>placeholder</value>
+          </item>
+        </select>
+        <trigger ref="takePhoto">
+          <label>{takePhoto}</label>
+        </trigger>
         <input ref="notes" faims_attribute_name="Notes" faims_attribute_type="measure">
           <label>{notes}</label>
         </input>
@@ -274,20 +285,6 @@
       <label>{associatedMaterials}</label>
       <group ref="control">
         <label>{material}</label>
-<!--         <select ref="associatedInsituMaterial" faims_attribute_name="Associated in situ material" faims_attribute_type="vocab">
-          <label>{associatedInsituMaterial}</label>
-          <item>
-            <label>placeholder</label>
-            <value>placeholder</value>
-          </item>
-        </select>
-        <select ref="associatedSurfaceMaterial" faims_attribute_name="Associated surface material" faims_attribute_type="vocab">
-          <label>{associatedSurfaceMaterial}</label>
-          <item>
-            <label>placeholder</label>
-            <value>placeholder</value>
-          </item>
-        </select> -->
       </group>
 
       <group ref="eggshell">
