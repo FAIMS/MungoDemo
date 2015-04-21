@@ -397,6 +397,10 @@ onEvent("oldBone/basicIdentification/clusterType", "click", "updateInsituProport
 updateInsituProportion() {
   // clusterType = getFieldValue("oldBone/basicIdentification/clusterType");
   selectedItem = getFieldValue("oldBone/basicIdentification/clusterType");
+  if (selectedItem == null) {
+    Log.e("updateInsituProportion()", "Null field value for: \"oldBone/basicIdentification/clusterType\"");
+    return;
+  }
   Boolean removeInsituProportion = true;
   // for (selectedItem : clusterType) {
     for (type : cluserTypeVocab) {
