@@ -387,6 +387,18 @@ toggleClusterType(Boolean boneOnly) {
     exclusions.add("{insitAndSurf}");
   }
   makeVocab("RadioGroup", "oldBone/basicIdentification/clusterType", "Cluster Type", exclusions);
+  // load the value of a saved cluster type if one exists for the view (neccessary since the make vocab clears out the existing value)
+  fetchOne("select vocabid from latestnondeletedaentvalue join attributekey using (attributeid) where uuid = \""+entity_id+"\" and attributename = 'Cluster Type';", new FetchCallback() {
+    onFetch(result) {
+      if (!isNull(result)) {
+        String clusterType = result.get(0);
+        Log.d("toggleClusterType()", "Setting clusterType field value to: " + clusterType);
+        setFieldValue("oldBone/basicIdentification/clusterType", clusterType);
+      } else {
+        Log.d("toggleClusterType()", "No saved value for clusterType found");
+      }
+    }
+  });
 }
 
 onEvent("oldBone/basicIdentification/cluster", "click", "toggleAssociatedMaterials();");
@@ -412,6 +424,7 @@ updateInsituProportion() {
               if (!hasView("oldBone/insituAndSurfaceBone/insituProportion")) {
                 // makeDynamicVocab("CheckBoxGroup", "oldBone/insituAndSurfaceBone/insituProportion", "Insitu Proportion", "{insituProportion}", null, "oldBone/insituAndSurfaceBone/insituProportionContainer");
                 makeDynamicVocab("PictureGallery", "oldBone/insituAndSurfaceBone/insituProportion", "Insitu Proportion", "{insituProportion}", null, "oldBone/insituAndSurfaceBone/insituProportionContainer", "Insitu Proportion", "vocab"); 
+                Log.d("updateInsituProportion()", "Making insituProportion picture gallery");
               }
               removeInsituProportion = false;
             }
@@ -423,6 +436,7 @@ updateInsituProportion() {
   if (removeInsituProportion) {
     if (hasView("oldBone/insituAndSurfaceBone/insituProportion")) {
       removeView("oldBone/insituAndSurfaceBone/insituProportion");
+      Log.d("updateInsituProportion()", "Removing insituProportion picture gallery");
     }
   }
 }
