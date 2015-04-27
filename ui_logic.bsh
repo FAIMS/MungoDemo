@@ -1,8 +1,30 @@
 /*** 'Editable' - you can edit the code below based on the needs ***/
 import java.util.concurrent.Callable;
 import android.util.Log;
+// imports to allow querying of the grid db
+import java.io.File;
+import jsqlite;
+import jsqlite.Callback;
 
 print("Very first line of logic after the import lines");
+
+// Code for connecting to the grid db.
+File file = new File("/sdcard/faims/modules/"+getModuleId()+"/files/data/grid.sqlite3");
+jsqlite.Database db = new jsqlite.Database();
+type = jsqlite.Constants.SQLITE_OPEN_READONLY;
+try {
+  db.open(file.getPath(), type);
+  db.exec("select spatialite_version(), sqlite_version(), proj4_version(), geos_version(), lwgeom_version();", new Callback() {
+
+  });
+} catch (Exception e) {
+  Log.e("error dumping database", e.toString());
+} finally {
+  db.close();
+}
+
+// ******
+
 
 User user; // don't touch
 String userid;
