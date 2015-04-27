@@ -394,6 +394,7 @@ toggleClusterType(Boolean boneOnly) {
         String clusterType = result.get(0);
         Log.d("toggleClusterType()", "Setting clusterType field value to: " + clusterType);
         setFieldValue("oldBone/basicIdentification/clusterType", clusterType);
+        updateInsituProportion();
       } else {
         Log.d("toggleClusterType()", "No saved value for clusterType found");
       }
@@ -404,6 +405,15 @@ toggleClusterType(Boolean boneOnly) {
 onEvent("oldBone/basicIdentification/cluster", "click", "toggleAssociatedMaterials();");
 
 onEvent("oldBone/basicIdentification/clusterType", "click", "updateInsituProportion()");
+
+inSituPictureCallback() {
+ fetchAll("select vocabid, vocabname, pictureurl from vocabulary left join attributekey using (attributeid) where attributename = 'Insitu Proportion' order by vocabcountorder;", new FetchCallback() {
+    onFetch(pictures) {
+      populatePictureGallery("oldBone/insituAndSurfaceBone/insituProportion", pictures);
+      refreshTabgroupCSS("oldBone");
+    }
+  }); 
+}
 
 /** Displays the in situ proportion view when appropriate. **/
 updateInsituProportion() {
@@ -423,7 +433,7 @@ updateInsituProportion() {
             if (type.get(1).equals("{insitBO}") || type.get(1).equals("{insitAndSurf}") || type.get(1).equals("{inistAndOth}") || type.get(1).equals("{bothAndOth}")) {
               if (!hasView("oldBone/insituAndSurfaceBone/insituProportion")) {
                 // makeDynamicVocab("CheckBoxGroup", "oldBone/insituAndSurfaceBone/insituProportion", "Insitu Proportion", "{insituProportion}", null, "oldBone/insituAndSurfaceBone/insituProportionContainer");
-                makeDynamicVocab("PictureGallery", "oldBone/insituAndSurfaceBone/insituProportion", "Insitu Proportion", "{insituProportion}", null, "oldBone/insituAndSurfaceBone/insituProportionContainer", "Insitu Proportion", "vocab"); 
+                makeDynamicVocab("PictureGallery", "oldBone/insituAndSurfaceBone/insituProportion", "Insitu Proportion", "{insituProportion}", "inSituPictureCallback();", "oldBone/insituAndSurfaceBone/insituProportionContainer", "Insitu Proportion", "vocab"); 
                 Log.d("updateInsituProportion()", "Making insituProportion picture gallery");
               }
               removeInsituProportion = false;
