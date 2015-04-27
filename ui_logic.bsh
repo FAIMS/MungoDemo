@@ -697,6 +697,9 @@ onShowAssociatedMaterials() {
     showTab("associatedMaterials/otherWorked");
     removeAssocOther = true;
   }
+
+  // switch to the control tab
+  showTab("associatedMaterials/control");
   
   // save the tabgroup
   autosaveAssociatedMaterials();
