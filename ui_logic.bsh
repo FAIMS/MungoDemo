@@ -205,6 +205,82 @@ saveEntitiesToHierRel(String type, String entity1, String entity2, String e1verb
 /** Editable Module Code **/
 /**************************/
 
+/** Action Bar **/
+
+addActionBarItem("sync", new ToggleActionButtonCallback() {
+    actionOnLabel() {
+        "{Sync_Enabled}";
+    }
+    actionOn() {
+        setSyncEnabled(false);
+        setFileSyncEnabled(false);
+        showToast("{Sync_Disabled}");
+    }
+    isActionOff() {
+        isSyncEnabled();
+    }
+    actionOffLabel() {
+        "{Sync_Disabled}";
+    }
+    actionOff() {
+        setSyncEnabled(true);
+        setFileSyncEnabled(true);
+        showToast("{Sync_Enabled}");
+    }
+});
+
+addActionBarItem("internal_gps", new ToggleActionButtonCallback() {
+    actionOnLabel() {
+        "{Internal_GPS_Enabled}";
+    }
+    actionOn() {
+        stopGPS();
+        showToast("{GPS_Disabled}");
+    }
+    isActionOff() {
+        isInternalGPSOn();
+    }
+    actionOffLabel() {
+        "{Internal_GPS_Disabled}";
+    }
+    actionOff() {
+        if(isExternalGPSOn()) {
+            stopGPS();
+        }
+        startInternalGPS();
+        showToast("{GPS_Enabled}");
+    }
+});
+
+addActionBarItem("external_gps", new ToggleActionButtonCallback() {
+    actionOnLabel() {
+        "{External_GPS_Enabled}";
+    }
+    actionOn() {
+        stopGPS();
+        showToast("{GPS_Disabled}");
+
+    }
+    isActionOff() {
+        isExternalGPSOn();
+    }
+    actionOffLabel() {
+        "{External_GPS_Disabled}";
+    }
+    actionOff() {
+        if(isInternalGPSOn()) {
+            stopGPS();
+        }
+        startExternalGPS();
+        if(isBluetoothConnected()) {
+            showToast("{GPS_Enabled}");
+        } else {
+            showToast("{Please_Enable_Bluetooth}");
+            this.isActionOff();
+        }
+    }
+});
+
 String entity_id = null;
 
 /** Saves the old bone entity. **/
@@ -466,14 +542,35 @@ Boolean removeAssocOther = true;
 
 Boolean isInsituMaterial = true;
 
-/** Creates a new associated materials record for recording. **/
+/** Creates a new associated materials record for recording, as long as no associated material already exists. **/
 newRecordAssocMaterial(Boolean insituMaterial) {
-  isInsituMaterial = insituMaterial;
-  assocMaterialId = null;
-  newTabGroup("associatedMaterials");
-  removeAllViewsAndContainers("associatedMaterials");
-  // renderAssocMaterial();
-  renderAssocMaterialControl();
+  if(!isNull(entity_id)) {
+    fetchOne("select uuid, response " +
+      "from latestNonDeletedArchEntFormattedIdentifiers " +
+      "where aenttypename = 'Associated Materials' " +
+      "and uuid in  (select uuid " +
+      "FROM latestNonDeletedAentReln " +
+      "where relationshipid in (select relationshipid " +
+      "FROM latestNonDeletedAentReln " +
+      "JOIN relationship using (relationshipid) " +
+      "JOIN relntype using (relntypeid) " +
+      "where uuid = "+entity_id + " " +
+      "and relntypeName = 'Old Bone Feature Associated Materials') " +
+      "and uuid != "+entity_id+");",  new FetchCallback() {
+      onFetch(result) {
+        if(isNull(result)) {
+          isInsituMaterial = insituMaterial;
+          assocMaterialId = null;
+          newTabGroup("associatedMaterials");
+          removeAllViewsAndContainers("associatedMaterials");
+          // renderAssocMaterial();
+          renderAssocMaterialControl();
+        } else {
+          showToast("Only one associated material can be recorded");
+        }
+      }
+    });
+  }
 }
 
 /** Renders the dynamic fields in the associatedMaterials/control tab, which other dynamic rendering for the tabgroup is dependant upon. **/
