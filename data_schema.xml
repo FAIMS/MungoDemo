@@ -192,6 +192,7 @@
 		<property name="Associated in situ material" isIdentifier= "true" type="vocab">
 			<description>If material other than old bone is associated, select those of the following that have been observed in situ</description>
 			<formatString><![CDATA[$1]]></formatString>
+			<appendCharacterString><![CDATA[+]]></appendCharacterString>
 			<lookup>
 				<term>mussel<description>Mussel shell or shell fragment</description></term>
 				<term>hs<description>Hearthstones or charcoal</description></term>
@@ -204,6 +205,7 @@
 		<property name="Associated surface material" isIdentifier= "true" type="vocab">
 			<description>If material other than old bone is associated, select those of the following that have been observed on the surface</description>
 			<formatString><![CDATA[$1]]></formatString>
+			<appendCharacterString><![CDATA[+]]></appendCharacterString>
 			<lookup>
 				<term>mussel<description>Mussel shell or shell fragment</description></term>
 				<term>hs<description>Hearthstones or charcoal</description></term>
@@ -213,7 +215,7 @@
 				<term>otherwork<description>Other worked or transported material</description></term>
 			</lookup>
 		</property>		
-		<property name="Associated Hearth Material" isIdentifier= "true" type="vocab">
+		<property name="Associated Hearth Material" type="vocab">
 			<description>If hearthstone material is associated, either in situ or on the surface, select those of the following that have been observed:</description>
 			<formatString><![CDATA[$1]]></formatString>
 			<lookup>
@@ -225,7 +227,7 @@
 				<term>indet<description>Hearthstones of indeterminate raw material</description></term>
 			</lookup>
 		</property>
-		<property name="Associated Eggshell" isIdentifier= "true" type="vocab">
+		<property name="Associated Eggshell" type="vocab">
 			<description>If eggshell is associated, either in situ or on the surface, select those of the following that have been observed:</description>
 			<formatString><![CDATA[$1]]></formatString>
 			<lookup>
@@ -235,7 +237,7 @@
 				<term>indet<description>Indeterminate eggshell, features unclear due to surface modification</description></term>
 			</lookup>
 		</property>
-		<property name="Associated Stone Artefacts" isIdentifier= "true" type="vocab">
+		<property name="Associated Stone Artefacts" type="vocab">
 			<description>If stone artefacts are associated, either in situ or on the surface, select those of the following that have been observed</description>
 			<formatString><![CDATA[$1]]></formatString>
 			<lookup>
@@ -244,7 +246,7 @@
 				<term>ground<description>Ground stone</description></term>
 			</lookup>
 		</property>
-		<property name="Associated Chipped Stone Artefacts" isIdentifier= "true" type="vocab">
+		<property name="Associated Chipped Stone Artefacts" type="vocab">
 			<description>If chipped stone is present, either in situ or on the surface, select those of the following that have been observed:</description>
 			<formatString><![CDATA[$1]]></formatString>
 			<lookup>
@@ -255,7 +257,7 @@
 				<term>indet<description>Indeterminate</description></term>
 			</lookup>
 		</property>
-		<property name="Associated Retouched Artefacts" isIdentifier= "true" type="vocab">
+		<property name="Associated Retouched Artefacts" type="vocab">
 			<description></description>
 			<formatString><![CDATA[$1]]></formatString>
 			<lookup>
@@ -267,7 +269,7 @@
 				<term>otherru<description>Any other type of retouch or use-wear</description></term>
 			</lookup>
 		</property>
-		<property name="Associated Unmodified Stone" isIdentifier= "true" type="vocab">
+		<property name="Associated Unmodified Stone" type="vocab">
 			<description>If unmodified stone is associated, either in situ or on the surface, select those of the following that have been observed:</description>
 			<formatString><![CDATA[$1]]></formatString>
 			<lookup>
@@ -277,7 +279,7 @@
 				<term>indet<description>Indeterminate unmodified stone</description></term>
 			</lookup>
 		</property>
-		<property name="Ground Stone Types Present" isIdentifier= "true" type="vocab">
+		<property name="Ground Stone Types Present" type="vocab">
 			<description>If ground stone is associated, either in situ or on the surface, select those of the following that have been observed:</description>
 			<formatString><![CDATA[$1]]></formatString>
 			<lookup>
@@ -290,7 +292,7 @@
 				<term>undiag<description>Fragmentary, not complete enough to distinguish nature of ground surface</description></term>
 			</lookup>
 		</property>
-		<property name="Ground Stone Status" isIdentifier= "true" type="vocab">
+		<property name="Ground Stone Status" type="vocab">
 			<description>If ground stone is associated, either in situ or on the surface, is the ground material...:</description>
 			<formatString><![CDATA[$1]]></formatString>
 			<lookup>
@@ -299,7 +301,7 @@
 				<term>refits<description></description></term>
 			</lookup>
 		</property>
-		<property name="Raw Material Types Present" isIdentifier= "true" type="vocab">
+		<property name="Raw Material Types Present" type="vocab">
 			<description>If stone artefacts are associated, either in situ or on the surface, select those types of raw material that have been observed:</description>
 			<formatString><![CDATA[$1]]></formatString>
 			<lookup>
@@ -314,7 +316,7 @@
 				<term>other<description>Other material</description></term>
 			</lookup>
 		</property>
-		<property name="Associated Other Worked Material" isIdentifier= "true" type="vocab">
+		<property name="Associated Other Worked Material" type="vocab">
 			<description>If other worked or transported material is associated, either in situ or on the surface, select those of the following that have been observed:</description>
 			<formatString><![CDATA[$1]]></formatString>
 			<lookup>
