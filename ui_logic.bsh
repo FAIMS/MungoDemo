@@ -326,22 +326,22 @@ populateOldBoneAttributes() {
   makeVocab("CheckBoxGroup", "oldBone/insituAndSurfaceBone/bonePreservation", "Bone Preservation");
   makeVocab("CheckBoxGroup", "oldBone/insituAndSurfaceBone/deliberateSurfaceModification", "Deliberate Surface Modification");
 
-  fetchAll("select vocabid, vocabname, pictureurl from vocabulary left join attributekey using (attributeid) where attributename = 'Topographic Setting';", new FetchCallback() {
+  fetchAll("select vocabid, vocabname, pictureurl from vocabulary left join attributekey using (attributeid) where attributename = 'Topographic Setting' order by vocabcountorder;", new FetchCallback() {
     onFetch(pictures) {
       populatePictureGallery("oldBone/topAndStratSetting/topographicSetting", pictures);
     }
   });
-  fetchAll("select vocabid, vocabname, pictureurl from vocabulary left join attributekey using (attributeid) where attributename = 'Sediment Type';", new FetchCallback() {
+  fetchAll("select vocabid, vocabname, pictureurl from vocabulary left join attributekey using (attributeid) where attributename = 'Sediment Type' order by vocabcountorder;", new FetchCallback() {
     onFetch(pictures) {
       populatePictureGallery("oldBone/topAndStratSetting/sedimentType", pictures);
     }
   });
-  fetchAll("select vocabid, vocabname, pictureurl from vocabulary left join attributekey using (attributeid) where attributename = 'Vulnerability To Erosion';", new FetchCallback() {
+  fetchAll("select vocabid, vocabname, pictureurl from vocabulary left join attributekey using (attributeid) where attributename = 'Vulnerability To Erosion' order by vocabcountorder;", new FetchCallback() {
     onFetch(pictures) {
       populatePictureGallery("oldBone/topAndStratSetting/vulnerabilityToErosion", pictures);
     }
   });
-  fetchAll("select vocabid, vocabname, pictureurl from vocabulary left join attributekey using (attributeid) where attributename = 'Palaeotopographic Setting';", new FetchCallback() {
+  fetchAll("select vocabid, vocabname, pictureurl from vocabulary left join attributekey using (attributeid) where attributename = 'Palaeotopographic Setting' order by vocabcountorder;", new FetchCallback() {
     onFetch(pictures) {
       populatePictureGallery("oldBone/topAndStratSetting/paleotopographicSetting", pictures);
     }
