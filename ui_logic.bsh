@@ -9,27 +9,7 @@ String userid;
 
 makeLocalID(){
     fetchOne("CREATE TABLE IF NOT EXISTS localSettings (key text primary key, value text);");
-    fetchOne("drop view latestNonDeletedArchEntFormattedIdentifiers;");
-    fetchOne("CREATE VIEW latestNonDeletedArchEntFormattedIdentifiers as " +
-              "select uuid, aenttypeid, aenttypename, group_concat(response, '') as response, null as deleted " +
-              "from ( " +
-                "select uuid, aenttypeid, aenttypename, group_concat(format(formatstring, vocabname, measure, freetext, certainty), appendcharacterstring) as response, null as deleted, aentcountorder " +
-                "from ( " +
-                  "select uuid, aenttypeid, aenttypename, formatstring, vocabname, measure, freetext, certainty, appendcharacterstring, null as deleted, aentcountorder, vocabcountorder, attributeid " +
-                  "from latestNonDeletedArchent " +
-                    "JOIN aenttype using (aenttypeid) " +
-                    "JOIN (select * from idealaent where isIdentifier='true') using (aenttypeid) " +
-                    "join attributekey  using (attributeid) " +
-                    "join latestNonDeletedAentValue using (uuid, attributeid) " +
-                    "left outer join vocabulary using (attributeid, vocabid) " +
-                  "order by uuid, aentcountorder, vocabcountorder " +
-                ") " +
-                "group by uuid, attributeid " +
-                "having response is not null " +
-                "order by uuid, aentcountorder) " +
-              "group by uuid " +
-              "order by uuid;"
-    );
+    // fetchOne("ATTACH DATABASE 'faims/modules/"+getModuleId()+"/files/data/grid.sqlite3' AS grid"); 
 }
 makeLocalID();
 
@@ -1009,6 +989,50 @@ removeRetouchedArtefacts() {
     }
   }
 }
+
+
+
+/*******************/
+/* Grid Square GPS */
+
+onEvent("oldBone/basicIdentification/calculateGridSquare", "click", "calculateGridSquare();");
+
+/** Calculates the grid square that the feature is in. **/
+calculateGridSquare() {
+  showToast("Caculating grid square");
+  // check that GPS is on and a position can be found.
+  if(!isExternalGPSOn() && !isInternalGPSOn()) {
+    showToast("Please turn on GPS");
+    Log.e("calculateGridSquare()", "Internal and external GPS are off.");
+    return;
+  }
+  Object position = getGPSPosition();
+  if (position == null) {
+    showToast("A GPS position could not be found");
+    Log.e("calculateGridSquare()", "A GPS position couldn't be found.");
+    return;
+  }
+
+  // record the gps geometry 
+  Object projPosition = getGPSPositionProjected();
+  Double latitude = position.getLatitude();
+  Double longitude = position.getLongitude();
+  Double northing = projPosition.getLatitude();
+  Double easting = projPosition.getLongitude();
+  samplePoint = new Point(new MapPos(easting, northing), null, (PointStyle) null, null);
+  ArrayList geolist = new ArrayList();
+  geolist.add(samplePoint);
+  saveArchEnt(entity_id, "oldBone", geolist, null, new SaveCallback() {
+    onSave(uuid, newRecord) {
+      Log.d("calculateGridSquare()", "Saved geometry: " + geolist.toString());
+    }  
+  });    
+
+}
+
+/*******************/
+
+
 
 /** Populates a global list variable with the contents of a specified vocabulary. **/
 populateGlobalVocab(String vocabName, List globalList) {
