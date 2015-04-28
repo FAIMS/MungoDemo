@@ -1112,6 +1112,11 @@ calculateGridSquare() {
     Log.e("calculateGridSquare()", "A GPS position couldn't be found.");
     return;
   }
+  if(isNull(entity_id)) {
+    showToast("The record needs to be saved before calculating the grid square");
+    Log.e("calculateGridSquare()", "The entity_id is null as the record has not been saved yet.");
+    return;
+  }
 
   // record the gps geometry 
   dialog = showBusy("Caculating grid square", "please wait");
@@ -1128,7 +1133,6 @@ calculateGridSquare() {
   saveArchEnt(entity_id, "oldBone", geolist, null, new SaveCallback() {
     onSave(uuid, newRecord) {
       Log.d("calculateGridSquare()", "Saved geometry: " + geolist.toString());
-      Log.d("calculateGridSquare()", "String converted easting: " + easting.toString() + " and northing: " + northing.toString());
       queryGridDB(easting.toString(), northing.toString());
       dialog.dismiss();
     }  
@@ -1149,13 +1153,14 @@ queryGridDB(String easting, String northing) {
     db.open(file.getPath(), type);
     db.exec(gridSquareQuery, new Callback() {
       public void columns(String[] coldata) {
-        print("coldata: " + Arrays.toString(coldata));
+        Log.d("grid square query", "coldata: " + Arrays.toString(coldata));
       }
       public void types(String[] types) {
-        print("types: " + Arrays.toString(types));
+        Log.d("grid square query", "types: " + Arrays.toString(types));
       }
       public boolean newrow(String[] rowdata) {
-        print("rowdata: " + Arrays.toString(rowdata));
+        Log.d("grid square query", "rowdata: " + Arrays.toString(rowdata));
+        showToast("You are in grid square " + rowdata[0].toString());
         return false;
       }
     });
@@ -1172,13 +1177,16 @@ queryGridDB(String easting, String northing) {
     db.open(file.getPath(), type);
     db.exec(warningQuery, new Callback() {
       public void columns(String[] coldata) {
-        print("coldata: " + Arrays.toString(coldata));
+        Log.d("grid warning query", "coldata: " + Arrays.toString(coldata));
       }
       public void types(String[] types) {
-        print("types: " + Arrays.toString(types));
+        Log.d("grid warning query", "types: " + Arrays.toString(types));
       }
       public boolean newrow(String[] rowdata) {
-        print("rowdata: " + Arrays.toString(rowdata));
+        Log.d("grid warning query", "rowdata: " + Arrays.toString(rowdata));
+        if (rowdata[0].toString().equals("warning")) {
+          showToast("Warning, you are close to a grid square boundary");
+        }
         return false;
       }
     });
@@ -1188,7 +1196,8 @@ queryGridDB(String easting, String northing) {
     db.close();
   }
 }
-// queryGridDB("693400", "6257300");
+
+queryGridDB("693400", "6257300");
 
 /*******************/
 
