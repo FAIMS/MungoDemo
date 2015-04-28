@@ -1133,7 +1133,9 @@ calculateGridSquare() {
   saveArchEnt(entity_id, "oldBone", geolist, null, new SaveCallback() {
     onSave(uuid, newRecord) {
       Log.d("calculateGridSquare()", "Saved geometry: " + geolist.toString());
-      queryGridDB(easting.toString(), northing.toString());
+      // queryGridDB(easting.toString(), northing.toString());
+      queryGridDB("693400", "6257300"); // Used for testing
+      showWarning("Alert", "The calculate grid square is currently using the following mock projections for testing: (693400, 6257300)");
       dialog.dismiss();
     }  
   });
@@ -1160,6 +1162,7 @@ queryGridDB(String easting, String northing) {
       }
       public boolean newrow(String[] rowdata) {
         Log.d("grid square query", "rowdata: " + Arrays.toString(rowdata));
+        setFieldValue("oldBone/basicIdentification/gridSquare", rowdata[0].toString());
         showToast("You are in grid square " + rowdata[0].toString());
         return false;
       }
@@ -1185,7 +1188,7 @@ queryGridDB(String easting, String northing) {
       public boolean newrow(String[] rowdata) {
         Log.d("grid warning query", "rowdata: " + Arrays.toString(rowdata));
         if (rowdata[0].toString().equals("warning")) {
-          showToast("Warning, you are close to a grid square boundary");
+          showWarning("Warning", "You are close to a grid square boundary");
         }
         return false;
       }
@@ -1196,8 +1199,6 @@ queryGridDB(String easting, String northing) {
     db.close();
   }
 }
-
-queryGridDB("693400", "6257300");
 
 /*******************/
 
