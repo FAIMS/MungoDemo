@@ -8,24 +8,6 @@ import jsqlite.Callback;
 
 print("Very first line of logic after the import lines");
 
-// Code for connecting to the grid db.
-File file = new File("/sdcard/faims/modules/"+getModuleId()+"/files/data/grid.sqlite3");
-jsqlite.Database db = new jsqlite.Database();
-type = jsqlite.Constants.SQLITE_OPEN_READONLY;
-try {
-  db.open(file.getPath(), type);
-  db.exec("select spatialite_version(), sqlite_version(), proj4_version(), geos_version(), lwgeom_version();", new Callback() {
-
-  });
-} catch (Exception e) {
-  Log.e("error dumping database", e.toString());
-} finally {
-  db.close();
-}
-
-// ******
-
-
 User user; // don't touch
 String userid;
 
@@ -1118,7 +1100,6 @@ onEvent("oldBone/basicIdentification/calculateGridSquare", "click", "calculateGr
 
 /** Calculates the grid square that the feature is in. **/
 calculateGridSquare() {
-  showToast("Caculating grid square");
   // check that GPS is on and a position can be found.
   if(!isExternalGPSOn() && !isInternalGPSOn()) {
     showToast("Please turn on GPS");
@@ -1133,21 +1114,81 @@ calculateGridSquare() {
   }
 
   // record the gps geometry 
+  dialog = showBusy("Caculating grid square", "please wait");
   Object projPosition = getGPSPositionProjected();
+  Log.d("calculateGridSquare()", "Projected position: " + projPosition.toString());
   Double latitude = position.getLatitude();
   Double longitude = position.getLongitude();
   Double northing = projPosition.getLatitude();
   Double easting = projPosition.getLongitude();
+  Log.d("calculateGridSquare()", "Using module srid " + getModuleSrid() + ", obtained as lat and long (" + latitude.toString() + " " + longitude.toString() + "), and northing and easting (" + northing.toString() + " " + easting.toString() + ")");
   samplePoint = new Point(new MapPos(easting, northing), null, (PointStyle) null, null);
   ArrayList geolist = new ArrayList();
   geolist.add(samplePoint);
   saveArchEnt(entity_id, "oldBone", geolist, null, new SaveCallback() {
     onSave(uuid, newRecord) {
       Log.d("calculateGridSquare()", "Saved geometry: " + geolist.toString());
+      Log.d("calculateGridSquare()", "String converted easting: " + easting.toString() + " and northing: " + northing.toString());
+      queryGridDB(easting.toString(), northing.toString());
+      dialog.dismiss();
     }  
-  });    
-
+  });
 }
+
+/** Connects to and queries the grid db. **/
+queryGridDB(String easting, String northing) {
+  String srid = getModuleSrid();
+  File file = new File("/sdcard/faims/modules/"+getModuleId()+"/files/data/grid.sqlite3");
+  type = jsqlite.Constants.SQLITE_OPEN_READONLY;
+  jsqlite.Database db = new jsqlite.Database();
+  
+  // Query the grid square
+  String gridSquareQuery = "select label from grid where coveredBy(pointfromtext('POINT ("+easting+" "+northing+")',"+srid+"), grid) order by x,y limit 1;";
+  Log.d("queryGridDB()", "Running query to select grid label: " + gridSquareQuery);
+  try {
+    db.open(file.getPath(), type);
+    db.exec(gridSquareQuery, new Callback() {
+      public void columns(String[] coldata) {
+        print("coldata: " + Arrays.toString(coldata));
+      }
+      public void types(String[] types) {
+        print("types: " + Arrays.toString(types));
+      }
+      public boolean newrow(String[] rowdata) {
+        print("rowdata: " + Arrays.toString(rowdata));
+        return false;
+      }
+    });
+  } catch (Exception e) {
+    Log.e("error dumping database", e.toString());
+  } finally {
+    db.close();
+  }
+
+  // Query the grid warning
+  String warningQuery = "select warning from gridbuffer where  coveredBy(pointfromtext('POINT ("+easting+" "+northing+")',"+srid+"), gridbuffer);";
+  Log.d("queryGridDB()", "Running query to select grid warning: " + warningQuery);
+  try {
+    db.open(file.getPath(), type);
+    db.exec(warningQuery, new Callback() {
+      public void columns(String[] coldata) {
+        print("coldata: " + Arrays.toString(coldata));
+      }
+      public void types(String[] types) {
+        print("types: " + Arrays.toString(types));
+      }
+      public boolean newrow(String[] rowdata) {
+        print("rowdata: " + Arrays.toString(rowdata));
+        return false;
+      }
+    });
+  } catch (Exception e) {
+    Log.e("error dumping database", e.toString());
+  } finally {
+    db.close();
+  }
+}
+// queryGridDB("693400", "6257300");
 
 /*******************/
 
