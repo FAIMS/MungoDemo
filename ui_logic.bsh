@@ -183,13 +183,15 @@ saveEntitiesToRel(String type, String entity1, String entity2) {
 }
 
 /** Saves two entity id's as a relation. **/
-saveEntitiesToRel(String type, String entity1, String entity2, Callable callback) {
+saveEntitiesToRel(String type, String entity1, String entity2, String callback) {
     if (isNull(entity1) || isNull(entity2)) return;
     saveRel(null, type, null, null, new SaveCallback() {
         onSave(rel_id, newRecord) {
             addReln(entity1, rel_id, null);
             addReln(entity2, rel_id, null);
-            if(callback != null) callback.call();
+            if(!isNull(callback)) {
+               execute(callback);
+            }
         }
     });
 }
@@ -523,7 +525,7 @@ autosaveAssociatedMaterials() {
       // entity_id is the old bone id and uuid is the assoc materials id.
       assocMaterialId = uuid;
       Log.d("autosaveAssociatedMaterials()", "Saving the  relation between oldBone " + entity_id + " and associatedMaterials " + assocMaterialId);
-      saveEntitiesToRel("Old Bone Feature Associated Materials", entity_id, assocMaterialId);
+      saveEntitiesToRel("Old Bone Feature Associated Materials", entity_id, assocMaterialId, "listAssociatedMaterials();");
     }
   }, enable_autosave);
 }
@@ -805,7 +807,7 @@ listAssociatedMaterials() {
       "and uuid != "+entity_id+") " + 
       "limit ? offset ?;";
     populateCursorList("oldBone/associatedMaterials/associatedInsituList", assocListQuery, 25);
-
+    Log.d("listAssociatedMaterials()", "Updated cursor list: associatedInsituList");
 
   } else {
     result = new ArrayList();
