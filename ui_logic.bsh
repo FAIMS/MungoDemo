@@ -791,7 +791,7 @@ onEvent("oldBone/associatedMaterials", "show", "listAssociatedMaterials();");
 /** Populates the in-situ and surface associated materials list. **/
 listAssociatedMaterials() {
   if(!isNull(entity_id)) {
-    fetchAll("select uuid, response " +
+     String assocListQuery = "select uuid, response " +
       "from latestNonDeletedArchEntFormattedIdentifiers " +
       "where aenttypename = 'Associated Materials' " +
       "and uuid in  (select uuid " +
@@ -802,20 +802,11 @@ listAssociatedMaterials() {
       "JOIN relntype using (relntypeid) " +
       "where uuid = "+entity_id + " " +
       "and relntypeName = 'Old Bone Feature Associated Materials') " +
-      "and uuid != "+entity_id+");",  new FetchCallback() {
-      onFetch(result) {
-        if(isNull(result)) {
-          result = new ArrayList();
-          result.add(new NameValuePair("{noRecordsFound}", ""));
-        }
-        Log.d("listAssociatedMaterials()", "Listing the materials associate with the Old Bone " + entity_id);
-        populateList("oldBone/associatedMaterials/associatedInsituList", result);
-        // populateList("oldBone/associatedMaterials/associatedSurfaceList", result);
-      }
-      onError(message) {
-        showToast(message);
-      }
-    });     
+      "and uuid != "+entity_id+") " + 
+      "limit ? offset ?;";
+    populateCursorList("oldBone/associatedMaterials/associatedInsituList", assocListQuery, 25);
+
+
   } else {
     result = new ArrayList();
     result.add(new NameValuePair("{noRecordsFound}", ""));
