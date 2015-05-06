@@ -46,20 +46,18 @@
 			<description>Select those of the following that have been observed, both in situ and on the surface</description>
 			<lookup>
 				<term>fragsonly<description>Only unidentifiable fragments present</description></term>
-				<term>{cranAndTooth}<description>Cranial elements, including jaw, with teeth</description></term>
-				<term>{cranNoTooth}<description>Cranial elements, including jaw, without teeth</description></term>
+				<term>{cranAndTooth}<description>Cranial elements, including maxilla with teeth</description></term>
+				<term>{cranNoTooth}<description>Cranial elements (with or without maxilla) but no teeth</description></term>
+				<term>{mandAndteeth}<description>lower jaw, with teeth</description></term>
+				<term>{mandNoteeth}<description>lower jaw without teeth</description></term>
 				<term>limb<description>Limb bones</description></term>
-				<term>cranlimb<description>Cranial and limb bones</description></term>
 				<term>axial<description>Axial elements</description></term>
-				<term>axiallimb<description>Axial and limb bones</description></term>
-				<term>axialcran<description>Axial and cranial bones</description></term>
 				<term>allparts<description>Some elements of each of cranial, limb and axial bones</description></term>
 				<term>otol<description>Fish otoliths</description></term>
 				<term>otolfrag<description>Fish otolith and other bone fragments</description></term>
-				<term>otolcran<description>Fish otolith and cranial bones</description></term>
-				<term>otolaxial<description>Fish otoliths and axial bones</description></term>
 				<term>glith<description>Gastroliths</description></term>
 				<term>exoskel<description>Exoskeleton</description></term>
+				<term>scute<description>Bony plate (overlain with horn) from the shell of a turtle</description></term>
 			</lookup>
 		</property>
 		<property name="Taxon Identified" type="vocab">
@@ -86,15 +84,12 @@
 				<term>good<description>Good preservation</description></term>
 				<term>weathpost<description>Signs of post-exposure weathering and/or breakage</description></term>
 				<term>weathpre<description>Clear signs of weathering prior to burial</description></term>
-				<term>fragged<description>Highly fragmented</description></term>
-				<term>soft<description>Soft and friable</description></term>
-				<term>stained<description>Mineral staining</description></term>
-				<term>postsoft<description>Post-exposure weathering and/or breakage and soft and friable</description></term>
-				<term>poststain<description>Post-exposure weathering and/or breakage and mineral staining</description></term>
-				<term>prefrag<description>Pre-burial weathering and highly fragmented</description></term>
-				<term>prestain<description>Pre-burial weathering and mineral staining</description></term>
-				<term>fragstain<description>Highly fragmented and mineral staining</description></term>
-				<term>softstain<description>Soft and friable and mineral staining</description></term>
+				<term>fragpost<description>post exposure fragmentation and splintering of bone</description></term>
+				<term>fragpre<description>evidence of breakage prior to fossilisation</description></term>
+				<term>orgstain<description>brown organic staining</description></term>
+				<term>minstain<description>flecks of manganese or other dark minerals</description></term>
+				<term>soft<description>bone is soft and friable</description></term>
+				<term>carb<description>carbonate encrustation on surface of bone</description></term>
 			</lookup>
 		</property>
 		<property name="Deliberate Surface Modification" type="vocab">
@@ -104,10 +99,7 @@
 				<term>burned<description>Charred or calcined</description></term>
 				<term>toothmarks<description>Toothmarks or gnaw marks</description></term>
 				<term>cutmarks<description>Stone tool-inflicted cut marks</description></term>
-				<term>impacted<description>Percussion fractures</description></term>
-				<term>burncut<description>Charred or calcined and cut</description></term>
-				<term>burnimpact<description>Charred or calcined and percussion fractures</description></term>
-				<term>indet<description>Bone surface poorly preserved or too fragmented or covered with calcium carbonate</description></term>
+				<term>impact<description>Percussion fractures</description></term>
 			</lookup>
 		</property>
 		<property name="Topographic Setting" type="vocab">
@@ -130,31 +122,54 @@
 				<term pictureURL="files/data/OldBone/TopographicSetting_ResidualTop+ResidualSide+Slope.png">residside<description>In the side of a residual</description></term>
 				<term pictureURL="files/data/OldBone/TopographicSetting_ModernOutwashChannel.png">chanfloor<description>In the floor of a modern outwash channel</description></term>
 				<term pictureURL="files/data/OldBone/TopographicSetting_ModernOutwashChannel+Floor+Wall.png">chanwall<description>In the wall of a modern outwash channel</description></term>
+				<term pictureURL="files/data/missing.png">allfan<description>modern alluvial filename</description></term>
 			</lookup>
 		</property>
 		<property name="Sediment Type" type="vocab">
 			<description>What are the sediments that encase the old bone, or upon which they are immediately lying?</description>
 			<lookup>
-				<term pictureURL="files/data/OldBone/SedimentType_RedSoil1.png">redsoil<description>Soil of a reddish colour</description></term>
-				<term pictureURL="files/data/OldBone/SedimentType_BrownSoil1.png">brownsoil<description>Soil of a brownish colour</description></term>
-				<term pictureURL="files/data/OldBone/SedimentType_RedSand1.png">redsand<description>Sandy sediments of a reddish colour</description></term>
-				<term pictureURL="files/data/OldBone/SedimentType_BrownSand1.png">brownsand<description>Sandy sediments of a brownish colour</description></term>
-				<term pictureURL="files/data/OldBone/SedimentType_WhiteSand+GreenSoil+OtherSoil.png">whitesand<description>Sandy sediments that are clean and whitish</description></term>
-				<term pictureURL="files/data/OldBone/SedimentType_SandyClay+OtherSand.png">othersand<description>Sandy sediments of another colour</description></term>
-				<term pictureURL="files/data/OldBone/SedimentType_GreenClay.png">greenclay<description>Clay sediments of a greenish colour</description></term>
-				<term pictureURL="files/data/missing.png">otherclay<description>Clay sediments of another colour (usually brown)</description></term>
-				<term pictureURL="files/data/OldBone/SedimentType_BrownSand+SandyClay.png">sandyclay<description>Sandy clay</description></term>
-				<term pictureURL="files/data/OldBone/SedimentType_AlternatingSandsAndClay1.png">alternat<description>Alternating layers of sand and clay</description></term>
-				<term pictureURL="files/data/OldBone/SedimentType_ClayLens.png">claylens<description>Distinct clay lens within other sediments</description></term>
-				<term pictureURL="files/data/OldBone/SedimentType_AlternatingSandsAndClay2.png">sandlens<description>Distinct sand lens within other sediments</description></term>
-				<term pictureURL="files/data/OldBone/SedimentType_CobbleBed.png">cobble<description>A relatively continuous bed of cobbles or coarse gravel</description></term>
-				<term pictureURL="files/data/OldBone/SedimentType_GolgolLag.png">gglag<description>A surface lag of carbonate derived from Golgol sediments</description></term>
-				<term pictureURL="files/data/OldBone/SedimentType_OtherCarbonateLag.png">carblag<description>Any other surface lag of hard carbonate nodules</description></term>
-				<term pictureURL="files/data/OldBone/SedimentType_GolgolC-Horizon1.png">ggC<description>In situ soil carbonate (C-horizon) associated with Golgol sediments</description></term>
-				<term pictureURL="files/data/OldBone/SedimentType_GolgolC-Horizon2.png">Chorizon<description>In situ nodular soil carbonate in any other sediment</description></term>
-				<term pictureURL="files/data/OldBone/SedimentType_DiffuseSoilCarbonate.png">carbsoft<description>In situ soil carbonate in a diffuse horizon</description></term>
-				<term pictureURL="files/data/OldBone/SedimentType_CarbonatePavement.png">carbpavemt<description>Well developed in situ soil carbonate forming a pavement</description></term>
-				<term pictureURL="files/data/OldBone/SedimentType_ReburiedReworkedCarbonate.png">carbrework<description>A carbonate lag that has been reworked and reburied</description></term>
+				<term pictureURL="files/data/OldBone/SedimentType_RedSand1.png">redsand<description>quartz sand of a reddish colour</description></term>
+				<term pictureURL="files/data/OldBone/SedimentType_BrownSand1.png">brownsand<description>quartz sands of a brownish colour </description></term>
+				<term pictureURL="files/data/OldBone/SedimentType_WhiteSand+GreenSoil+OtherSoil.png">whitesand<description>sand that is clean (no clay) and white</description></term>
+				<term pictureURL="files/data/OldBone/SedimentType_SandyClay+OtherSand.png">othersand<description>quartz sands of a different colour (eg pink)</description></term>
+				<term pictureURL="files/data/OldBone/SedimentType_BrownSand+SandyClay.png">clayeysand<description>quartz sands that contain some clay</description></term>
+				<term pictureURL="files/data/missing.png">laminarsand<description>fine laminae of quartz sands, clayey sands and clays; brown colour, sands predominate</description></term>
+				<term pictureURL="files/data/missing.png">redlamsand<description>red sands preserving fine bedding</description></term>
+				<term pictureURL="files/data/missing.png">unconsolsand<description>unconsolidated sands, sometimes with thin horizons of carbonate (archaeology bearing)</description></term>
+				<term pictureURL="files/data/missing.png">modernaeolian<description>shifting veneer of unconsolidated sands, coppice sands</description></term>
+				<term pictureURL="files/data/missing.png">pelletalclay<description>grey clays made up of clay pellets</description></term>
+				<term pictureURL="files/data/OldBone/SedimentType_AlternatingSandsAndClay1.png">alternat<description>alternating beds of pelletal clay and quartz sand</description></term>
+				<term pictureURL="files/data/missing.png">clay-alt<description>distinct bed of pelletal clay within a sequence of alternating sands and clays</description></term>
+				<term pictureURL="files/data/OldBone/SedimentType_AlternatingSandsAndClay2.png">sand-alt<description>distinct bed of quartz sand within a sequence of alternating sands and clays</description></term>
+				<term pictureURL="files/data/missing.png">bluelam-alt<description>mm-thick, but laterally traceable lens of clay with distinct ‘blue’ colour</description></term>
+				<term pictureURL="files/data/OldBone/SedimentType_GreenClay.png">greenclay<description>clay of a green colour</description></term>
+				<term pictureURL="files/data/OldBone/SedimentType_RedSoil1.png">redsoil<description>soil of a reddish colour</description></term>
+				<term pictureURL="files/data/OldBone/SedimentType_BrownSoil1.png">brownsoil<description>soil of a brownish colour</description></term>
+				<term pictureURL="files/data/missing.png">darksoil<description>soil with greyish to dark greyish colour, carbonate rich</description></term>
+				<term pictureURL="files/data/OldBone/SedimentType_DiffuseSoilCarbonate.png">carbsoft<description>sediment containing diffuse soil carbonate (C horizon)</description></term>
+				<term pictureURL="files/data/missing.png">carbnodule<description>sediment containing hard carbonate nodules (C horizon)</description></term>
+				<term pictureURL="files/data/OldBone/SedimentType_CarbonatePavement.png">carbpavemt<description>well developed in situ soil carbonates forming a solid pavement</description></term>
+				<term pictureURL="files/data/OldBone/SedimentType_OtherCarbonateLag.png">carblag<description>broken up, angular pieces of carbonate nodules, root traces, burrows, rhizomorphs representing a reworked lag</description></term>
+				<term pictureURL="files/data/missing.png">finesilt<description>fine, well-sorted silt with no clay component</description></term>
+				<term pictureURL="files/data/OldBone/SedimentType_CobbleBed.png">cobblebeach<description>continuous bed of rounded carbonate nodules, rhizomorphs etc together with rounded pebbles/cobbles of qtz or rock fragments</description></term>
+				<term pictureURL="files/data/missing.png">gravelbeach<description>relatively continuous bed of rounded gravels and coarse sand</description></term>
+			</lookup>
+		</property>
+		<property name="Stratigraphic Unit" type="vocab">
+			<description></description>
+			<lookup>
+				<term pictureURL="files/data/missing.png">Golgol<description>deeply weathered sands and clays with strong red colour</description></term>
+				<term pictureURL="files/data/missing.png">ggC<description>Golgol C horizon: in situ carbonate nodules and sediments cemented together to form distinct pavement (pinkish colour)</description></term>
+				<term pictureURL="files/data/missing.png">gglag<description>surface lag made up of broken up, angular pieces of pinkish carbonate nodules, root traces etc derived from the Golgol C </description></term>
+				<term pictureURL="files/data/missing.png">B<description>Lower Mungo</description></term>
+				<term pictureURL="files/data/missing.png">C<description>Upper Mungo</description></term>
+				<term pictureURL="files/data/missing.png">D<description>mega-lake sediments</description></term>
+				<term pictureURL="files/data/missing.png">E<description>Arumpo/Zanci</description></term>
+				<term pictureURL="files/data/missing.png">F<description>unconsolidated sands reworked lunette sediments</description></term>
+				<term pictureURL="files/data/missing.png">G<description>Holocene alluvial fans</description></term>
+				<term pictureURL="files/data/missing.png">H<description>modern aeolian</description></term>
+				<term pictureURL="files/data/missing.png">I<description>modern alluvium</description></term>
+				<term pictureURL="files/data/missing.png">indet<description>stratgraphic unit not yet identified</description></term>
 			</lookup>
 		</property>
 		<property name="Vulnerability To Erosion" type="vocab">
@@ -173,14 +188,15 @@
 				<term pictureURL="files/data/OldBone/PalaeotopographicSetting_BackduneLayers.png">backdune<description>Stratigraphic layers are sloping towards the hinterland</description></term>
 				<term pictureURL="files/data/OldBone/PalaeotopographicSetting_Crest.png">crest<description>Crest of dune, stratigraphic layers slope away, towards both lakebed and hinterland</description></term>
 				<term pictureURL="files/data/OldBone/PalaeotopographicSetting_Beach.png">beach<description>An area of rounded cobbles or gravels in distinct horizon</description></term>
-				<term pictureURL="files/data/missing.png">allfan<description></description></term>
-				<term pictureURL="files/data/missing.png">lakebed<description>Lakebed sediments</description></term>
 				<term pictureURL="files/data/missing.png">spit<description>Projection from dune into lakebed</description></term>
+				<term pictureURL="files/data/missing.png">lakebed<description>Lakebed sediments</description></term>
 				<term pictureURL="files/data/OldBone/PalaeotopographicSetting_Indeterminate.png">indet<description>Indeterminate</description></term>
 			</lookup>
 		</property>
 		<property name="Photos" type="file" file="true" thumbnail="true">
-      <description>Description TBD</description>
+      <description>Take 2 images: 
+      	1.	landscape/stratigraphic setting (to aid re-location), include horizon and nearby landmarks that will have some longevity
+      	2.	the feature itself (to aid identification) – include the critical components of the feature like the in situ portion of a hearth or bone cluster</description>
     </property>
     <property name="Notes" type="measure">
     	<description>Any additional information worth noting that has not been covered by the recording</description>
@@ -197,9 +213,8 @@
 				<term>mussel<description>Mussel shell or shell fragment</description></term>
 				<term>hs<description>Hearthstones or charcoal</description></term>
 				<term>eggshell<description>Emu, Genyornis or other eggshell</description></term>
-				<term>artefacts<description>Chipped, unmodified or ground stone</description></term>
-				<term>ochre<description></description></term>
-				<term>otherwork<description>Other worked or transported material</description></term>
+				<term>stoneart<description>Chipped, unmodified or ground stone</description></term>
+				<term>otherart<description>Other worked or transported material</description></term>
 			</lookup>
 		</property>
 		<property name="Associated surface material" isIdentifier= "true" type="vocab">
@@ -210,11 +225,19 @@
 				<term>mussel<description>Mussel shell or shell fragment</description></term>
 				<term>hs<description>Hearthstones or charcoal</description></term>
 				<term>eggshell<description>Emu, Genyornis or other eggshell</description></term>
-				<term>artefacts<description>Chipped, unmodified or ground stone</description></term>
-				<term>ochre<description></description></term>
-				<term>otherwork<description>Other worked or transported material</description></term>
+				<term>stoneart<description>Chipped, unmodified or ground stone</description></term>
+				<term>otherart<description>Other worked or transported material</description></term>
 			</lookup>
 		</property>		
+		<property name="Bivalve preservation" type="vocab">
+			<description></description>
+			<formatString><![CDATA[$1]]></formatString>
+			<lookup>
+					<term>frag<description>majority of shell is highly fragmented</description></term>
+					<term>modfrag<description>mixture of fragmented and near whole shell</description></term>
+					<term>whole<description>majority of shell is whole or near whole</description></term>
+			</lookup>
+		</property>
 		<property name="Associated Hearth Material" type="vocab">
 			<description>If hearthstone material is associated, either in situ or on the surface, select those of the following that have been observed:</description>
 			<formatString><![CDATA[$1]]></formatString>
@@ -305,10 +328,10 @@
 			<description>If stone artefacts are associated, either in situ or on the surface, select those types of raw material that have been observed:</description>
 			<formatString><![CDATA[$1]]></formatString>
 			<lookup>
-				<term>{silcfine}<description>Fine-grained silcrete</description></term>
-				<term>{silcmed}<description></description></term>
-				<term>{silccoarse}<description>Coarse-grained silcrete</description></term>
-				<term>{silcmicrocrystal}<description></description></term>
+				<term>{silcfine}<description>{silcfineDesc}</description></term>
+				<term>{silcmed}<description>{silcmedDesc}</description></term>
+				<term>{silccoarse}<description>{silccoarseDesc}</description></term>
+				<term>{silcmicroxtal}<description>No grains visible in the matrix</description></term>
 				<term>qtzite<description>Quartzite</description></term>
 				<term>qtz<description>Quartz</description></term>
 				<term>ironst<description>Ironstone</description></term>
@@ -316,15 +339,16 @@
 				<term>other<description>Other material</description></term>
 			</lookup>
 		</property>
-		<property name="Associated Other Worked Material" type="vocab">
+		<property name="Associated Other Artefacts" type="vocab">
 			<description>If other worked or transported material is associated, either in situ or on the surface, select those of the following that have been observed:</description>
 			<formatString><![CDATA[$1]]></formatString>
 			<lookup>
-				<term>bone<description>Worked bone</description></term>
-				<term>shell<description>Worked shell</description></term>
-				<term>ochre<description>Unworked ochre</description></term>
-				<term>facetochre<description>Facetted ochre</description></term>
-				<term>qtzxtal<description>Unworked quartz crystal</description></term>
+				<term>bonemod<description>bone with ground or polished surface(s), may be bevelled or pointed at one or both ends</description></term>
+				<term>shellmod<description>shell with notches or other evidence of working or use along one or more margins</description></term>
+				<term>ochrediss<description>flecks or fragments of ochre disseminated through the sediment</description></term>
+				<term>ochrenod<description>small nodule of ochre</description></term>
+				<term>ochrefacet<description>ochre with facets, indicating use as crayon</description></term>
+				<term>qtzxtal<description>unworked quartz crystal</description></term>
 			</lookup>
 		</property>
 	</ArchaeologicalElement>

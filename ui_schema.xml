@@ -54,6 +54,7 @@
             <topAndStratSetting>
               <topographicSetting/>
               <sedimentType/>
+              <stratigraphicUnit/>
               <vulnerabilityToErosion/>
               <paleotopographicSetting/>
               <photos/>
@@ -66,6 +67,8 @@
             <!--   <associatedInsituMaterial/>
               <associatedSurfaceMaterial/> -->
             </control>
+            <mussel>
+            </mussel>
             <eggshell>
             </eggshell>
             <hearthMaterial>
@@ -251,6 +254,13 @@
             <value>placeholder</value>
           </item>
         </select1>
+        <select1 ref="stratigraphicUnit" type="image" faims_attribute_name="Stratigraphic Unit" faims_attribute_type="vocab">
+          <label>{stratigraphicUnit}</label>
+          <item>
+            <label>placeholder</label>
+            <value>placeholder</value>
+          </item>
+        </select1>
         <select1 ref="vulnerabilityToErosion" type="image" faims_attribute_name="Vulnerability To Erosion" faims_attribute_type="vocab">
           <label>{vulnerabilityToErosion}</label>
           <item>
@@ -286,14 +296,14 @@
       <group ref="control">
         <label>{material}</label>
       </group>
-
+      <group ref="mussel">
+        <label>{mussel}</label>
+      </group>
       <group ref="eggshell">
         <label>{eggshell}</label>
-
       </group>
       <group ref="hearthMaterial">
         <label>{hearthMaterial}</label>
-
       </group>
       <group ref="stoneArtefact">
         <label>{stoneArtefact}</label>
