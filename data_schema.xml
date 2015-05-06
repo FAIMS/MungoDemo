@@ -246,7 +246,8 @@
 				<term>carb<description>Carbonate hearthstones</description></term>
 				<term>term<description>Termite nest hearthstones (holes and channels visible)</description></term>
 				<term>other<description>Hearthstones of other material, e.g. stone</description></term>
-				<term>charcoal<description>Charcoal</description></term>
+				<term>baked sed<description>baked sed</description></term>
+				<term>staining<description>staining</description></term>
 				<term>indet<description>Hearthstones of indeterminate raw material</description></term>
 			</lookup>
 		</property>
