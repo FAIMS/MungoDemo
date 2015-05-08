@@ -532,7 +532,8 @@ autosaveAssociatedMaterials() {
       // entity_id is the old bone id and uuid is the assoc materials id.
       assocMaterialId = uuid;
       Log.d("autosaveAssociatedMaterials()", "Saving the  relation between oldBone " + entity_id + " and associatedMaterials " + assocMaterialId);
-      saveEntitiesToRel("Old Bone Feature Associated Materials", entity_id, assocMaterialId, "listAssociatedMaterials();");
+      String callback = "listAssociatedMaterials();" + "showTab(\"oldBone/associatedMaterials\");";
+      saveEntitiesToRel("Old Bone Feature Associated Materials", entity_id, assocMaterialId, callback);
     }
   }, enable_autosave);
 }
